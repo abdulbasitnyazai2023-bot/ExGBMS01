@@ -1,0 +1,219 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package goldms;
+import com.formdev.flatlaf.FlatLightLaf;
+import java.awt.Color;
+import java.sql.*;
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+
+
+
+/**
+ *
+ * @author Abdul Basit Niazi
+ */
+public class login extends javax.swing.JFrame {
+
+    /**
+     * Creates new form login
+     */
+    public login() {
+        initComponents();
+        getConnection();
+        formSetting();
+        setLocationRelativeTo(this);
+    }
+
+  // د ډیټابېس مسیر (Path)
+    private Connection conn;
+    private PreparedStatement ps;
+    private ResultSet rs;
+
+    void getConnection() {
+
+        try {
+            // SQLite Driver Load
+            Class.forName("org.sqlite.JDBC");
+            conn = DriverManager.getConnection("jdbc:sqlite:./src/db/Golds-1.db");
+
+            System.out.println("cont");
+
+        } catch (ClassNotFoundException ex) {
+            System.out.println("not found" + ex.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+ private void formSetting() {
+        try {
+            // فعال کردن FlatLaf و گرد کردن گوشه‌ها
+         UIManager.setLookAndFeel(new FlatLightLaf());
+            UIManager.put("Component.arc", 50);
+            UIManager.put("Button.arc", 50);
+            UIManager.put("TextComponent.arc", 60);
+
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+        }
+    }
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jTextField1 = new javax.swing.JTextField();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton1.setBackground(new java.awt.Color(255, 102, 0));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_login_23px.png"))); // NOI18N
+        jButton1.setText("ورود");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 370, 390, 40));
+
+        jPasswordField1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jPasswordField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 390, -1));
+
+        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField1FocusGained(evt);
+            }
+        });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField1KeyTyped(evt);
+            }
+        });
+        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 390, -1));
+
+        jCheckBox1.setBackground(new java.awt.Color(255, 255, 255));
+        jCheckBox1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jCheckBox1.setText("نمایش رمز");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 330, -1, -1));
+
+        jLabel1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabel1.setText("رمز عبور:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 250, 70, -1));
+
+        jLabel2.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
+        jLabel2.setText("ورود به سیستم");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 80, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabel3.setText("اسم کاربری:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 160, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 660));
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        if (jCheckBox1.isSelected()) {
+            jPasswordField1.setEchoChar('\0');
+            
+        }
+        else{
+              jPasswordField1.setEchoChar('*');
+        }
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
+
+    }//GEN-LAST:event_jTextField1FocusGained
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+          try {
+
+            String user = jTextField1.getText();
+            String pass = jPasswordField1.getText();
+            if (user.equals("") || pass.equals("")) {
+              
+
+            } else {
+                ps = conn.prepareStatement("SELECT * FROM login WHERE Username=? AND Password_hash=?");
+
+                ps.setString(1, jTextField1.getText());
+                ps.setString(2, jPasswordField1.getText());
+                rs = ps.executeQuery();
+
+                if (rs.next()) {
+                    //  byte[]hashpass=rs.getBytes("Password_hash");
+                    new Dashboard().setVisible(true);
+                    this.dispose();
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "رمز عبور یا اسم کاربری غلط است!!");
+                    jTextField1.setText("");
+                    jPasswordField1.setText("");
+                }
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+    char c = evt.getKeyChar();
+        if (!(c >= 'a' && c <= 'z') && !(c >= 'A' && c <= 'Z')) {
+            evt.consume();
+
+        }
+    }//GEN-LAST:event_jTextField1KeyTyped
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+    GOLDMS dm=new GOLDMS();
+   dm.form();
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new login().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JTextField jTextField1;
+    // End of variables declaration//GEN-END:variables
+}
