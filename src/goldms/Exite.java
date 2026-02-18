@@ -15,36 +15,8 @@ public class Exite extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(this);
         jPanel1.putClientProperty("FlatLaf.style", "arc:20");  // 👈 اینجا اضافه کن   
-        //makeRounded();  // 👈 اینجا متد را صدا بزن
     }
-       
-    /*
-    private void makeRounded() {
-
-    // شفاف کردن فرم تا پنل گرد شفاف دیده شود
-    setBackground(new java.awt.Color(0,0,0,0));
-
-    // ساخت پنل گرد
-    RoundedPanel rounded = new RoundedPanel(40);
-    rounded.setOpaque(false);  // 👈 مهم: شفاف بودن
-    rounded.setLayout(jPanel1.getLayout());
-
-    // انتقال همه کامپوننت‌ها از پنل قدیمی
-    while (jPanel1.getComponentCount() > 0) {
-        java.awt.Component comp = jPanel1.getComponent(0);
-        jPanel1.remove(comp);
-        rounded.add(comp);
-    }
-
-    // جایگزینی پنل قدیمی با پنل گرد شفاف
-    getContentPane().remove(jPanel1);
-    getContentPane().add(rounded);
-
-    revalidate();
-    repaint();
-}
-
-    */
+    
     
     
     /**
