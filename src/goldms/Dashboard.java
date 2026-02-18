@@ -24,7 +24,7 @@ public class Dashboard extends javax.swing.JFrame {
     public Dashboard() {
         initComponents();
         getConnection();
-     //Transactions();
+        //Transactions();
         setLocationRelativeTo(this);
     }
 
@@ -66,7 +66,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         }
     }
-*/
+    */
     // -------------end counting customer------------
 
     @SuppressWarnings("unchecked")
@@ -74,7 +74,6 @@ public class Dashboard extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jPanel17 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
@@ -136,15 +135,10 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         trans2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        trans1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        trans = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -157,16 +151,6 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setBackground(new java.awt.Color(255, 102, 0));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_login_23px.png"))); // NOI18N
-        jButton1.setText("خروج");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 740, 160, 40));
-
         jLabel5.setFont(new java.awt.Font("Calibri", 1, 42)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 183, 51));
         jLabel5.setText("بــه ســیستــم مـدیـریت طــــــلا فــــــــــروشی ذبــیــــــح الله بــــرهــــــــــــــــــــــــانی خـــــــــــــــــــــــــــــــــــــــــــوش آمـــــــــــــــــــــــــــــــــــــــــــــــــــدید!");
@@ -177,8 +161,8 @@ public class Dashboard extends javax.swing.JFrame {
 
         jLabel28.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel28.setText("مجموع سپرده ها");
-        jPanel17.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 40));
+        jLabel28.setText("مجموع خزانه نقره");
+        jPanel17.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, 40));
 
         trans13.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
         trans13.setForeground(new java.awt.Color(255, 183, 51));
@@ -187,7 +171,7 @@ public class Dashboard extends javax.swing.JFrame {
         trans13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel17.add(trans13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 170, 30));
 
-        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/payment.png"))); // NOI18N
+        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_engagement_ring_60px.png"))); // NOI18N
         jPanel17.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, 60));
 
         jPanel1.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 480, 280, 120));
@@ -197,8 +181,8 @@ public class Dashboard extends javax.swing.JFrame {
 
         jLabel32.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jLabel32.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel32.setText("مجموع معاملات");
-        jPanel19.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 40));
+        jLabel32.setText("مجموع خزانه افغانی");
+        jPanel19.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 40));
 
         trans15.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
         trans15.setForeground(new java.awt.Color(255, 183, 51));
@@ -207,7 +191,7 @@ public class Dashboard extends javax.swing.JFrame {
         trans15.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel19.add(trans15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 150, 30));
 
-        jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/all_txt.png"))); // NOI18N
+        jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/expense.png"))); // NOI18N
         jPanel19.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, 60));
 
         jPanel1.add(jPanel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 480, 280, 120));
@@ -217,8 +201,8 @@ public class Dashboard extends javax.swing.JFrame {
 
         jLabel34.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jLabel34.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel34.setText("مجموع تبادلات");
-        jPanel20.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 40));
+        jLabel34.setText("مجموع مصارفات");
+        jPanel20.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 40));
 
         trans16.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
         trans16.setForeground(new java.awt.Color(255, 183, 51));
@@ -237,8 +221,8 @@ public class Dashboard extends javax.swing.JFrame {
 
         jLabel26.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel26.setText("مجموع مشتریان");
-        jPanel16.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 40));
+        jLabel26.setText("مجموع خزانه طلا");
+        jPanel16.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 40));
 
         trans12.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
         trans12.setForeground(new java.awt.Color(255, 183, 51));
@@ -247,7 +231,7 @@ public class Dashboard extends javax.swing.JFrame {
         trans12.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel16.add(trans12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 170, 30));
 
-        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/customer.png"))); // NOI18N
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/all_gold_t.png"))); // NOI18N
         jPanel16.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, 60));
 
         jPanel1.add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(1340, 480, 280, 120));
@@ -257,7 +241,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         jLabel30.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel30.setText("مجموع پرداخت ها");
+        jLabel30.setText("مجموع خزانه دالر");
         jPanel18.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, 40));
 
         trans14.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
@@ -267,7 +251,7 @@ public class Dashboard extends javax.swing.JFrame {
         trans14.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel18.add(trans14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 160, 30));
 
-        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/recept.png"))); // NOI18N
+        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/all_usd_txt.png"))); // NOI18N
         jPanel18.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, 60));
 
         jPanel1.add(jPanel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 480, 280, 120));
@@ -277,7 +261,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         jLabel20.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setText("مجموع پرداخت ها");
+        jLabel20.setText("مجموع فروش نقره");
         jPanel13.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, 40));
 
         trans9.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
@@ -287,7 +271,7 @@ public class Dashboard extends javax.swing.JFrame {
         trans9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel13.add(trans9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 160, 30));
 
-        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/recept.png"))); // NOI18N
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/sale_silver.png"))); // NOI18N
         jPanel13.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, 60));
 
         jPanel1.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 330, 280, 120));
@@ -297,8 +281,8 @@ public class Dashboard extends javax.swing.JFrame {
 
         jLabel24.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel24.setText("مجموع تبادلات");
-        jPanel15.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 40));
+        jLabel24.setText(" معاملات لغو شده");
+        jPanel15.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 40));
 
         trans11.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
         trans11.setForeground(new java.awt.Color(255, 183, 51));
@@ -317,7 +301,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         jLabel22.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel22.setText("مجموع معاملات");
+        jLabel22.setText("مجموع خرید نقره");
         jPanel14.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 40));
 
         trans10.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
@@ -327,7 +311,7 @@ public class Dashboard extends javax.swing.JFrame {
         trans10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel14.add(trans10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 150, 30));
 
-        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/all_txt.png"))); // NOI18N
+        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/buy_silver.png"))); // NOI18N
         jPanel14.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, 60));
 
         jPanel1.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 330, 280, 120));
@@ -472,59 +456,58 @@ public class Dashboard extends javax.swing.JFrame {
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1340, 180, 280, 120));
 
-        jPanel3.setBackground(new java.awt.Color(30, 41, 59));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel6.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("مجموع معاملات");
-        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, -1, 40));
-
-        trans1.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        trans1.setForeground(new java.awt.Color(255, 153, 51));
-        trans1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        trans1.setText("0");
-        jPanel3.add(trans1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, -1, -1));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_transaction_50px.png"))); // NOI18N
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, -1, 40));
-
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 710, 190, 100));
-
-        jPanel2.setBackground(new java.awt.Color(30, 41, 59));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel4.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("مجموع معاملات");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, -1, 40));
-
-        trans.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        trans.setForeground(new java.awt.Color(255, 153, 51));
-        trans.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        trans.setText("0");
-        jPanel2.add(trans, new org.netbeans.lib.awtextra.AbsoluteConstraints(52, 40, 70, -1));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_transaction_50px.png"))); // NOI18N
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, -1, 40));
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 730, 190, 100));
-
         jPanel6.setBackground(new java.awt.Color(30, 41, 59));
         jPanel6.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(102, 102, 102)));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_close_window_28px.png"))); // NOI18N
+        jLabel1.setToolTipText("");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(252, 181, 3));
+        jLabel2.setText("جناب \"ادمین\" خوش آمدید");
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_minus_28px.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel2)
+                .addContainerGap(1632, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1910, 40));
 
         jPanel5.setBackground(new java.awt.Color(30, 41, 59));
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1680, 0, 230, 1070));
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1690, 0, 220, 1070));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1910, 1070));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-          
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+       new Exite().setVisible(true);
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -541,7 +524,6 @@ public class Dashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -573,7 +555,6 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -588,17 +569,13 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JLabel trans;
-    private javax.swing.JLabel trans1;
     private javax.swing.JLabel trans10;
     private javax.swing.JLabel trans11;
     private javax.swing.JLabel trans12;

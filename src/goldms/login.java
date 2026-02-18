@@ -88,6 +88,7 @@ public class login extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setBackground(new java.awt.Color(255, 170, 3));
+        jButton1.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_login_23px.png"))); // NOI18N
         jButton1.setText("ورود");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
