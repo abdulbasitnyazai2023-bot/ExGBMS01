@@ -22,6 +22,8 @@ public class GOLDMS {
             UIManager.put("Component.arc", 50);
             UIManager.put("Button.arc", 50);
             UIManager.put("TextComponent.arc", 50);
+            UIManager.put("Panel.arc", 20);   // اضافه کن این را
+
 
         } catch (Exception ex) {
             ex.printStackTrace();
