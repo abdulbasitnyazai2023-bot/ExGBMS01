@@ -1054,9 +1054,11 @@
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="txtusername" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="1615" max="32767" attributes="0"/>
+                      <EmptySpace pref="1640" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1064,7 +1066,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel2" min="-2" pref="39" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel2" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                          <Component id="txtusername" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jLabel4" max="32767" attributes="0"/>
@@ -1091,7 +1096,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="3" green="b5" red="fc" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#x62c;&#x646;&#x627;&#x628; &quot;&#x627;&#x62f;&#x645;&#x6cc;&#x646;&quot; &#x62e;&#x648;&#x634; &#x622;&#x645;&#x62f;&#x6cc;&#x62f;"/>
+                <Property name="text" type="java.lang.String" value="&#x62e;&#x648;&#x634; &#x622;&#x645;&#x62f;&#x6cc;&#x62f;"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
@@ -1100,6 +1105,20 @@
                   <Image iconType="3" name="/icons/icons8_minus_28px.png"/>
                 </Property>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="txtusername">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Calibri" size="18" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="3" green="b5" red="fc" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="&#x62e;&#x648;&#x634; &#x622;&#x645;&#x62f;&#x6cc;&#x62f;"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

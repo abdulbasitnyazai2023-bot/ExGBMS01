@@ -388,8 +388,9 @@ public class UserDashboard extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        txtusername = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
 
@@ -719,11 +720,15 @@ public class UserDashboard extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(252, 181, 3));
-        jLabel2.setText("جناب \"ادمین\" خوش آمدید");
+        txtusername.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        txtusername.setForeground(new java.awt.Color(252, 181, 3));
+        txtusername.setText("جناب \"ادمین\" خوش آمدید");
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_minus_28px.png"))); // NOI18N
+
+        jLabel36.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabel36.setForeground(new java.awt.Color(252, 181, 3));
+        jLabel36.setText("جناب \"ادمین\" خوش آمدید");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -735,14 +740,18 @@ public class UserDashboard extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel4)
                 .addGap(26, 26, 26)
-                .addComponent(jLabel2)
-                .addContainerGap(1615, Short.MAX_VALUE))
+                .addComponent(txtusername)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel36)
+                .addContainerGap(1437, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtusername, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -792,7 +801,6 @@ public class UserDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -810,6 +818,7 @@ public class UserDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -849,5 +858,6 @@ public class UserDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel txtsilver;
     private javax.swing.JLabel txttrans;
     private javax.swing.JLabel txtusd;
+    public javax.swing.JLabel txtusername;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package goldms;
 
 import com.formdev.flatlaf.FlatLightLaf;
@@ -217,47 +213,54 @@ public class login extends javax.swing.JFrame {
 //} catch (Exception e) {
 //    JOptionPane.showMessageDialog(this, e.getMessage());
 //}
-try {
+        try {
 
-    String username = jTextField1.getText().trim();
-    String password = new String(jPasswordField1.getPassword()).trim();
+            String username = jTextField1.getText().trim();
+            String password = new String(jPasswordField1.getPassword()).trim();
 
-    if (username.isEmpty() || password.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "تمام فیلدها را پر کنید!");
-        return;
-    }
+            if (username.isEmpty() || password.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "تمام فیلدها را پر کنید!");
+                return;
+            }
 
-    String sql = "SELECT * FROM Login WHERE Username=? AND Password_hash=? AND Is_active=1";
+            String sql = "SELECT * FROM Login WHERE Username=? AND Password_hash=? AND Is_active=1";
 
-    PreparedStatement ps = conn.prepareStatement(sql);
-    ps.setString(1, username);
-    ps.setString(2, password);
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, username);
+            ps.setString(2, password);
 
-    ResultSet rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
 
-    if (rs.next()) {
+            if (rs.next()) {
 
-        int role_id = rs.getInt("Role_id"); // 👈 از دیتابیس بگیر
-
-        if (role_id == 1) {
-            new Dashboard().setVisible(true);
-        } 
-        else if (role_id == 2) {
-            new UserDashboard().setVisible(true);
-        }
+                int role_id = rs.getInt("Role_id"); // 👈 از دیتابیس بگیر
+                txttype.setSelectedItem(role_id);
+                if (role_id == 1) {
+                    Dashboard dash = new Dashboard();
+                    dash.setVisible(true);
+                    dash.txtusername.setText(username);
+                    ps.close();
+                } else if (role_id == 2) {
+                    Dashboard dash = new Dashboard();
+                    dash.setVisible(true);
+                    dash.txtusername.setText(username);
+                    ps.close();
+                }
 //        else if (role_id == 3) {
 //            new ManagerDashboard().setVisible(true);
 //        }
 
-        this.dispose();
+                this.dispose();
 
-    } else {
-        JOptionPane.showMessageDialog(this, "رمز عبور یا اسم کاربری غلط است!");
-    }
+            } else {
+                JOptionPane.showMessageDialog(this, "رمز عبور یا اسم کاربری غلط است!");
+                jTextField1.setText("");
+                jPasswordField1.setText("");
+            }
 
-} catch (Exception e) {
-    JOptionPane.showMessageDialog(this, e.getMessage());
-}
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
 
 
     }//GEN-LAST:event_jButton1ActionPerformed
