@@ -1,11 +1,9 @@
-
 package goldms;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import java.awt.Color;
 import java.sql.*;
 import javax.swing.*;
-import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -70,6 +68,8 @@ public class notifacations extends javax.swing.JFrame {
         txttypperations = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         txttypperations1 = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -78,12 +78,22 @@ public class notifacations extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(16, 23, 42));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel1MouseDragged(evt);
+            }
+        });
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel1MouseEntered(evt);
+            }
+        });
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("تاریخ رویداد:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, 100, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, 100, -1));
 
         jLabel2.setFont(new java.awt.Font("Calibri", 1, 42)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(252, 170, 3));
@@ -93,10 +103,10 @@ public class notifacations extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("نوع رودیداد:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 130, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 230, -1, -1));
 
         txttypperations.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "اضافه شده", "حذف شده", "ویرایش", " " }));
-        jPanel1.add(txttypperations, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 390, 40));
+        jPanel1.add(txttypperations, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, 390, 40));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_close_window_28px.png"))); // NOI18N
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -107,7 +117,27 @@ public class notifacations extends javax.swing.JFrame {
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 10, -1, -1));
 
         txttypperations1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "اضافه شده", "حذف شده", "ویرایش", " " }));
-        jPanel1.add(txttypperations1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 170, 390, 40));
+        txttypperations1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txttypperations1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txttypperations1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 270, 390, 40));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "نام جدول", "اسم کاربر", "عنوان", "پیام", "وضیعت"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 1160, 400));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1160, 730));
 
@@ -117,6 +147,18 @@ public class notifacations extends javax.swing.JFrame {
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         new Exite().setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void txttypperations1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttypperations1ActionPerformed
+
+    }//GEN-LAST:event_txttypperations1ActionPerformed
+
+    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
+   
+    }//GEN-LAST:event_jPanel1MouseEntered
+
+    private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
+  
+    }//GEN-LAST:event_jPanel1MouseDragged
 
     /**
      * @param args the command line arguments
@@ -138,6 +180,8 @@ public class notifacations extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JComboBox<String> txttypperations;
     private javax.swing.JComboBox<String> txttypperations1;
     // End of variables declaration//GEN-END:variables

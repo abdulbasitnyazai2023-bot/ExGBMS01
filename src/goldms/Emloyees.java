@@ -11,9 +11,7 @@ package goldms;
  */
 public class Emloyees extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Emloyees
-     */
+   
     public Emloyees() {
         initComponents();
     }
