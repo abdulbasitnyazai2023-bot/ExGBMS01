@@ -4,13 +4,12 @@
  * and open the template in the editor.
  */
 package goldms;
+
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
 import java.sql.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-
-
 
 /**
  *
@@ -28,7 +27,7 @@ public class login extends javax.swing.JFrame {
         setLocationRelativeTo(this);
     }
 
-  // د ډیټابېس مسیر (Path)
+    // د ډیټابېس مسیر (Path)
     private Connection conn;
     private PreparedStatement ps;
     private ResultSet rs;
@@ -49,10 +48,11 @@ public class login extends javax.swing.JFrame {
         }
 
     }
- private void formSetting() {
+
+    private void formSetting() {
         try {
             // فعال کردن FlatLaf و گرد کردن گوشه‌ها
-         UIManager.setLookAndFeel(new FlatLightLaf());
+            UIManager.setLookAndFeel(new FlatLightLaf());
             UIManager.put("Component.arc", 50);
             UIManager.put("Button.arc", 50);
             UIManager.put("TextComponent.arc", 60);
@@ -62,6 +62,7 @@ public class login extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -75,7 +76,7 @@ public class login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        txttype = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -146,8 +147,8 @@ public class login extends javax.swing.JFrame {
         jLabel4.setText("اسم کاربری:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 240, -1, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Manager" }));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 170, 390, 40));
+        txttype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2" }));
+        jPanel1.add(txttype, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 170, 390, 40));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_close_window_28px.png"))); // NOI18N
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -165,10 +166,9 @@ public class login extends javax.swing.JFrame {
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         if (jCheckBox1.isSelected()) {
             jPasswordField1.setEchoChar('\0');
-            
-        }
-        else{
-              jPasswordField1.setEchoChar('*');
+
+        } else {
+            jPasswordField1.setEchoChar('*');
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
@@ -177,39 +177,93 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1FocusGained
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-          try {
+//        try {
+//
+//    String user = jTextField1.getText().trim();
+//    String pass = new String(jPasswordField1.getPassword());
+//    String role_id = txttype.getSelectedItem().toString();
+//
+//    if (user.isEmpty() || pass.isEmpty()) {
+//        JOptionPane.showMessageDialog(this, "تمام فیلدها را پر کنید!");
+//        return;
+//    }
+//
+//    ps = conn.prepareStatement(
+//        "SELECT * FROM login WHERE Username=? AND Password_hash=? AND Role_id=?"
+//    );
+//
+//    ps.setString(1, user);
+//    ps.setString(2, pass);
+//    ps.setString(3, role_id);
+//
+//    rs = ps.executeQuery();
+//
+//    if (rs.next()) {
+//
+//        if ("1".equals(role_id)) {
+//            new Dashboard().setVisible(true);
+//        } else {
+//            new UserDashboard().setVisible(true);
+//        }
+//
+//        this.dispose();
+//
+//    } else {
+//        JOptionPane.showMessageDialog(this, "رمز عبور یا اسم کاربری غلط است!!");
+//        jTextField1.setText("");
+//        jPasswordField1.setText("");
+//    }
+//
+//} catch (Exception e) {
+//    JOptionPane.showMessageDialog(this, e.getMessage());
+//}
+try {
 
-            String user = jTextField1.getText();
-            String pass = jPasswordField1.getText();
-            if (user.equals("") || pass.equals("")) {
-              
+    String username = jTextField1.getText().trim();
+    String password = new String(jPasswordField1.getPassword()).trim();
 
-            } else {
-                ps = conn.prepareStatement("SELECT * FROM login WHERE Username=? AND Password_hash=?");
+    if (username.isEmpty() || password.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "تمام فیلدها را پر کنید!");
+        return;
+    }
 
-                ps.setString(1, jTextField1.getText());
-                ps.setString(2, jPasswordField1.getText());
-                rs = ps.executeQuery();
+    String sql = "SELECT * FROM Login WHERE Username=? AND Password_hash=? AND Is_active=1";
 
-                if (rs.next()) {
-                    //  byte[]hashpass=rs.getBytes("Password_hash");
-                    new Dashboard().setVisible(true);
-                    this.dispose();
+    PreparedStatement ps = conn.prepareStatement(sql);
+    ps.setString(1, username);
+    ps.setString(2, password);
 
-                } else {
-                    JOptionPane.showMessageDialog(this, "رمز عبور یا اسم کاربری غلط است!!");
-                    jTextField1.setText("");
-                    jPasswordField1.setText("");
-                }
+    ResultSet rs = ps.executeQuery();
 
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
+    if (rs.next()) {
+
+        int role_id = rs.getInt("Role_id"); // 👈 از دیتابیس بگیر
+
+        if (role_id == 1) {
+            new Dashboard().setVisible(true);
+        } 
+        else if (role_id == 2) {
+            new UserDashboard().setVisible(true);
         }
+//        else if (role_id == 3) {
+//            new ManagerDashboard().setVisible(true);
+//        }
+
+        this.dispose();
+
+    } else {
+        JOptionPane.showMessageDialog(this, "رمز عبور یا اسم کاربری غلط است!");
+    }
+
+} catch (Exception e) {
+    JOptionPane.showMessageDialog(this, e.getMessage());
+}
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
-    char c = evt.getKeyChar();
+        char c = evt.getKeyChar();
         if (!(c >= 'a' && c <= 'z') && !(c >= 'A' && c <= 'Z')) {
             evt.consume();
 
@@ -217,15 +271,15 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1KeyTyped
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-    new Exite().setVisible(true);        // TODO add your handling code here:
+        new Exite().setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jLabel5MouseClicked
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-    GOLDMS dm=new GOLDMS();
-   dm.form();
+        GOLDMS dm = new GOLDMS();
+        dm.form();
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -237,7 +291,6 @@ public class login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -246,5 +299,6 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JComboBox<String> txttype;
     // End of variables declaration//GEN-END:variables
 }

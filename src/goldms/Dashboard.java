@@ -4,13 +4,11 @@
  * and open the template in the editor.
  */
 package goldms;
+
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.*;
 import java.sql.*;
 import javax.swing.*;
-
-
-
 
 /**
  *
@@ -24,11 +22,25 @@ public class Dashboard extends javax.swing.JFrame {
     public Dashboard() {
         initComponents();
         getConnection();
-        //Transactions();
+        Transactions();
         setLocationRelativeTo(this);
+        excnage();
+        payed();
+        recive();
+        customer();
+        cancelTransaction();
+        buyGold();
+        buySilver();
+        saleGold();
+        saleSilver();
+        expense();
+        treaAfa();
+        treaGold();
+        treaUsd();
+        treaSilver();
     }
 
-  // د ډیټابېس مسیر (Path)
+    // د ډیټابېس مسیر (Path)
     private Connection conn;
     private PreparedStatement ps;
     private ResultSet rs;
@@ -49,7 +61,7 @@ public class Dashboard extends javax.swing.JFrame {
         }
 
     }
-    /*
+
     private void Transactions() {
         try {
 
@@ -57,7 +69,7 @@ public class Dashboard extends javax.swing.JFrame {
 
             rs = ps.executeQuery();
             if (rs.next()) {
-               trans.setText(rs.getString(1));
+                txttrans.setText(rs.getString(1));
 
             }
 
@@ -66,8 +78,247 @@ public class Dashboard extends javax.swing.JFrame {
 
         }
     }
-    */
+
     // -------------end counting customer------------
+    private void excnage() {
+        try {
+
+            ps = conn.prepareStatement("SELECT COUNT(rate_id) FROM exchange_rate");
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+
+                txtexchange.setText(rs.getString(1));
+                ps.close();
+
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+
+        }
+    }
+
+    private void payed() {
+        try {
+
+            ps = conn.prepareStatement("SELECT SUM(Payed) FROM Gold_ledger");
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                payed.setText(rs.getString(1));
+
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+
+        }
+    }
+
+    private void recive() {
+        try {
+
+            ps = conn.prepareStatement("SELECT SUM(Amount) FROM Deposite_payment");
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                txtrecieve.setText(rs.getString(1));
+
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+
+        }
+    }
+
+    private void customer() {
+        try {
+
+            ps = conn.prepareStatement("SELECT COUNT(Customers_id) FROM Customers");
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                txtcust.setText(rs.getString(1));
+
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+
+        }
+    }
+
+    private void cancelTransaction() {
+        try {
+
+            ps = conn.prepareStatement("SELECT COUNT(C_transaction_id) FROM Canceled_Transaction");
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                txtcancel.setText(rs.getString(1));
+
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+
+        }
+    }
+
+    private void buySilver() {
+        try {
+
+            ps = conn.prepareStatement("SELECT SUM(Recived) FROM Silver_ledger");
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                txtbuysilver.setText(rs.getString(1));
+
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+
+        }
+    }
+
+    private void saleSilver() {
+        try {
+
+            ps = conn.prepareStatement("SELECT SUM(Payed) FROM Silver_ledger");
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                txtsalesilver.setText(rs.getString(1));
+
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+
+        }
+    }
+
+    private void buyGold() {
+        try {
+
+            ps = conn.prepareStatement("SELECT SUM(Recived) FROM Gold_ledger");
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                txtbuygold.setText(rs.getString(1));
+
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+
+        }
+    }
+
+    private void saleGold() {
+        try {
+
+            ps = conn.prepareStatement("SELECT SUM(Payed) FROM Gold_ledger");
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                txtsalegold.setText(rs.getString(1));
+
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+
+        }
+    }
+
+    private void expense() {
+        try {
+
+            ps = conn.prepareStatement("SELECT SUM(Amount) FROM Expense");
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                txtexpen.setText(rs.getString(1));
+
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+
+        }
+    }
+
+    private void treaAfa() {
+        try {
+
+            ps = conn.prepareStatement("SELECT SUM(AF) FROM Capital");
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                txtafa.setText(rs.getString(1));
+
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+
+        }
+    }
+
+    private void treaUsd() {
+        try {
+
+            ps = conn.prepareStatement("SELECT SUM(USD) FROM Capital");
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                txtusd.setText(rs.getString(1));
+
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+
+        }
+    }
+
+    private void treaSilver() {
+        try {
+
+            ps = conn.prepareStatement("SELECT SUM(Silver_gram) FROM Capital");
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                txtsilver.setText(rs.getString(1));
+
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+
+        }
+    }
+
+    private void treaGold() {
+        try {
+
+            ps = conn.prepareStatement("SELECT SUM(Gold_gram) FROM Capital");
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                txtgold.setText(rs.getString(1));
+
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -77,63 +328,63 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jPanel17 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
-        trans13 = new javax.swing.JLabel();
+        txtsilver = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jPanel19 = new javax.swing.JPanel();
         jLabel32 = new javax.swing.JLabel();
-        trans15 = new javax.swing.JLabel();
+        txtafa = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
         jPanel20 = new javax.swing.JPanel();
         jLabel34 = new javax.swing.JLabel();
-        trans16 = new javax.swing.JLabel();
+        txtexpen = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
         jPanel16 = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
-        trans12 = new javax.swing.JLabel();
+        txtgold = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
         jLabel30 = new javax.swing.JLabel();
-        trans14 = new javax.swing.JLabel();
+        txtusd = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
-        trans9 = new javax.swing.JLabel();
+        txtsalesilver = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
-        trans11 = new javax.swing.JLabel();
+        txtcancel = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
-        trans10 = new javax.swing.JLabel();
+        txtbuysilver = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
-        trans8 = new javax.swing.JLabel();
+        txtbuygold = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
-        trans7 = new javax.swing.JLabel();
+        txtsalegold = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        trans6 = new javax.swing.JLabel();
+        txtexchange = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        trans4 = new javax.swing.JLabel();
+        txttrans = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        trans5 = new javax.swing.JLabel();
+        payed = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        trans3 = new javax.swing.JLabel();
+        txtrecieve = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        trans2 = new javax.swing.JLabel();
+        txtcust = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -165,12 +416,12 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel28.setText("مجموع خزانه نقره");
         jPanel17.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, 40));
 
-        trans13.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
-        trans13.setForeground(new java.awt.Color(255, 183, 51));
-        trans13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        trans13.setText("0");
-        trans13.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel17.add(trans13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 170, 30));
+        txtsilver.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        txtsilver.setForeground(new java.awt.Color(255, 183, 51));
+        txtsilver.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtsilver.setText("0");
+        txtsilver.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel17.add(txtsilver, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 170, 30));
 
         jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_engagement_ring_60px.png"))); // NOI18N
         jPanel17.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, 60));
@@ -185,12 +436,12 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel32.setText("مجموع خزانه افغانی");
         jPanel19.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 40));
 
-        trans15.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
-        trans15.setForeground(new java.awt.Color(255, 183, 51));
-        trans15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        trans15.setText("0");
-        trans15.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel19.add(trans15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 150, 30));
+        txtafa.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        txtafa.setForeground(new java.awt.Color(255, 183, 51));
+        txtafa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtafa.setText("0");
+        txtafa.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel19.add(txtafa, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 150, 30));
 
         jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/expense.png"))); // NOI18N
         jPanel19.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, 60));
@@ -205,12 +456,12 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel34.setText("مجموع مصارفات");
         jPanel20.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 40));
 
-        trans16.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
-        trans16.setForeground(new java.awt.Color(255, 183, 51));
-        trans16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        trans16.setText("0");
-        trans16.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel20.add(trans16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 160, 30));
+        txtexpen.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        txtexpen.setForeground(new java.awt.Color(255, 183, 51));
+        txtexpen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtexpen.setText("0");
+        txtexpen.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel20.add(txtexpen, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 160, 30));
 
         jLabel35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/all_transfer.png"))); // NOI18N
         jPanel20.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, 60));
@@ -225,12 +476,12 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel26.setText("مجموع خزانه طلا");
         jPanel16.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 40));
 
-        trans12.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
-        trans12.setForeground(new java.awt.Color(255, 183, 51));
-        trans12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        trans12.setText("0");
-        trans12.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel16.add(trans12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 170, 30));
+        txtgold.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        txtgold.setForeground(new java.awt.Color(255, 183, 51));
+        txtgold.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtgold.setText("0");
+        txtgold.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel16.add(txtgold, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 170, 30));
 
         jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/all_gold_t.png"))); // NOI18N
         jPanel16.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, 60));
@@ -245,12 +496,12 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel30.setText("مجموع خزانه دالر");
         jPanel18.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, 40));
 
-        trans14.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
-        trans14.setForeground(new java.awt.Color(255, 183, 51));
-        trans14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        trans14.setText("0");
-        trans14.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel18.add(trans14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 160, 30));
+        txtusd.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        txtusd.setForeground(new java.awt.Color(255, 183, 51));
+        txtusd.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtusd.setText("0");
+        txtusd.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel18.add(txtusd, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 160, 30));
 
         jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/all_usd_txt.png"))); // NOI18N
         jPanel18.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, 60));
@@ -265,12 +516,12 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel20.setText("مجموع فروش نقره");
         jPanel13.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, 40));
 
-        trans9.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
-        trans9.setForeground(new java.awt.Color(255, 183, 51));
-        trans9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        trans9.setText("0");
-        trans9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel13.add(trans9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 160, 30));
+        txtsalesilver.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        txtsalesilver.setForeground(new java.awt.Color(255, 183, 51));
+        txtsalesilver.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtsalesilver.setText("0");
+        txtsalesilver.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel13.add(txtsalesilver, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 160, 30));
 
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/sale_silver.png"))); // NOI18N
         jPanel13.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, 60));
@@ -285,12 +536,12 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel24.setText(" معاملات لغو شده");
         jPanel15.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 40));
 
-        trans11.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
-        trans11.setForeground(new java.awt.Color(255, 183, 51));
-        trans11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        trans11.setText("0");
-        trans11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel15.add(trans11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 160, 30));
+        txtcancel.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        txtcancel.setForeground(new java.awt.Color(255, 183, 51));
+        txtcancel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtcancel.setText("0");
+        txtcancel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel15.add(txtcancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 160, 30));
 
         jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/all_transfer.png"))); // NOI18N
         jPanel15.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, 60));
@@ -305,12 +556,12 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel22.setText("مجموع خرید نقره");
         jPanel14.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 40));
 
-        trans10.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
-        trans10.setForeground(new java.awt.Color(255, 183, 51));
-        trans10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        trans10.setText("0");
-        trans10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel14.add(trans10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 150, 30));
+        txtbuysilver.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        txtbuysilver.setForeground(new java.awt.Color(255, 183, 51));
+        txtbuysilver.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtbuysilver.setText("0");
+        txtbuysilver.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel14.add(txtbuysilver, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 150, 30));
 
         jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/buy_silver.png"))); // NOI18N
         jPanel14.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, 60));
@@ -325,12 +576,12 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel18.setText("مجموع خرید طلا");
         jPanel12.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 40));
 
-        trans8.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
-        trans8.setForeground(new java.awt.Color(255, 183, 51));
-        trans8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        trans8.setText("0");
-        trans8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel12.add(trans8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 170, 30));
+        txtbuygold.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        txtbuygold.setForeground(new java.awt.Color(255, 183, 51));
+        txtbuygold.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtbuygold.setText("0");
+        txtbuygold.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel12.add(txtbuygold, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 170, 30));
 
         jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/all_buy_gold.png"))); // NOI18N
         jPanel12.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, 60));
@@ -345,12 +596,12 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel16.setText("مجموع فروش طلا");
         jPanel11.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 40));
 
-        trans7.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
-        trans7.setForeground(new java.awt.Color(255, 183, 51));
-        trans7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        trans7.setText("0");
-        trans7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel11.add(trans7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 170, 30));
+        txtsalegold.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        txtsalegold.setForeground(new java.awt.Color(255, 183, 51));
+        txtsalegold.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtsalegold.setText("0");
+        txtsalegold.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel11.add(txtsalegold, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 170, 30));
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/gold_sale.png"))); // NOI18N
         jPanel11.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, 60));
@@ -365,12 +616,12 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel14.setText("مجموع تبادلات");
         jPanel10.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 40));
 
-        trans6.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
-        trans6.setForeground(new java.awt.Color(255, 183, 51));
-        trans6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        trans6.setText("0");
-        trans6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel10.add(trans6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 160, 30));
+        txtexchange.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        txtexchange.setForeground(new java.awt.Color(255, 183, 51));
+        txtexchange.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtexchange.setText("0");
+        txtexchange.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel10.add(txtexchange, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 160, 30));
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/all_transfer.png"))); // NOI18N
         jPanel10.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, 60));
@@ -385,12 +636,12 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel10.setText("مجموع معاملات");
         jPanel8.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 40));
 
-        trans4.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
-        trans4.setForeground(new java.awt.Color(255, 183, 51));
-        trans4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        trans4.setText("0");
-        trans4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel8.add(trans4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 150, 30));
+        txttrans.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        txttrans.setForeground(new java.awt.Color(255, 183, 51));
+        txttrans.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txttrans.setText("0");
+        txttrans.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel8.add(txttrans, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 150, 30));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/all_txt.png"))); // NOI18N
         jPanel8.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, 60));
@@ -405,12 +656,12 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel12.setText("مجموع پرداخت ها");
         jPanel9.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, 40));
 
-        trans5.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
-        trans5.setForeground(new java.awt.Color(255, 183, 51));
-        trans5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        trans5.setText("0");
-        trans5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel9.add(trans5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 160, 30));
+        payed.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        payed.setForeground(new java.awt.Color(255, 183, 51));
+        payed.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        payed.setText("0");
+        payed.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel9.add(payed, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 160, 30));
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/recept.png"))); // NOI18N
         jPanel9.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, 60));
@@ -425,12 +676,12 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel8.setText("مجموع سپرده ها");
         jPanel7.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 40));
 
-        trans3.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
-        trans3.setForeground(new java.awt.Color(255, 183, 51));
-        trans3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        trans3.setText("0");
-        trans3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel7.add(trans3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 170, 30));
+        txtrecieve.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        txtrecieve.setForeground(new java.awt.Color(255, 183, 51));
+        txtrecieve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtrecieve.setText("0");
+        txtrecieve.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel7.add(txtrecieve, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 170, 30));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/payment.png"))); // NOI18N
         jPanel7.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, 60));
@@ -445,12 +696,12 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel7.setText("مجموع مشتریان");
         jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 40));
 
-        trans2.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
-        trans2.setForeground(new java.awt.Color(255, 183, 51));
-        trans2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        trans2.setText("0");
-        trans2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jPanel4.add(trans2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 170, 30));
+        txtcust.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
+        txtcust.setForeground(new java.awt.Color(255, 183, 51));
+        txtcust.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txtcust.setText("0");
+        txtcust.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel4.add(txtcust, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 170, 30));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/customer.png"))); // NOI18N
         jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, 60));
@@ -512,15 +763,15 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-       new Exite().setVisible(true);
+        new Exite().setVisible(true);
     }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-    GOLDMS dm=new GOLDMS();
-   dm.form();
+        GOLDMS dm = new GOLDMS();
+        dm.form();
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -583,20 +834,20 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JLabel trans10;
-    private javax.swing.JLabel trans11;
-    private javax.swing.JLabel trans12;
-    private javax.swing.JLabel trans13;
-    private javax.swing.JLabel trans14;
-    private javax.swing.JLabel trans15;
-    private javax.swing.JLabel trans16;
-    private javax.swing.JLabel trans2;
-    private javax.swing.JLabel trans3;
-    private javax.swing.JLabel trans4;
-    private javax.swing.JLabel trans5;
-    private javax.swing.JLabel trans6;
-    private javax.swing.JLabel trans7;
-    private javax.swing.JLabel trans8;
-    private javax.swing.JLabel trans9;
+    private javax.swing.JLabel payed;
+    private javax.swing.JLabel txtafa;
+    private javax.swing.JLabel txtbuygold;
+    private javax.swing.JLabel txtbuysilver;
+    private javax.swing.JLabel txtcancel;
+    private javax.swing.JLabel txtcust;
+    private javax.swing.JLabel txtexchange;
+    private javax.swing.JLabel txtexpen;
+    private javax.swing.JLabel txtgold;
+    private javax.swing.JLabel txtrecieve;
+    private javax.swing.JLabel txtsalegold;
+    private javax.swing.JLabel txtsalesilver;
+    private javax.swing.JLabel txtsilver;
+    private javax.swing.JLabel txttrans;
+    private javax.swing.JLabel txtusd;
     // End of variables declaration//GEN-END:variables
 }
