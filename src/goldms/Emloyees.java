@@ -177,7 +177,7 @@ public class Emloyees extends javax.swing.JFrame {
         jLabel7.setText("آي دی کارمند:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 100, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 560));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 520));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
