@@ -2,6 +2,10 @@
 package goldms;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.UIManager;
 
 
@@ -29,6 +33,26 @@ public class GOLDMS {
             ex.printStackTrace();
         }
       
+
+    }
+          // د ډیټابېس مسیر (Path)
+    private Connection conn;
+    private PreparedStatement ps;
+    private ResultSet rs;
+       public  void getConnection() {
+
+        try {
+            // SQLite Driver Load
+            Class.forName("org.sqlite.JDBC");
+            conn = DriverManager.getConnection("jdbc:sqlite:./src/db/Golds-1.db");
+
+            System.out.println("cont");
+
+        } catch (ClassNotFoundException ex) {
+            System.out.println("not found" + ex.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
     }
           public String convertToPersianNumbersusd(String input) {
