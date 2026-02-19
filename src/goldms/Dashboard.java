@@ -8,6 +8,7 @@ package goldms;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.*;
 import java.sql.*;
+import java.text.DecimalFormat;
 import javax.swing.*;
 
 /**
@@ -106,6 +107,7 @@ public class Dashboard extends javax.swing.JFrame {
 
             rs = ps.executeQuery();
             if (rs.next()) {
+
                 payed.setText(rs.getString(1));
 
             }
@@ -235,89 +237,229 @@ public class Dashboard extends javax.swing.JFrame {
         }
     }
 
-    private void expense() {
+   private void expense() {
         try {
 
             ps = conn.prepareStatement("SELECT SUM(Amount) FROM Expense");
-
             rs = ps.executeQuery();
-            if (rs.next()) {
-                txtexpen.setText(rs.getString(1));
 
+            if (rs.next()) {
+
+                double total = rs.getDouble(1);
+
+                // که NULL وي
+                if (rs.wasNull()) {
+                    txtexpen.setText("۰");
+                    return;
+                }
+
+                // نمبر format کول (comma سره)
+                java.text.NumberFormat nf = java.text.NumberFormat.getInstance();
+                nf.setMaximumFractionDigits(2);
+
+                String formatted = nf.format(total);
+
+                // انګلیسي عدد فارسی ته اړول
+                formatted = convertToPersianNumbersexpense(formatted);
+
+                txtexpen.setText(formatted+"افغانی ودالر");
             }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
-
         }
+    }
+
+    private String convertToPersianNumbersexpense(String input) {
+
+        char[] english = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+        char[] persian = {'۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'};
+
+        for (int i = 0; i < english.length; i++) {
+            input = input.replace(english[i], persian[i]);
+        }
+
+        return input;
     }
 
     private void treaAfa() {
         try {
 
             ps = conn.prepareStatement("SELECT SUM(AF) FROM Capital");
-
             rs = ps.executeQuery();
-            if (rs.next()) {
-                txtafa.setText(rs.getString(1));
 
+            if (rs.next()) {
+
+                double total = rs.getDouble(1);
+
+                // که NULL وي
+                if (rs.wasNull()) {
+                    txtafa.setText("۰");
+                    return;
+                }
+
+                // نمبر format کول (comma سره)
+                java.text.NumberFormat nf = java.text.NumberFormat.getInstance();
+                nf.setMaximumFractionDigits(2);
+
+                String formatted = nf.format(total);
+
+                // انګلیسي عدد فارسی ته اړول
+                formatted = convertToPersianNumbers(formatted);
+
+                txtafa.setText(formatted+"افغانی");
             }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
-
         }
+    }
+
+    private String convertToPersianNumbers(String input) {
+
+        char[] english = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+        char[] persian = {'۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'};
+
+        for (int i = 0; i < english.length; i++) {
+            input = input.replace(english[i], persian[i]);
+        }
+
+        return input;
     }
 
     private void treaUsd() {
         try {
 
             ps = conn.prepareStatement("SELECT SUM(USD) FROM Capital");
-
             rs = ps.executeQuery();
-            if (rs.next()) {
-                txtusd.setText(rs.getString(1));
 
+            if (rs.next()) {
+
+                double total = rs.getDouble(1);
+
+                // که NULL وي
+                if (rs.wasNull()) {
+                    txtusd.setText("۰");
+                    return;
+                }
+
+                // نمبر format کول (comma سره)
+                java.text.NumberFormat nf = java.text.NumberFormat.getInstance();
+                nf.setMaximumFractionDigits(2);
+
+                String formatted = nf.format(total);
+
+                // انګلیسي عدد فارسی ته اړول
+                formatted = convertToPersianNumbersusd(formatted);
+
+                txtusd.setText(formatted+"دالر");
             }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
-
         }
     }
 
-    private void treaSilver() {
+    private String convertToPersianNumbersusd(String input) {
+
+        char[] english = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+        char[] persian = {'۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'};
+
+        for (int i = 0; i < english.length; i++) {
+            input = input.replace(english[i], persian[i]);
+        }
+
+        return input;
+    }
+
+   private void treaSilver() {
         try {
 
             ps = conn.prepareStatement("SELECT SUM(Silver_gram) FROM Capital");
-
             rs = ps.executeQuery();
-            if (rs.next()) {
-                txtsilver.setText(rs.getString(1));
 
+            if (rs.next()) {
+
+                double total = rs.getDouble(1);
+
+                // که NULL وي
+                if (rs.wasNull()) {
+                    txtsilver.setText("۰");
+                    return;
+                }
+
+                // نمبر format کول (comma سره)
+                java.text.NumberFormat nf = java.text.NumberFormat.getInstance();
+                nf.setMaximumFractionDigits(2);
+
+                String formatted = nf.format(total);
+
+                // انګلیسي عدد فارسی ته اړول
+                formatted = convertToPersianNumberssilver(formatted);
+
+                txtsilver.setText(formatted+"گرام");
             }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
-
         }
     }
 
-    private void treaGold() {
+    private String convertToPersianNumberssilver(String input) {
+
+        char[] english = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+        char[] persian = {'۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'};
+
+        for (int i = 0; i < english.length; i++) {
+            input = input.replace(english[i], persian[i]);
+        }
+
+        return input;
+    }
+
+ private void treaGold() {
         try {
 
             ps = conn.prepareStatement("SELECT SUM(Gold_gram) FROM Capital");
-
             rs = ps.executeQuery();
-            if (rs.next()) {
-                txtgold.setText(rs.getString(1));
 
+            if (rs.next()) {
+
+                double total = rs.getDouble(1);
+
+                // که NULL وي
+                if (rs.wasNull()) {
+                    txtusd.setText("۰");
+                    return;
+                }
+
+                // نمبر format کول (comma سره)
+                java.text.NumberFormat nf = java.text.NumberFormat.getInstance();
+                nf.setMaximumFractionDigits(2);
+
+                String formatted = nf.format(total);
+
+                // انګلیسي عدد فارسی ته اړول
+                formatted = convertToPersianNumbersgold(formatted);
+
+                txtgold.setText(formatted+"گرام");
             }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
-
         }
+    }
+
+    private String convertToPersianNumbersgold(String input) {
+
+        char[] english = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+        char[] persian = {'۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'};
+
+        for (int i = 0; i < english.length; i++) {
+            input = input.replace(english[i], persian[i]);
+        }
+
+        return input;
     }
 
     @SuppressWarnings("unchecked")
