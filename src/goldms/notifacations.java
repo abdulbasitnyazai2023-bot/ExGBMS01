@@ -116,7 +116,7 @@ public class notifacations extends javax.swing.JFrame {
         });
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 10, -1, -1));
 
-        txttypperations1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "اضافه شده", "حذف شده", "ویرایش", " " }));
+        txttypperations1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "حذف شده", "ویرایش", "INSERT" }));
         txttypperations1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txttypperations1ActionPerformed(evt);
@@ -149,15 +149,37 @@ public class notifacations extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void txttypperations1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttypperations1ActionPerformed
+try {
+
+    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+    model.setRowCount(0);
+
+    ps = conn.prepareStatement("SELECT * FROM notifications");
+    rs = ps.executeQuery();
+
+    while (rs.next()) {
+        model.addRow(new Object[]{
+            rs.getInt("notification_id"),
+            rs.getString("operation_type"),
+            rs.getString("title")
+        });
+    }
+
+} catch (Exception e) {
+    JOptionPane.showMessageDialog(null, e.getMessage());
+}
+
+
 
     }//GEN-LAST:event_txttypperations1ActionPerformed
-
+    int posX, posY;
     private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
-   
+        posX = evt.getX();
+        posY = evt.getY();
     }//GEN-LAST:event_jPanel1MouseEntered
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
-  
+        this.setLocation(evt.getXOnScreen() - posX, evt.getYOnScreen() - posY);
     }//GEN-LAST:event_jPanel1MouseDragged
 
     /**
