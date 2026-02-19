@@ -18,4 +18,7 @@ public class RoundedPanel extends JPanel {
         g2.dispose();
         super.paintComponent(g);
     }
+    public static void main(String[] args) {
+        
+    }
 }
