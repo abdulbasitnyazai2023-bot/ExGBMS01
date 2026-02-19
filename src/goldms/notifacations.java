@@ -4,6 +4,7 @@ import com.formdev.flatlaf.FlatLightLaf;
 import java.sql.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -70,6 +71,8 @@ public class notifacations extends javax.swing.JFrame {
         txttypperations1 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        txtsearch = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -92,8 +95,8 @@ public class notifacations extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("تاریخ رویداد:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, 100, -1));
+        jLabel1.setText("جستجوی عمومی:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 170, 150, -1));
 
         jLabel2.setFont(new java.awt.Font("Calibri", 1, 42)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(252, 170, 3));
@@ -136,10 +139,29 @@ public class notifacations extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setHeaderValue("نام جدول");
+            jTable1.getColumnModel().getColumn(1).setHeaderValue("اسم کاربر");
+            jTable1.getColumnModel().getColumn(2).setHeaderValue("عنوان");
+            jTable1.getColumnModel().getColumn(3).setHeaderValue("پیام");
+            jTable1.getColumnModel().getColumn(4).setHeaderValue("وضیعت");
+        }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 1160, 400));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 1360, 400));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1160, 730));
+        txtsearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtsearchKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txtsearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, 260, 40));
+
+        jLabel4.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("تاریخ رویداد:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, 100, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1400, 730));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -149,26 +171,54 @@ public class notifacations extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void txttypperations1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txttypperations1ActionPerformed
-try {
+//try {
+//
+//    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+//    model.setRowCount(0);
+//
+//    ps = conn.prepareStatement("SELECT * FROM notifications");
+//    rs = ps.executeQuery();
+//
+//    while (rs.next()) {
+//        model.addRow(new Object[]{
+//            rs.getInt("notification_id"),
+//            rs.getString("operation_type"),
+//            rs.getString("title")
+//        });
+//    }
+//
+//} catch (Exception e) {
+//    JOptionPane.showMessageDialog(null, e.getMessage());
+//}
 
-    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-    model.setRowCount(0);
+        try {
+            String selected = txttypperations.getSelectedItem().toString().trim();
+                
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0); // پاکول
 
-    ps = conn.prepareStatement("SELECT * FROM notifications");
-    rs = ps.executeQuery();
+            // د INSERT لپاره دقیق filter
+            String sql = "SELECT * FROM notifications WHERE operation_type = 'INSERT' LIMIT 10";
+            ps = conn.prepareStatement(sql);
 
-    while (rs.next()) {
-        model.addRow(new Object[]{
-            rs.getInt("notification_id"),
-            rs.getString("operation_type"),
-            rs.getString("title")
-        });
-    }
+            rs = ps.executeQuery();
 
-} catch (Exception e) {
-    JOptionPane.showMessageDialog(null, e.getMessage());
-}
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getString("table_name"),
+                    rs.getString("operation_type"),
+                    rs.getString("recipient_role"),
+                    rs.getString("title"),
+                    rs.getString("message"),
+                    rs.getString("severity"),
+                    rs.getString("created_at"),
+                    rs.getInt("is_read")
+                });
+            }
 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
 
 
     }//GEN-LAST:event_txttypperations1ActionPerformed
@@ -181,6 +231,15 @@ try {
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
         this.setLocation(evt.getXOnScreen() - posX, evt.getYOnScreen() - posY);
     }//GEN-LAST:event_jPanel1MouseDragged
+
+    private void txtsearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsearchKeyTyped
+        //jTextField1.setText("");
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        String search = txtsearch.getText();
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(model);
+        jTable1.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(search));
+    }//GEN-LAST:event_txtsearchKeyTyped
 
     /**
      * @param args the command line arguments
@@ -200,10 +259,12 @@ try {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField txtsearch;
     private javax.swing.JComboBox<String> txttypperations;
     private javax.swing.JComboBox<String> txttypperations1;
     // End of variables declaration//GEN-END:variables
