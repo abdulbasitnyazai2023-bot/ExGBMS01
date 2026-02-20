@@ -27,6 +27,11 @@ public class notifacations extends javax.swing.JFrame {
         jTable_notification.getTableHeader().setFont(new Font("B Nazanin", Font.BOLD, 20));
         jTable_notification.getTableHeader().setOpaque(false);
         jTable_notification.getTableHeader().setForeground(new Color(0, 0, 0));
+        jTable_notification.getTableHeader().setFont(new Font("B Nazanin", Font.BOLD, 20));
+        jTable_notification.getTableHeader().setOpaque(false);
+        jTable_notification.getTableHeader().setForeground(new Color(0, 0, 0));
+ 
+
     }
 
     // د ډیټابېس مسیر (Path)
@@ -136,6 +141,9 @@ public class notifacations extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -254,9 +262,7 @@ public class notifacations extends javax.swing.JFrame {
             String end = txtenddate.getSelectedItem().toString().trim();
 
             YearMonthDate date = new YearMonthDate(2026, 2, 19);
-            for (int i = 0; i < 20; i++) {
-                 txtstartdate.addItem(jalalicalendar.JalaliCalendar.gregorianToJalali(date).toString());
-            }
+         
             txtstartdate.addItem(jalalicalendar.JalaliCalendar.gregorianToJalali(date).toString());
 
             DefaultTableModel model = (DefaultTableModel) jTable_notification.getModel();
@@ -381,6 +387,11 @@ public class notifacations extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_formWindowActivated
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+ 
+
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

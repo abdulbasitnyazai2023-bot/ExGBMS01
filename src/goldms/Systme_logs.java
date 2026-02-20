@@ -1,8 +1,8 @@
 package goldms;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import java.awt.ComponentOrientation;
-import java.awt.Image;
+import java.awt.*;
+
 import java.sql.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -22,32 +22,32 @@ public class Systme_logs extends javax.swing.JFrame {
         getConnection();
         formSetting();
         setLocationRelativeTo(this);
-     //   SetHeader();
+        //   SetHeader();
 
     }
-    DefaultTableModel model = new DefaultTableModel() {
-        @Override
-        public Class<?> getColumnClass(int i) {
-            switch (i) {
-                case 0:
-                    return String.class;
-                case 1:
-                    return String.class;
-
-                case 2:
-                    return String.class;
-                case 3:
-                    return Date.class;
-                case 4:
-                    return Integer.class;
-                case 5:
-                    return ImageIcon.class;
-                default:
-                    return Object.class;
-
-            }
-        }
-    };
+//    DefaultTableModel model = new DefaultTableModel() {
+//        @Override
+//        public Class<?> getColumnClass(int i) {
+//            switch (i) {
+//                case 0:
+//                    return String.class;
+//                case 1:
+//                    return String.class;
+//
+//                case 2:
+//                    return String.class;
+//                case 3:
+//                    return Date.class;
+//                case 4:
+//                    return Integer.class;
+//                case 5:
+//                    return ImageIcon.class;
+//                default:
+//                    return Object.class;
+//
+//            }
+//        }
+//    };
 //             
     // د ډیټابېس مسیر (Path)
     private Connection conn;
@@ -85,16 +85,15 @@ public class Systme_logs extends javax.swing.JFrame {
         }
     }
 
-    private void SetHeader() {
-        model.addColumn("Fullname");
-        model.addColumn("Message");
-        model.addColumn("title");
-        model.addColumn("create");
-        model.addColumn("ID");
-        model.addColumn("Picture");
-        jTable1.setModel(model);
-    }
-
+//    private void SetHeader() {
+//        model.addColumn("Fullname");
+//        model.addColumn("Message");
+//        model.addColumn("title");
+//        model.addColumn("create");
+//        model.addColumn("ID");
+//        model.addColumn("Picture");
+//        jTable1.setModel(model);
+//    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -204,8 +203,8 @@ public class Systme_logs extends javax.swing.JFrame {
 
 //        //select table code
         if (conn != null) {
-            DefaultTableModel mode=(DefaultTableModel) jTable1.getModel();
-            
+            DefaultTableModel mode = (DefaultTableModel) jTable1.getModel();
+
             try {
                 ps = conn.prepareStatement("select Employee.Fullname,Systemlogs.Notification_id,Systemlogs.Employee_id,Systemlogs.Title,Systemlogs.Message,Systemlogs.is_read,Systemlogs.Created_at from Systemlogs LEFT JOIN Employee ON Employee.Employee_id=Systemlogs.Employee_id");
                 rs = ps.executeQuery();
@@ -216,9 +215,7 @@ public class Systme_logs extends javax.swing.JFrame {
                         rs.getString("Message"),
                         rs.getString("Title"),
                         rs.getString("Created_at"),
-                        rs.getString("Notification_id"),
-                      
-                    });
+                        rs.getString("Notification_id"),});
                     {
 
                     }
@@ -281,7 +278,6 @@ public class Systme_logs extends javax.swing.JFrame {
 //            System.out.println(e.getMessage());
 //
 //        }
-
 
     }//GEN-LAST:event_formWindowActivated
 
