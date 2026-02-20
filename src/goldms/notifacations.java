@@ -75,6 +75,7 @@ public class notifacations extends javax.swing.JFrame {
         txtstartdate = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         txttypperations1 = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         txtsearch = new javax.swing.JTextField();
@@ -140,6 +141,10 @@ public class notifacations extends javax.swing.JFrame {
             }
         });
         jPanel1.add(txttypperations1, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 250, 250, 40));
+
+        jLabel7.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        jLabel7.setText("جدول خالی است");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 480, -1, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -351,6 +356,7 @@ public class notifacations extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

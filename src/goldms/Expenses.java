@@ -166,7 +166,7 @@ public class Expenses extends javax.swing.JFrame {
         jLabel8.setText("نام کارمند:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 140, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 770, 520));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 630));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
