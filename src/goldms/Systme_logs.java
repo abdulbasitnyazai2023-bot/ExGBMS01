@@ -138,7 +138,7 @@ public class Systme_logs extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Calibri", 1, 42)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(252, 170, 3));
         jLabel2.setText("وضیعت سیستم");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 30, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 80, -1, -1));
 
         nodate.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         nodate.setText("جدول خالی است");
@@ -150,7 +150,7 @@ public class Systme_logs extends javax.swing.JFrame {
                 jLabel5MouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, -1, -1));
 
         jTable1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(

@@ -259,6 +259,9 @@ public class Approval_Request extends javax.swing.JFrame {
                         case "REJECTED":
                             setBackground(Color.RED);
                             break;
+                        case "APPROVED":
+                            setBackground(Color.PINK);
+                            break;
                         default:
                             setBackground(Color.WHITE);
                     }
