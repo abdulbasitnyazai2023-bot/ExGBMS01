@@ -49,6 +49,7 @@ public class Approval_Request extends javax.swing.JFrame {
             System.out.println("not found" + ex.getMessage());
         } catch (Exception e) {
             System.out.println(e.getMessage());
+
         }
 
     }
@@ -59,6 +60,7 @@ public class Approval_Request extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -70,10 +72,7 @@ public class Approval_Request extends javax.swing.JFrame {
         jTable1.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "null", "null"
@@ -81,19 +80,26 @@ public class Approval_Request extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        jLabel1.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
+        jLabel1.setText("درخواست معاملات");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1430, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1445, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(461, 461, 461))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -103,7 +109,7 @@ public class Approval_Request extends javax.swing.JFrame {
 
 // 1. لومړی موډل د میتود په سر کې یا د کلاس په کچه تعریف کړئ
         DefaultTableModel model = new DefaultTableModel(
-                new Object[]{"جواب به درخواست", "آی دی", "نوع معامله", "آی دی موجودی", "مقدار", "ارز", "نوع دارایی", "Status"}, 0) {
+                new Object[]{"جواب به درخواست", "آی دی", "نوع معامله", "آی دی موجودی", "مقدار", "ارز", "نوع دارایی", "وضیعت"}, 0) {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 if (columnIndex == 0) {
@@ -201,8 +207,8 @@ public class Approval_Request extends javax.swing.JFrame {
                         }
                     }
                     if (selected && "PENDING".equals(status)) {
-                        String[] options = {"Approve", "Reject", "Cancel"};
-                        int choice = JOptionPane.showOptionDialog(null, "Select Action", "Approval",
+                        String[] options = {"موافقم با معامله", "میخواهم ردشود", "بستن صفحه"};
+                        int choice = JOptionPane.showOptionDialog(null, "یکی از کزینه های ذیل را انتخاب کنید!", "پیام درخواست ",
                                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
 
                         String newStatus = "";
@@ -211,6 +217,10 @@ public class Approval_Request extends javax.swing.JFrame {
                         } else if (choice == 1) {
                             newStatus = "REJECTED";
                         }
+//                        else if (choice == 3) {
+//                            newStatus = "APPROVED";
+//
+//                        }
 
                         if (!newStatus.isEmpty()) {
                             try {
@@ -226,14 +236,16 @@ public class Approval_Request extends javax.swing.JFrame {
 
                                 jTable1.repaint();
                                 return;
+
                             } catch (Exception ex) {
-                                ex.printStackTrace();
                             }
                         } else {
                             currentModel.setValueAt(false, row, 0);
                         }
                     }
+
                 }
+                return;
             }
 
             @Override
@@ -242,7 +254,7 @@ public class Approval_Request extends javax.swing.JFrame {
         });
 
 // 4. د رنګونو تنظیم (Renderer)
-        jTable1.getColumn("Status").setCellRenderer(new DefaultTableCellRenderer() {
+        jTable1.getColumn("وضیعت").setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
                     boolean hasFocus, int row, int column) {
@@ -268,7 +280,10 @@ public class Approval_Request extends javax.swing.JFrame {
                 }
                 return this;
             }
+
         });
+
+
     }//GEN-LAST:event_formWindowActivated
 
     /**
@@ -310,6 +325,7 @@ public class Approval_Request extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
