@@ -22,11 +22,16 @@ public class notifacations extends javax.swing.JFrame {
         initComponents();
         getConnection();
         formSetting();
+        styleTable();
         setLocationRelativeTo(this);
-        jTable1.getTableHeader().setFont(new Font("B Nazanin", Font.BOLD, 20));
-        jTable1.getTableHeader().setOpaque(false);
-        jTable1.getTableHeader().setForeground(new Color(0, 0, 0));
+        jTable_notification.getTableHeader().setFont(new Font("B Nazanin", Font.BOLD, 20));
+        jTable_notification.getTableHeader().setOpaque(false);
+        jTable_notification.getTableHeader().setForeground(new Color(0, 0, 0));
+        jTable_notification.getTableHeader().setFont(new Font("B Nazanin", Font.BOLD, 20));
+        jTable_notification.getTableHeader().setOpaque(false);
+        jTable_notification.getTableHeader().setForeground(new Color(0, 0, 0));
  
+
     }
 
     // د ډیټابېس مسیر (Path)
@@ -64,7 +69,53 @@ public class notifacations extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }
+    
+    
+    private void styleTable() {
 
+    jTable_notification.setRowHeight(30);
+
+    // حذف خطوط داخلی برای ظاهر مدرن
+    jTable_notification.setShowGrid(false);
+    jTable_notification.setIntercellSpacing(new java.awt.Dimension(0, 0));
+
+    // رنگ هدر (بالای جدول)
+    jTable_notification.getTableHeader().setBackground(new java.awt.Color(234, 220, 230));
+    jTable_notification.getTableHeader().setForeground(java.awt.Color.WHITE);
+
+    jTable_notification.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
+
+        @Override
+        public java.awt.Component getTableCellRendererComponent(
+                javax.swing.JTable table, Object value,
+                boolean isSelected, boolean hasFocus,
+                int row, int column) {
+
+            java.awt.Component c = super.getTableCellRendererComponent(
+                    table, value, isSelected, hasFocus, row, column);
+
+            // رنگ انتخاب
+            if (isSelected) {
+                c.setBackground(new java.awt.Color(255, 181, 3)); // طلایی GBMS
+                c.setForeground(java.awt.Color.BLACK);
+            } else {
+
+                // Zebra مدرن
+                if (row % 2 == 0) {
+                    c.setBackground(new java.awt.Color(248, 249, 250));
+                } else {
+                    c.setBackground(new java.awt.Color(235, 240, 245));
+                }
+
+                c.setForeground(java.awt.Color.BLACK);
+            }
+
+            return c;
+        }
+    });
+}
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -78,7 +129,7 @@ public class notifacations extends javax.swing.JFrame {
         txttypperations1 = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable_notification = new javax.swing.JTable();
         txtsearch = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtenddate = new javax.swing.JComboBox<>();
@@ -114,20 +165,20 @@ public class notifacations extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("جستجوی عمومی:");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 170, 150, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, 110, -1));
 
         jLabel2.setFont(new java.awt.Font("Calibri", 1, 42)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(252, 170, 3));
         jLabel2.setText("رودیدادهای سیستم");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 60, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 30, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("نوع رودیداد:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1100, 210, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 100, -1, -1));
 
         txtstartdate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "---------" }));
-        jPanel1.add(txtstartdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 250, 280, 40));
+        jPanel1.add(txtstartdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 140, 300, 40));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_close_window_28px.png"))); // NOI18N
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -135,7 +186,7 @@ public class notifacations extends javax.swing.JFrame {
                 jLabel5MouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 10, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         txttypperations1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         txttypperations1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "اضافه شده", "حذف شده", "ویرایش شده" }));
@@ -144,13 +195,13 @@ public class notifacations extends javax.swing.JFrame {
                 txttypperations1ActionPerformed(evt);
             }
         });
-        jPanel1.add(txttypperations1, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 250, 250, 40));
+        jPanel1.add(txttypperations1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 140, 300, 40));
 
         jLabel7.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel7.setText("جدول خالی است");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 480, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_notification.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -161,38 +212,38 @@ public class notifacations extends javax.swing.JFrame {
                 "اسم کاربر", "عملیات", "پیام", "عنوان", "نوع هشدار", " تاریخ", "وضیعت"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setHeaderValue("اسم کاربر");
-            jTable1.getColumnModel().getColumn(1).setHeaderValue("عملیات");
-            jTable1.getColumnModel().getColumn(2).setHeaderValue("پیام");
-            jTable1.getColumnModel().getColumn(3).setHeaderValue("عنوان");
-            jTable1.getColumnModel().getColumn(4).setHeaderValue("نوع هشدار");
-            jTable1.getColumnModel().getColumn(5).setHeaderValue(" تاریخ");
-            jTable1.getColumnModel().getColumn(6).setHeaderValue("وضیعت");
+        jScrollPane1.setViewportView(jTable_notification);
+        if (jTable_notification.getColumnModel().getColumnCount() > 0) {
+            jTable_notification.getColumnModel().getColumn(0).setHeaderValue("اسم کاربر");
+            jTable_notification.getColumnModel().getColumn(1).setHeaderValue("عملیات");
+            jTable_notification.getColumnModel().getColumn(2).setHeaderValue("پیام");
+            jTable_notification.getColumnModel().getColumn(3).setHeaderValue("عنوان");
+            jTable_notification.getColumnModel().getColumn(4).setHeaderValue("نوع هشدار");
+            jTable_notification.getColumnModel().getColumn(5).setHeaderValue(" تاریخ");
+            jTable_notification.getColumnModel().getColumn(6).setHeaderValue("وضیعت");
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 1350, 400));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 1330, 490));
 
         txtsearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtsearchKeyTyped(evt);
             }
         });
-        jPanel1.add(txtsearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, 260, 40));
+        jPanel1.add(txtsearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 300, 40));
 
         jLabel4.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("تا تاریخ:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 210, 70, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 100, -1, -1));
 
         txtenddate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "----------" }));
-        jPanel1.add(txtenddate, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 250, 340, 40));
+        jPanel1.add(txtenddate, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 140, 300, 40));
 
         jLabel6.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("ازتاریخ:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 210, 100, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 100, 50, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1350, 730));
 
@@ -214,7 +265,7 @@ public class notifacations extends javax.swing.JFrame {
          
             txtstartdate.addItem(jalalicalendar.JalaliCalendar.gregorianToJalali(date).toString());
 
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            DefaultTableModel model = (DefaultTableModel) jTable_notification.getModel();
             model.setRowCount(0); // پاکول
 
             System.out.println(selected);
@@ -273,10 +324,10 @@ public class notifacations extends javax.swing.JFrame {
 
     private void txtsearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsearchKeyTyped
         //jTextField1.setText("");
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel model = (DefaultTableModel) jTable_notification.getModel();
         String search = txtsearch.getText();
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(model);
-        jTable1.setRowSorter(tr);
+        jTable_notification.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(search));
     }//GEN-LAST:event_txtsearchKeyTyped
 
@@ -290,7 +341,7 @@ public class notifacations extends javax.swing.JFrame {
 
             txtstartdate.addItem(jalalicalendar.JalaliCalendar.gregorianToJalali(date).toString());
 
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            DefaultTableModel model = (DefaultTableModel) jTable_notification.getModel();
             model.setRowCount(0); // پاکول
 
             System.out.println(selected);
@@ -366,7 +417,7 @@ public class notifacations extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable_notification;
     private javax.swing.JComboBox<String> txtenddate;
     private javax.swing.JTextField txtsearch;
     private javax.swing.JComboBox<String> txtstartdate;
