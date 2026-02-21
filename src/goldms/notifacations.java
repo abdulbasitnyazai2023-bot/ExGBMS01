@@ -119,7 +119,7 @@ public class notifacations extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Calibri", 1, 42)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(252, 170, 3));
         jLabel2.setText("رودیدادهای سیستم");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 60, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -135,7 +135,7 @@ public class notifacations extends javax.swing.JFrame {
                 jLabel5MouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 10, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         txttypperations1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         txttypperations1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "اضافه شده", "حذف شده", "ویرایش شده" }));
