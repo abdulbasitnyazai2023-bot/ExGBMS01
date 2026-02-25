@@ -1,16 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package goldms;
 
-import java.awt.Color;
-import java.awt.Component;
+import java.awt.*;
 import java.sql.*;
 
 import javax.swing.*;
-import javax.swing.JTable;
+
 import javax.swing.event.*;
 
 import javax.swing.table.*;
@@ -19,14 +13,15 @@ import javax.swing.table.*;
  *
  * @author DELL
  */
-public class Approval_Request extends javax.swing.JFrame {
+public class Transaction_Table extends javax.swing.JFrame {
 
     /**
      * Creates new form Approval_Request
      */
-    public Approval_Request() {
+    public Transaction_Table() {
         initComponents();
         getConnection();
+        styleTable();
         setLocationRelativeTo(this);
 
     }
@@ -52,6 +47,50 @@ public class Approval_Request extends javax.swing.JFrame {
 
         }
 
+    }
+
+    private void styleTable() {
+
+        jTable1.setRowHeight(40);
+
+        // حذف خطوط داخلی برای ظاهر مدرن
+        jTable1.setShowGrid(false);
+        jTable1.setIntercellSpacing(new java.awt.Dimension(0, 0));
+
+        // رنگ هدر (بالای جدول)
+        jTable1.getTableHeader().setBackground(new java.awt.Color(30, 41, 59));
+        jTable1.getTableHeader().setForeground(java.awt.Color.WHITE);
+
+        jTable1.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
+
+            @Override
+            public java.awt.Component getTableCellRendererComponent(
+                    javax.swing.JTable table, Object value,
+                    boolean isSelected, boolean hasFocus,
+                    int row, int column) {
+
+                java.awt.Component c = super.getTableCellRendererComponent(
+                        table, value, isSelected, hasFocus, row, column);
+
+                // رنگ انتخاب
+                if (isSelected) {
+                    c.setBackground(new java.awt.Color(255, 181, 3)); // طلایی GBMS
+                    c.setForeground(java.awt.Color.BLACK);
+                } else {
+
+                    // Zebra مدرن
+                    if (row % 2 == 0) {
+                        c.setBackground(new java.awt.Color(248, 249, 250));
+                    } else {
+                        c.setBackground(new java.awt.Color(235, 240, 245));
+                    }
+
+                    c.setForeground(java.awt.Color.BLACK);
+                }
+
+                return c;
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -81,209 +120,205 @@ public class Approval_Request extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
-        jLabel1.setText("درخواست معاملات");
+        jLabel1.setText("در خواست تاییدی معاملات");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1445, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(1195, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(461, 461, 461))
+                .addGap(252, 252, 252))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 678, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+//
 
-// 1. لومړی موډل د میتود په سر کې یا د کلاس په کچه تعریف کړئ
-        DefaultTableModel model = new DefaultTableModel(
-                new Object[]{"جواب به درخواست", "آی دی", "نوع معامله", "آی دی موجودی", "مقدار", "ارز", "نوع دارایی", "وضیعت"}, 0) {
-            @Override
-            public Class<?> getColumnClass(int columnIndex) {
-                if (columnIndex == 0) {
-                    return Boolean.class;
-                }
-                return super.getColumnClass(columnIndex);
-            }
+// 1. Table Model
+DefaultTableModel model = new DefaultTableModel(
+        new Object[]{
+            "جواب به درخواست", "آی دی", "نوع معامله", "نوع پول", "تاریخ", "وزن",
+            "قیمت فی گرام", "مجموع هرگرام", "عیار", "گرفت دالر", "پرداخت دالر",
+            "گرفت افغانی", "پرداخت افغانی", "گرفت طلا", "پرداخت طلا",
+            "گرفت نقره", "پرداخت نقره", "وضیعت"}, 0) {
 
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return column == 0;
-            }
+    @Override
+    public Class<?> getColumnClass(int columnIndex) {
+        if (columnIndex == 0) return Boolean.class;
+        return super.getColumnClass(columnIndex);
+    }
+
+    @Override
+    public boolean isCellEditable(int row, int column) {
+        return column == 0;
+    }
+};
+
+jTable1.setModel(model);
+
+
+// 2. Load Data
+try {
+    getConnection();
+
+    String sql = "SELECT Transaction_id, Type_txt, Type_money, Date, Weight,"
+            + "Gold_rate,Gold_amount, Source_carat, USD_in,USD_out,AFG_in,AFG_out,"
+            + "Gold_in,Gold_out,Silver_in,Silver_out,status FROM Transactions";
+
+    ps = conn.prepareStatement(sql);
+    rs = ps.executeQuery();
+
+    model.setRowCount(0);
+
+    while (rs.next()) {
+
+        boolean isPending = "PENDING".equals(rs.getString("status"));
+
+        Object[] row = {
+            isPending,
+            rs.getInt("Transaction_id"),
+            rs.getString("Type_txt"),
+            rs.getString("Type_money"),
+            rs.getString("Date"),
+            rs.getString("Weight"),
+            rs.getString("Gold_rate"),
+            rs.getString("Gold_amount"),
+            rs.getString("Source_carat"),
+            rs.getString("USD_in"),
+            rs.getString("USD_out"),
+            rs.getString("AFG_in"),
+            rs.getString("AFG_out"),
+            rs.getString("Gold_in"),
+            rs.getString("Gold_out"),
+            rs.getString("Silver_in"),
+            rs.getString("Silver_out"),
+            rs.getString("status")
         };
 
-        jTable1.setModel(model);
+        model.addRow(row);
+    }
 
-// 2. د ډېټا لوډ کولو برخه
-        try {
-            // ډاډ ترلاسه کړئ چې conn او SQL سم دي
-            String sql = "SELECT request_id, entity_type, entity_id, amount, currency, asset_type, status FROM approval_requests ORDER BY requested_at DESC";
-            ps = conn.prepareStatement(sql);
-            rs = ps.executeQuery();
+} catch (Exception e) {
+    e.printStackTrace();
+}
 
-            model.setRowCount(0); // د جدول پاکول مخکې له نوي ډېټا [cite: 4]
 
-            while (rs.next()) {
-                boolean isPending = "PENDING".equals(rs.getString("status"));
+// 3. Checkbox Logic
+jTable1.getDefaultEditor(Boolean.class).addCellEditorListener(new CellEditorListener() {
 
-                Object[] row = {
-                    isPending, // Select (Boolean) [cite: 5]
-                    rs.getInt("request_id"), // ID [cite: 5]
-                    rs.getString("entity_type"), // Transaction Type [cite: 5]
-                    rs.getInt("entity_id"), // Entity ID [cite: 5]
-                    rs.getDouble("amount"), // Amount [cite: 5]
-                    rs.getString("currency"), // Currency [cite: 5]
-                    rs.getString("asset_type"), // Asset [cite: 5]
-                    rs.getString("status") // Status [cite: 5]
-                };
-                model.addRow(row);
+    @Override
+    public void editingStopped(ChangeEvent e) {
+
+        DefaultTableModel currentModel = (DefaultTableModel) jTable1.getModel();
+        int row = jTable1.getSelectedRow();
+
+        if (row >= 0) {
+
+            Boolean selected = (Boolean) currentModel.getValueAt(row, 0);
+            String status = currentModel.getValueAt(row, 17).toString();
+            int requestId = (int) currentModel.getValueAt(row, 1);
+
+            try {
+
+                // ✅ که COMPLETED وي → مستقیم PENDING شي
+                if (selected && "COMPLETED".equals(status)) {
+
+                    String sql = "UPDATE Transactions SET status = ? WHERE Transaction_id = ?";
+                    ps = conn.prepareStatement(sql);
+                    ps.setString(1, "PENDING");
+                    ps.setInt(2, requestId);
+                    ps.executeUpdate();
+
+                    currentModel.setValueAt("PENDING", row, 17);
+                    currentModel.setValueAt(true, row, 0);
+                    jTable1.repaint();
+                    return;
+                }
+
+                // ✅ که PENDING وي → OptionPane ښکاره شي
+                if (selected && "PENDING".equals(status)) {
+
+                    String[] options = {"موافقم با معامله", "بستن صفحه"};
+
+                    int choice = JOptionPane.showOptionDialog(
+                            null,
+                            "آیا میخواهید این معامله تکمیل شود؟",
+                            "پیام درخواست",
+                            JOptionPane.DEFAULT_OPTION,
+                            JOptionPane.INFORMATION_MESSAGE,
+                            null,
+                            options,
+                            options[0]
+                    );
+
+                    if (choice == 0) {
+
+                        String sql = "UPDATE Transactions SET status = ? WHERE Transaction_id = ?";
+                        ps = conn.prepareStatement(sql);
+                        ps.setString(1, "COMPLETED");
+                        ps.setInt(2, requestId);
+                        ps.executeUpdate();
+
+                        currentModel.setValueAt("COMPLETED", row, 17);
+                        currentModel.setValueAt(true, row, 0);
+                        jTable1.repaint();
+
+                    } else {
+                        currentModel.setValueAt(false, row, 0);
+                    }
+                }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void editingCanceled(ChangeEvent e) {}
+});
+
+
+// 4. Renderer
+jTable1.getColumn("وضیعت").setCellRenderer(new DefaultTableCellRenderer() {
+
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value,
+            boolean isSelected, boolean hasFocus, int row, int column) {
+
+        super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+        if (value != null) {
+            String status = value.toString();
+
+            switch (status) {
+                case "PENDING":
+                    setBackground(Color.YELLOW);
+                    break;
+                case "COMPLETED":
+                    setBackground(Color.GREEN);
+                    break;
+                default:
+                    setBackground(Color.WHITE);
+            }
         }
 
-// 3. د چک باکس ایډیټ کولو منطق
-        jTable1.getDefaultEditor(Boolean.class).addCellEditorListener(new CellEditorListener() {
-            @Override
-            public void editingStopped(ChangeEvent e) {
-                // له جدول څخه مستقیم موډل اخیستل ترڅو "mode نه پیژني" ستونزه حل شي
-                DefaultTableModel currentModel = (DefaultTableModel) jTable1.getModel();
-                int row = jTable1.getEditingRow();
-                if (row < 0) {
-                    row = jTable1.getSelectedRow();
-                }
-
-                if (row >= 0) {
-                    Boolean selected = (Boolean) currentModel.getValueAt(row, 0);
-                    String status = currentModel.getValueAt(row, 7).toString();
-// که REJECTED وي او تیک شي -> بېرته PENDING ته لاړ شي
-                    if (selected && "REJECTED".equals(status)) {
-                        try {
-                            int requestId = (int) currentModel.getValueAt(row, 1);
-                            String sql = "UPDATE approval_requests SET status = ? WHERE request_id = ?";
-                            ps = conn.prepareStatement(sql);
-                            ps.setString(1, "PENDING");
-                            ps.setInt(2, requestId);
-                            ps.executeUpdate();
-
-                            currentModel.setValueAt("PENDING", row, 7);
-//                            currentModel.setValueAt(false, row, 0);
-                            currentModel.setValueAt(true, row, 0);
-                            jTable1.repaint();
-                            return;
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
-                    }
-                    // که COMPLETE وي او تیک شي -> بېرته PENDING ته لاړ شي
-                    if (selected && "COMPLETE".equals(status)) {
-                        try {
-                            int requestId = (int) currentModel.getValueAt(row, 1);
-                            String sql = "UPDATE approval_requests SET status = ? WHERE request_id = ?";
-                            ps = conn.prepareStatement(sql);
-                            ps.setString(1, "PENDING");
-                            ps.setInt(2, requestId);
-                            ps.executeUpdate();
-
-                            currentModel.setValueAt("PENDING", row, 7);
-                            currentModel.setValueAt(true, row, 0);  // تیک پاتې شي
-
-                            jTable1.repaint();
-                            return;
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
-                    }
-                    if (selected && "PENDING".equals(status)) {
-                        String[] options = {"موافقم با معامله", "میخواهم ردشود", "بستن صفحه"};
-                        int choice = JOptionPane.showOptionDialog(null, "یکی از کزینه های ذیل را انتخاب کنید!", "پیام درخواست ",
-                                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
-
-                        String newStatus = "";
-                        if (choice == 0) {
-                            newStatus = "COMPLETE";
-                        } else if (choice == 1) {
-                            newStatus = "REJECTED";
-                        }
-//                        else if (choice == 3) {
-//                            newStatus = "APPROVED";
-//
-//                        }
-
-                        if (!newStatus.isEmpty()) {
-                            try {
-                                int requestId = (int) currentModel.getValueAt(row, 1);
-                                String sql = "UPDATE approval_requests SET status = ? WHERE request_id = ?";
-                                ps = conn.prepareStatement(sql);
-                                ps.setString(1, newStatus);
-                                ps.setInt(2, requestId);
-                                int executeUpdate = ps.executeUpdate();
-
-                                currentModel.setValueAt(newStatus, row, 7);
-                                currentModel.setValueAt(false, row, 0);
-
-                                jTable1.repaint();
-                                return;
-
-                            } catch (Exception ex) {
-                            }
-                        } else {
-                            currentModel.setValueAt(false, row, 0);
-                        }
-                    }
-
-                }
-                return;
-            }
-
-            @Override
-            public void editingCanceled(ChangeEvent e) {
-            }
-        });
-
-// 4. د رنګونو تنظیم (Renderer)
-        jTable1.getColumn("وضیعت").setCellRenderer(new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-                    boolean hasFocus, int row, int column) {
-                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                if (value != null) {
-                    String status = value.toString();
-                    switch (status) {
-                        case "PENDING":
-                            setBackground(Color.YELLOW);
-                            break;
-                        case "COMPLETE":
-                            setBackground(Color.GREEN);
-                            break;
-                        case "REJECTED":
-                            setBackground(Color.RED);
-                            break;
-                        case "APPROVED":
-                            setBackground(Color.PINK);
-                            break;
-                        default:
-                            setBackground(Color.WHITE);
-                    }
-                }
-                return this;
-            }
-
-        });
-
-
+        return this;
+    }
+});
     }//GEN-LAST:event_formWindowActivated
 
     /**
@@ -300,17 +335,26 @@ public class Approval_Request extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Approval_Request.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Transaction_Table.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Approval_Request.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Transaction_Table.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Approval_Request.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Transaction_Table.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Approval_Request.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Transaction_Table.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         GOLDMS gb = new GOLDMS();
@@ -319,7 +363,7 @@ public class Approval_Request extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Approval_Request().setVisible(true);
+                new Transaction_Table().setVisible(true);
             }
         });
     }

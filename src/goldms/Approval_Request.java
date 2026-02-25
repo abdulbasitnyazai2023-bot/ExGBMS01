@@ -28,6 +28,7 @@ public class Approval_Request extends javax.swing.JFrame {
         initComponents();
         getConnection();
         setLocationRelativeTo(this);
+        styleTable();
 
     }
 
@@ -54,6 +55,50 @@ public class Approval_Request extends javax.swing.JFrame {
 
     }
 
+        
+private void styleTable() {
+
+    jTable1.setRowHeight(40);
+
+    // حذف خطوط داخلی برای ظاهر مدرن
+    jTable1.setShowGrid(false);
+    jTable1.setIntercellSpacing(new java.awt.Dimension(0, 0));
+
+    // رنگ هدر (بالای جدول)
+    jTable1.getTableHeader().setBackground(new java.awt.Color(30, 41, 59));
+    jTable1.getTableHeader().setForeground(java.awt.Color.WHITE);
+
+    jTable1.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
+
+        @Override
+        public java.awt.Component getTableCellRendererComponent(
+                javax.swing.JTable table, Object value,
+                boolean isSelected, boolean hasFocus,
+                int row, int column) {
+
+            java.awt.Component c = super.getTableCellRendererComponent(
+                    table, value, isSelected, hasFocus, row, column);
+
+            // رنگ انتخاب
+            if (isSelected) {
+                c.setBackground(new java.awt.Color(255, 181, 3)); // طلایی GBMS
+                c.setForeground(java.awt.Color.BLACK);
+            } else {
+
+                // Zebra مدرن
+                if (row % 2 == 0) {
+                    c.setBackground(new java.awt.Color(248, 249, 250));
+                } else {
+                    c.setBackground(new java.awt.Color(235, 240, 245));
+                }
+
+                c.setForeground(java.awt.Color.BLACK);
+            }
+
+            return c;
+        }
+    });
+}
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -81,7 +126,7 @@ public class Approval_Request extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jLabel1.setFont(new java.awt.Font("Calibri", 1, 36)); // NOI18N
-        jLabel1.setText("درخواست معاملات");
+        jLabel1.setText("درخواستی ها از سیستم");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -98,8 +143,8 @@ public class Approval_Request extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE))
         );
 
         pack();

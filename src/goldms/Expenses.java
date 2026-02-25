@@ -7,6 +7,7 @@ package goldms;
 
 import java.sql.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -67,8 +68,14 @@ public class Expenses extends javax.swing.JFrame {
         txtdis = new javax.swing.JTextField();
         txttype = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -79,21 +86,31 @@ public class Expenses extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(16, 23, 42));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton2.setText("add");
+        jButton2.setBackground(new java.awt.Color(30, 42, 59));
+        jButton2.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/table_icon/icons8_save_34px_1.png"))); // NOI18N
+        jButton2.setText("ثبت");
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 430, -1, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 340, 180, 40));
 
-        jButton3.setText("update");
+        jButton3.setBackground(new java.awt.Color(30, 42, 59));
+        jButton3.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/table_icon/icons8_refresh_34px_1.png"))); // NOI18N
+        jButton3.setText("ویرایش");
+        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 430, -1, -1));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 180, 40));
 
         txtID.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtID.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -101,72 +118,101 @@ public class Expenses extends javax.swing.JFrame {
                 txtIDFocusGained(evt);
             }
         });
-        jPanel1.add(txtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, 270, -1));
+        jPanel1.add(txtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 150, 400, 40));
 
         txtamount.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jPanel1.add(txtamount, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 240, 270, -1));
+        jPanel1.add(txtamount, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 270, 400, 40));
 
-        remove.setText("reomve");
+        remove.setBackground(new java.awt.Color(30, 42, 59));
+        remove.setFont(new java.awt.Font("Calibri", 1, 22)); // NOI18N
+        remove.setForeground(new java.awt.Color(255, 255, 255));
+        remove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/table_icon/icons8_delete_trash_34px_1.png"))); // NOI18N
+        remove.setText("حذف");
+        remove.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         remove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removeActionPerformed(evt);
             }
         });
-        jPanel1.add(remove, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 430, -1, -1));
+        jPanel1.add(remove, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, 180, 40));
 
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("توضیحات:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 340, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("جستحو");
+        jLabel3.setFont(new java.awt.Font("Calibri", 1, 48)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 181, 3));
+        jLabel3.setText("ثبت مصارف");
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel3MouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 50, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("نوع مصارف:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 190, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 110, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("مقدار:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 230, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1280, 230, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("نوع ارز:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 280, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 230, -1, -1));
 
         txtemp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "Manager", " " }));
-        jPanel1.add(txtemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, 270, -1));
+        jPanel1.add(txtemp, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 150, 400, 40));
 
         jLabel7.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("آی دی مصارف:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 100, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 110, -1, -1));
 
         txtcurrency.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "usd", "afg" }));
-        jPanel1.add(txtcurrency, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 280, 270, -1));
+        jPanel1.add(txtcurrency, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 270, 400, 40));
 
         txtdis.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jPanel1.add(txtdis, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 340, 270, -1));
+        jPanel1.add(txtdis, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 400, 40));
 
         txttype.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jPanel1.add(txttype, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, 270, -1));
+        jPanel1.add(txttype, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 400, 40));
 
         jLabel8.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("نام کارمند:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 140, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 110, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 630));
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "توضیحات", "ارز", "مقدار ", "نوعیت", "نام کامل", "آی دی"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 1380, 370));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_close_window_28px.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 350, 510, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1400, 780));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -277,7 +323,6 @@ public class Expenses extends javax.swing.JFrame {
                     txtamount.setText("");
                     txttype.setText("");
                     txtdis.setText("");
-                  
 
                 }
             }
@@ -309,20 +354,39 @@ public class Expenses extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        try {
-            String emp = txtemp.getSelectedItem().toString();
+        //select table code
+        if (conn != null) {
+            DefaultTableModel mode = (DefaultTableModel) jTable1.getModel();
+            mode.setRowCount(0); // پاکول
+            
+//            Employee.Fullname,Expense.Expense_type,Expense.Amount,Expense.Currency,Expense.Expense_id,Expense.Discription  LEFT JOIN Employee ON  Employee.Employee_id=Expense.Employee_id
+            try {
+                ps = conn.prepareStatement("SELECT * FROM Expense");
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    mode.addRow(new Object[]{
+                        rs.getString("Discription"),
+                        rs.getString("Currency"),
+                        rs.getString("Amount"),
+                        rs.getString("Expense_type"),
+                        rs.getString("Employee_id"),
+                        rs.getString("Expense_id"),});
 
-            ps = conn.prepareStatement("SELECT*FROM Expense WHERE Employee_id=?");
-            ps.setString(1, emp);
-            rs = ps.executeQuery();
-            if (rs.next()) {
+                    {
 
-                int role_id = rs.getInt("Employee_id"); // 👈 از دیتابیس بگیر
+                    }
+                }
+                jButton2.disable();
+                ps.close();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
     }//GEN-LAST:event_formWindowActivated
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        new Exite().setVisible(true);
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -364,6 +428,7 @@ public class Expenses extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -372,6 +437,9 @@ public class Expenses extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton remove;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtamount;
