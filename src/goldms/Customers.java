@@ -5,12 +5,10 @@
  */
 package goldms;
 
-import java.awt.Image;
 import java.sql.*;
-import static java.util.Arrays.fill;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
+import javax.swing.*;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -26,8 +24,32 @@ public class Customers extends javax.swing.JFrame {
         getConnection();
         setLocationRelativeTo(this);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
 
+        // فرض کنید نام جدول شما jTableCustomers است
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                // پیدا کردن ردیف انتخاب شده
+                int row = jTable1.getSelectedRow();
+
+                if (row != -1) { // مطمئن شویم ردیفی انتخاب شده است
+                    // گرفتن آی‌دی مشتری از ستون اول (ایندکس 0)
+                    // مقدار را به Integer تبدیل می‌کنیم
+                    int id = Integer.parseInt(jTable1.getValueAt(row, 0).toString());
+
+                    // بستن فرم فعلی (اختیاری) و باز کردن فرم بیلانس
+                    BalanceForm balanceForm = new BalanceForm(id);
+                    balanceForm.setVisible(true);
+                    balanceForm.setLocationRelativeTo(null); // نمایش در مرکز مانیتور
+                }
+            }
+        });
+
+    }
+    // Pagination
+    int currentPage = 1;
+    int rowsPerPage = 10;
+    int totalPages = 0;
     // د ډیټابېس مسیر (Path)
     private Connection conn;
     private PreparedStatement ps;
@@ -39,7 +61,7 @@ public class Customers extends javax.swing.JFrame {
             // SQLite Driver Load
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:./src/db/Golds-1.db");
-
+            int offset = (currentPage - 1) * rowsPerPage;
             System.out.println("cont");
 
         } catch (ClassNotFoundException ex) {
@@ -49,6 +71,7 @@ public class Customers extends javax.swing.JFrame {
         }
 
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -69,11 +92,17 @@ public class Customers extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtphone = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        lblpage = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(16, 23, 42));
@@ -186,6 +215,17 @@ public class Customers extends javax.swing.JFrame {
         jLabel8.setText("تلفون مشتری");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 240, -1, -1));
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_close_window_28px.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
+        lblpage.setText("jLabel5");
+        jPanel2.add(lblpage, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 730, -1, -1));
+
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -197,27 +237,24 @@ public class Customers extends javax.swing.JFrame {
                 "عملیه", "آدرس ", "تلفون", "تذکره", "نام کامل", "آی دی"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 1380, 400));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_close_window_28px.png"))); // NOI18N
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
-            }
-        });
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1400, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1400, 770));
@@ -228,7 +265,6 @@ public class Customers extends javax.swing.JFrame {
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
 
         //search customer
-
         try {
             ps = conn.prepareStatement("SELECT *FROM Customers WHERE Customers_id=?");
             ps.setString(1, txtID.getText());
@@ -244,6 +280,7 @@ public class Customers extends javax.swing.JFrame {
             }
         } catch (Exception e) {
         }
+
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -283,7 +320,6 @@ public class Customers extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         //max id
-
         try {
             ps = conn.prepareStatement("select max(Customers_id)+1 from Customers");
             rs = ps.executeQuery();
@@ -302,7 +338,6 @@ public class Customers extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
         //update customer
-
         try {
             String id = txtID.getText();
             String full = txtfullname.getText();
@@ -337,7 +372,6 @@ public class Customers extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
         ///add new customer
-
         try {
             String id = txtID.getText();
             String full = txtfullname.getText();
@@ -368,8 +402,55 @@ public class Customers extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-      new Exite().setVisible(true);   
+        new Exite().setVisible(true);
     }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+
+        DefaultTableModel model = new DefaultTableModel(
+                new Object[]{"آی دی", "نام کامل", "تلفون", "نمبرتذکره", "آدرس"}, 0);
+
+        try {
+            int offset = (currentPage - 1) * rowsPerPage;
+            String sql = "SELECT Customers_id, Fullname, Phone, NIC, Address "
+                    + "FROM Customers LIMIT ? OFFSET ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, rowsPerPage);
+            ps.setInt(2, offset);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getInt("Customers_id"),
+                    rs.getString("Fullname"),
+                    rs.getString("Phone"),
+                    rs.getString("NIC"),
+                    rs.getString("Address")
+                });
+            }
+
+            jTable1.setModel(model);
+            lblpage.setText("Page " + currentPage + " of " + totalPages);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }//GEN-LAST:event_formWindowActivated
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+
+//    int row = jTable1.getSelectedRow();
+//    if (row >= 0) {
+//      int customerId = Integer.parseInt(jTable1.getValueAt(row, 0).toString());
+//
+//        // فرم جدید باز می‌شود و بیلانس نشان داده می‌شود
+//        CustomerBalanceDetailForm detailForm = new CustomerBalanceDetailForm(conn,customerId);
+//        detailForm.setVisible(true);
+//    }
+
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -397,7 +478,7 @@ public class Customers extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Customers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
- GOLDMS dm = new GOLDMS();
+        GOLDMS dm = new GOLDMS();
         dm.form();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -422,6 +503,7 @@ public class Customers extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblpage;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtaddress;
     private javax.swing.JTextField txtfullname;
