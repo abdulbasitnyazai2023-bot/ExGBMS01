@@ -245,7 +245,7 @@ public final class Transactions extends javax.swing.JFrame {
                 txtweightKeyPressed(evt);
             }
         });
-        jPanel1.add(txtweight, new org.netbeans.lib.awtextra.AbsoluteConstraints(1356, 311, 360, 40));
+        jPanel1.add(txtweight, new org.netbeans.lib.awtextra.AbsoluteConstraints(1370, 190, 360, 40));
 
         jLabel10.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -263,13 +263,13 @@ public final class Transactions extends javax.swing.JFrame {
         lblusdin.setForeground(new java.awt.Color(255, 255, 255));
         lblusdin.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblusdin.setText("گرفت دالر");
-        jPanel1.add(lblusdin, new org.netbeans.lib.awtextra.AbsoluteConstraints(1640, 381, -1, -1));
+        jPanel1.add(lblusdin, new org.netbeans.lib.awtextra.AbsoluteConstraints(1630, 250, -1, -1));
 
         lblusdout.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         lblusdout.setForeground(new java.awt.Color(255, 255, 255));
         lblusdout.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblusdout.setText("پرداخت دالر");
-        jPanel1.add(lblusdout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1232, 381, -1, -1));
+        jPanel1.add(lblusdout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 210, -1, -1));
 
         txtafnin.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
         txtafnin.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -278,7 +278,7 @@ public final class Transactions extends javax.swing.JFrame {
                 txtafninKeyPressed(evt);
             }
         });
-        jPanel1.add(txtafnin, new org.netbeans.lib.awtextra.AbsoluteConstraints(563, 422, 360, 40));
+        jPanel1.add(txtafnin, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 220, 360, 40));
 
         txtusdin.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
         txtusdin.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -287,7 +287,7 @@ public final class Transactions extends javax.swing.JFrame {
                 txtusdinKeyPressed(evt);
             }
         });
-        jPanel1.add(txtusdin, new org.netbeans.lib.awtextra.AbsoluteConstraints(1356, 422, 360, 40));
+        jPanel1.add(txtusdin, new org.netbeans.lib.awtextra.AbsoluteConstraints(1360, 220, 360, 40));
 
         txtafnout.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
         txtafnout.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -305,25 +305,25 @@ public final class Transactions extends javax.swing.JFrame {
                 txtusdoutKeyPressed(evt);
             }
         });
-        jPanel1.add(txtusdout, new org.netbeans.lib.awtextra.AbsoluteConstraints(961, 422, 360, 40));
+        jPanel1.add(txtusdout, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 130, 360, 40));
 
         lblafnin.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         lblafnin.setForeground(new java.awt.Color(255, 255, 255));
         lblafnin.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblafnin.setText("گرفت افغانی");
-        jPanel1.add(lblafnin, new org.netbeans.lib.awtextra.AbsoluteConstraints(837, 390, -1, -1));
+        jPanel1.add(lblafnin, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 180, -1, -1));
 
         lblgoldout.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         lblgoldout.setForeground(new java.awt.Color(255, 255, 255));
         lblgoldout.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblgoldout.setText("پرداخت طلا");
-        jPanel1.add(lblgoldout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1234, 501, -1, -1));
+        jPanel1.add(lblgoldout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1360, 70, -1, -1));
 
         lblsilver.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         lblsilver.setForeground(new java.awt.Color(255, 255, 255));
         lblsilver.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblsilver.setText("گرفت نقره");
-        jPanel1.add(lblsilver, new org.netbeans.lib.awtextra.AbsoluteConstraints(842, 494, -1, -1));
+        jPanel1.add(lblsilver, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 200, -1, -1));
 
         txtgoldout.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
         txtgoldout.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -332,7 +332,7 @@ public final class Transactions extends javax.swing.JFrame {
                 txtgoldoutKeyPressed(evt);
             }
         });
-        jPanel1.add(txtgoldout, new org.netbeans.lib.awtextra.AbsoluteConstraints(961, 533, 360, 40));
+        jPanel1.add(txtgoldout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 170, 360, 40));
 
         lblsilverout.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         lblsilverout.setForeground(new java.awt.Color(255, 255, 255));
@@ -347,7 +347,7 @@ public final class Transactions extends javax.swing.JFrame {
                 txtsilverinKeyPressed(evt);
             }
         });
-        jPanel1.add(txtsilverin, new org.netbeans.lib.awtextra.AbsoluteConstraints(563, 533, 360, 40));
+        jPanel1.add(txtsilverin, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 120, 360, 40));
 
         txtgoldin.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
         txtgoldin.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -356,7 +356,7 @@ public final class Transactions extends javax.swing.JFrame {
                 txtgoldinKeyPressed(evt);
             }
         });
-        jPanel1.add(txtgoldin, new org.netbeans.lib.awtextra.AbsoluteConstraints(1356, 533, 360, 40));
+        jPanel1.add(txtgoldin, new org.netbeans.lib.awtextra.AbsoluteConstraints(1400, 210, 360, 40));
 
         txtsilverout.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
         txtsilverout.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -366,7 +366,7 @@ public final class Transactions extends javax.swing.JFrame {
         lblgoldin.setForeground(new java.awt.Color(255, 255, 255));
         lblgoldin.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblgoldin.setText("گرفت طلا");
-        jPanel1.add(lblgoldin, new org.netbeans.lib.awtextra.AbsoluteConstraints(1643, 501, -1, -1));
+        jPanel1.add(lblgoldin, new org.netbeans.lib.awtextra.AbsoluteConstraints(1620, 250, -1, -1));
 
         comtype.setFont(new java.awt.Font("Calibri", 1, 20)); // NOI18N
         comtype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "خرید", "فروش" }));
@@ -465,7 +465,7 @@ public final class Transactions extends javax.swing.JFrame {
         });
         jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 600, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1783, 1100));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, -120, 1783, 1100));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -526,10 +526,10 @@ public final class Transactions extends javax.swing.JFrame {
             } else {
                 type_txt = "sale";
             }
-            // =========================
             // 1️⃣ Customer ID پیدا کول
             // =========================
-            int customerId = 0;
+               // =========================
+         int customerId = 0;
             String customerName = comcustomer.getSelectedItem().toString().trim();
 
             if (!customerName.isEmpty()) {

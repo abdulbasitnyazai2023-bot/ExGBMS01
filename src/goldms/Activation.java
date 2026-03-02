@@ -444,7 +444,7 @@ public class ActivationChecker {
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-      new Exite().setVisible(true);   
+      this.dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void txtnic3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnic3ActionPerformed

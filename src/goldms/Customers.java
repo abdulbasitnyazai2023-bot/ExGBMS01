@@ -9,6 +9,8 @@ import java.sql.*;
 import javax.swing.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.xml.validation.Validator;
+import utils.validitoar;
 
 /**
  *
@@ -24,6 +26,41 @@ public class Customers extends javax.swing.JFrame {
         getConnection();
         setLocationRelativeTo(this);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        validitoar.allowOnlyText(txtfullname);
+        validitoar.allowOnlyNumbers(txtnic);
+        validitoar.allowOnlyNumbersWithLimit(txtphone, 10);
+        txtphone.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                checkPhone();
+            }
+
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                checkPhone();
+            }
+
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                checkPhone();
+            }
+
+            private void checkPhone() {
+                String number = validitoar.normalizeAfghanNumber(txtphone.getText());
+
+                if (number.matches("\\d{10}")
+                        && (number.startsWith("078")
+                        || number.startsWith("077")
+                        || number.startsWith("076")
+                        || number.startsWith("073")
+                        || number.startsWith("079")
+                        || number.startsWith("074"))) {
+
+                    txtphone.setBackground(new java.awt.Color(200, 255, 200)); // سبز
+                } else {
+                    txtphone.setBackground(new java.awt.Color(255, 200, 200)); // قرمز
+                }
+            }
+        });
 
         // فرض کنید نام جدول شما jTableCustomers است
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -81,6 +118,7 @@ public class Customers extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         txtnic = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
         txtfullname = new javax.swing.JTextField();
         txtaddress = new javax.swing.JTextField();
@@ -89,15 +127,17 @@ public class Customers extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         txtphone = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         lblpage = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -142,7 +182,22 @@ public class Customers extends javax.swing.JFrame {
                 txtnicActionPerformed(evt);
             }
         });
+        txtnic.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtnicKeyTyped(evt);
+            }
+        });
         jPanel2.add(txtnic, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 400, 40));
+
+        jLabel7.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_search_23px.png"))); // NOI18N
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel7MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 163, -1, 30));
 
         txtID.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtID.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -151,10 +206,20 @@ public class Customers extends javax.swing.JFrame {
                 txtIDFocusGained(evt);
             }
         });
-        jPanel2.add(txtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 160, 400, 40));
+        txtID.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIDKeyTyped(evt);
+            }
+        });
+        jPanel2.add(txtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 160, 400, 40));
 
         txtfullname.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtfullname.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtfullname.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtfullnameKeyTyped(evt);
+            }
+        });
         jPanel2.add(txtfullname, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 160, 400, 40));
 
         txtaddress.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -201,11 +266,6 @@ public class Customers extends javax.swing.JFrame {
         jLabel6.setText("آدرس مشتری");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 240, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("آی دی مشتری");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 120, -1, -1));
-
         txtphone.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtphone.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jPanel2.add(txtphone, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 280, 400, 40));
@@ -245,6 +305,11 @@ public class Customers extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 1380, 400));
+
+        jLabel9.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("آی دی مشتری");
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(1210, 120, -1, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -336,7 +401,30 @@ public class Customers extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnicActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if (validitoar.isEmpty(txtfullname, "نام را وارد کنید!")) {
+            return;
+        }
+        if (validitoar.isEmpty(txtphone, "شماره را وارد کنید!")) {
+            return;
+        }
 
+        if (!validitoar.isNumeric(txtphone.getText())) {
+            JOptionPane.showMessageDialog(this, "شماره فقط عدد باشد!");
+            return;
+        }
+
+        if (validitoar.hasNumber(txtfullname.getText())) {
+            JOptionPane.showMessageDialog(this, "نام نباید عدد داشته باشد!");
+            return;
+        }
+            if (!validitoar.isValidAfghanNumber(txtphone)) {
+                    return;   // اگر اشتباه بود ثبت نشودisPhoneDuplicate
+                }
+                 if (validitoar.isPhoneDuplicate(conn,txtphone.toString())) {
+                     
+                    return;
+                }
+                
         //update customer
         try {
             String id = txtID.getText();
@@ -389,7 +477,7 @@ public class Customers extends javax.swing.JFrame {
                 ps.setString(5, txtaddress.getText());
                 ps.executeUpdate();
                 ps.close();
-                JOptionPane.showMessageDialog(this, "Successfuly added new Customer");
+                JOptionPane.showMessageDialog(this, "مشتری موافقانه اضافه شد");
                 txtID.setText("");
                 txtfullname.setText("");
                 txtaddress.setText("");
@@ -402,7 +490,7 @@ public class Customers extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        new Exite().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -452,6 +540,36 @@ public class Customers extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jTable1MouseClicked
 
+    private void txtIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIDKeyTyped
+
+    }//GEN-LAST:event_txtIDKeyTyped
+
+    private void txtfullnameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtfullnameKeyTyped
+
+    }//GEN-LAST:event_txtfullnameKeyTyped
+
+    private void txtnicKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnicKeyTyped
+
+    }//GEN-LAST:event_txtnicKeyTyped
+
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+     try {
+            ps = conn.prepareStatement("SELECT *FROM Customers WHERE Customers_id=?");
+            ps.setString(1, txtID.getText());
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                txtfullname.setText(rs.getString(2));
+                txtnic.setText(rs.getString(3));
+                txtphone.setText(rs.getString(4));
+                txtaddress.setText(rs.getString(5));
+
+            } else {
+                JOptionPane.showMessageDialog(this, "به این آی دی" + txtID.getText() + "مشتری نیست!");
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_jLabel7MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -499,6 +617,7 @@ public class Customers extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

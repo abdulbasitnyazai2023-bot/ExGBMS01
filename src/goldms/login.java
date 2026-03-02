@@ -69,14 +69,12 @@ public class login extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jTextField1 = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
+        txtUsername = new javax.swing.JTextField();
         jCheckBox1 = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txttype = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -99,23 +97,23 @@ public class login extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 480, 390, 40));
 
-        jPasswordField1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jPasswordField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 390, 40));
+        txtPassword.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        txtPassword.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 390, 40));
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtUsername.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        txtUsername.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtUsername.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextField1FocusGained(evt);
+                txtUsernameFocusGained(evt);
             }
         });
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtUsername.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField1KeyTyped(evt);
+                txtUsernameKeyTyped(evt);
             }
         });
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, 390, 40));
+        jPanel1.add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 270, 390, 40));
 
         jCheckBox1.setBackground(new java.awt.Color(255, 255, 255));
         jCheckBox1.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
@@ -137,18 +135,10 @@ public class login extends javax.swing.JFrame {
         jLabel2.setText("ورود به سیستم");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("نوعیت کاربری:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 140, -1, -1));
-
         jLabel4.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("اسم کاربری:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 240, -1, -1));
-
-        txttype.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2" }));
-        jPanel1.add(txttype, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 170, 390, 40));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_close_window_28px.png"))); // NOI18N
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -165,16 +155,16 @@ public class login extends javax.swing.JFrame {
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         if (jCheckBox1.isSelected()) {
-            jPasswordField1.setEchoChar('\0');
+            txtPassword.setEchoChar('\0');
 
         } else {
-            jPasswordField1.setEchoChar('*');
+            txtPassword.setEchoChar('*');
         }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
-    private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
+    private void txtUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsernameFocusGained
 
-    }//GEN-LAST:event_jTextField1FocusGained
+    }//GEN-LAST:event_txtUsernameFocusGained
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 //        try {
@@ -219,8 +209,8 @@ public class login extends javax.swing.JFrame {
 //}
         try {
 
-            String username = jTextField1.getText().trim();
-            String password = new String(jPasswordField1.getPassword()).trim();
+            String username = txtUsername.getText().trim();
+            String password = new String(txtPassword.getPassword()).trim();
 
             if (username.isEmpty() || password.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "تمام فیلدها را پر کنید!");
@@ -238,16 +228,16 @@ public class login extends javax.swing.JFrame {
             if (rs.next()) {
 
                 int role_id = rs.getInt("Role_id"); // 👈 از دیتابیس بگیر
-                txttype.setSelectedItem(role_id);
+//                txttype.setSelectedItem(role_id);
                 if (role_id == 1) {
                     Dashboard dash = new Dashboard();
                     dash.setVisible(true);
-                    dash.txtusername.setText(username);
+//                    dash.txtusername.setText(username);
                     ps.close();
                 } else if (role_id == 2) {
                     Dashboard dash = new Dashboard();
                     dash.setVisible(true);
-                    dash.txtusername.setText(username);
+                //    dash.txtusername.setText(username);
                     ps.close();
                 }
 //        else if (role_id == 3) {
@@ -258,8 +248,8 @@ public class login extends javax.swing.JFrame {
 
             } else {
                 JOptionPane.showMessageDialog(this, "رمز عبور یا اسم کاربری غلط است!");
-                jTextField1.setText("");
-                jPasswordField1.setText("");
+                txtUsername.setText("");
+                txtPassword.setText("");
             }
 
         } catch (Exception e) {
@@ -269,13 +259,13 @@ public class login extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+    private void txtUsernameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyTyped
         char c = evt.getKeyChar();
         if (!(c >= 'a' && c <= 'z') && !(c >= 'A' && c <= 'Z')) {
             evt.consume();
 
         }
-    }//GEN-LAST:event_jTextField1KeyTyped
+    }//GEN-LAST:event_txtUsernameKeyTyped
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         new Exite().setVisible(true);        // TODO add your handling code here:
@@ -300,12 +290,10 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JComboBox<String> txttype;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

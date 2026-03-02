@@ -550,7 +550,8 @@ public class Transfer extends javax.swing.JFrame {
         try {
             getConnection();
             String money_type = cmbmonytype.getSelectedItem().toString();
-            if (money_type.equals("افغانی")) {
+           
+ if (money_type.equals("افغانی")) {
                 money_type = "afg";
 
             } else {
@@ -622,7 +623,7 @@ public class Transfer extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        new Exite().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void totalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalActionPerformed

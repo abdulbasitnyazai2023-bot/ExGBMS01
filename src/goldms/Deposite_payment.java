@@ -668,7 +668,7 @@ public class Deposite_payment extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        new Exite().setVisible(true);
+       this.dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void txtamountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtamountActionPerformed

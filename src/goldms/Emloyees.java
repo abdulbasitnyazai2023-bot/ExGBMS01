@@ -5,6 +5,7 @@
  */
 package goldms;
 
+import utils.validitoar;
 import java.awt.Image;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -28,6 +29,42 @@ public class Emloyees extends javax.swing.JFrame {
         initComponents();
         getConnection();
         setLocationRelativeTo(this);
+
+        validitoar.allowOnlyText(txtfullname);
+        validitoar.allowOnlyNumbers(txtnic);
+        validitoar.allowOnlyNumbersWithLimit(txtphone, 10);
+        txtphone.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+
+    public void changedUpdate(javax.swing.event.DocumentEvent e) {
+        checkPhone();
+    }
+
+    @Override
+    public void removeUpdate(javax.swing.event.DocumentEvent e) {
+        checkPhone();
+    }
+
+    public void insertUpdate(javax.swing.event.DocumentEvent e) {
+        checkPhone();
+    }
+
+    private void checkPhone() {
+        String number = validitoar.normalizeAfghanNumber(txtphone.getText());
+
+        if (number.matches("\\d{10}") &&
+            (number.startsWith("078") ||
+             number.startsWith("077") ||
+             number.startsWith("076") ||
+             number.startsWith("073") ||
+             number.startsWith("079") ||
+             number.startsWith("074"))) {
+
+            txtphone.setForeground(new java.awt.Color(200, 255, 200)); // سبز
+        } else {
+            txtphone.setForeground(new java.awt.Color(255, 200, 200)); // قرمز
+        }
+    }
+});
 
     }
 
@@ -80,6 +117,8 @@ public class Emloyees extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(16, 23, 42));
@@ -236,6 +275,11 @@ public class Emloyees extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 1340, 340));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_close_window_28px.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1360, 780));
@@ -254,6 +298,15 @@ public class Emloyees extends javax.swing.JFrame {
             if (id.equals("") || full.equals("") || nic.equals("") || p.equals("")) {
                 JOptionPane.showMessageDialog(this, "اول فیلد ها راپر کنید!");
             } else {
+                if (!validitoar.isValidAfghanNumber(txtphone)) {
+                    return;   // اگر اشتباه بود ثبت نشودisPhoneDuplicate
+                }
+                 if (validitoar.isPhoneDuplicate(conn,txtphone.toString())) {
+                     
+                    return;
+                }
+                
+                
                 ps = conn.prepareStatement("INSERT INTO Employee(Employee_id,Fullname,Role,Phone,NIC,Profile_picture)VALUES(?,?,?,?,?,?)");
                 ps.setString(1, txtID.getText());
                 ps.setString(2, txtfullname.getText());
@@ -272,6 +325,7 @@ public class Emloyees extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            
         }
 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -334,8 +388,20 @@ public class Emloyees extends javax.swing.JFrame {
             String p = txtphone.getText();
 
             if (id.equals("") || full.equals("") || nic.equals("") || p.equals("")) {
-            
+
             } else {
+                String phone = validitoar.normalizeAfghanNumber(txtphone.getText());
+
+                if (!validitoar.isValidAfghanNumber(txtphone)) {
+                    return;
+                }
+
+                if (validitoar.isPhoneDuplicate(conn, phone)) {
+                    return;
+                }
+                if (!validitoar.isValidAfghanNumber(txtphone)) {
+                    return;
+                }
                 ps = conn.prepareStatement("UPDATE Employee SET Fullname=?,Role=?,Phone=?,NIC=? WHERE Employee_id=?");
 
                 ps.setString(1, txtfullname.getText());
@@ -426,12 +492,16 @@ public class Emloyees extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtnicActionPerformed
 
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel1MouseClicked
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-         GOLDMS dm = new GOLDMS();
+        GOLDMS dm = new GOLDMS();
         dm.form();
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -454,8 +524,8 @@ public class Emloyees extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Emloyees.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-GOLDMS gm=new GOLDMS();
-gm.form();
+        GOLDMS gm = new GOLDMS();
+        gm.form();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

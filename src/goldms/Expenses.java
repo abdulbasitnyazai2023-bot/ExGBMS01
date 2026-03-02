@@ -385,7 +385,7 @@ public class Expenses extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        new Exite().setVisible(true);
+     this.dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
 
     /**

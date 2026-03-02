@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package goldms;
 
 import java.awt.Image;
@@ -11,21 +6,17 @@ import static java.util.Arrays.fill;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author DELL
- */
 public class Exchange_rate extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Customers
-     */
     public Exchange_rate() {
         initComponents();
         getConnection();
         setLocationRelativeTo(this);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        loadEmployees();
+        styleTable();
     }
 
     // د ډیټابېس مسیر (Path)
@@ -49,6 +40,68 @@ public class Exchange_rate extends javax.swing.JFrame {
         }
 
     }
+
+    public void loadEmployees() {
+        try {
+
+            String sql = "SELECT  Role_name FROM Roles";
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            select.removeAllItems();
+
+            while (rs.next()) {
+                select.addItem(rs.getString("Role_name"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+     private void styleTable() {
+
+        jTable1.setRowHeight(40);
+
+        // حذف خطوط داخلی برای ظاهر مدرن
+        jTable1.setShowGrid(false);
+        jTable1.setIntercellSpacing(new java.awt.Dimension(0, 0));
+
+        // رنگ هدر (بالای جدول)
+        jTable1.getTableHeader().setBackground(new java.awt.Color(30, 41, 59));
+        jTable1.getTableHeader().setForeground(java.awt.Color.WHITE);
+
+        jTable1.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
+
+            @Override
+            public java.awt.Component getTableCellRendererComponent(
+                    javax.swing.JTable table, Object value,
+                    boolean isSelected, boolean hasFocus,
+                    int row, int column) {
+
+                java.awt.Component c = super.getTableCellRendererComponent(
+                        table, value, isSelected, hasFocus, row, column);
+
+                // رنگ انتخاب
+                if (isSelected) {
+                    c.setBackground(new java.awt.Color(255, 181, 3)); // طلایی GBMS
+                    c.setForeground(java.awt.Color.BLACK);
+                } else {
+
+                    // Zebra مدرن
+                    if (row % 2 == 0) {
+                        c.setBackground(new java.awt.Color(248, 249, 250));
+                    } else {
+                        c.setBackground(new java.awt.Color(235, 240, 245));
+                    }
+
+                    c.setForeground(java.awt.Color.BLACK);
+                }
+
+                return c;
+            }
+        });
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -59,25 +112,31 @@ public class Exchange_rate extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        txtnic2 = new javax.swing.JTextField();
-        txtnic3 = new javax.swing.JTextField();
+        serach = new javax.swing.JLabel();
+        rate_id = new javax.swing.JTextField();
+        dollar_to_afn = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        txtnic4 = new javax.swing.JTextField();
+        afn_to_dollar = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         txtnic5 = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        txtnic6 = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         txtnic7 = new javax.swing.JTextField();
+        select = new javax.swing.JComboBox<>();
+        jLabel14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(16, 23, 42));
@@ -133,20 +192,15 @@ public class Exchange_rate extends javax.swing.JFrame {
         });
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 50, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("آی دی ثبت");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(1510, 140, -1, -1));
-
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "عملیه", "تایید شده", "تاریخ", "افغانی به دالر", "دالر به افغانی", "آی دی"
+                "تایید شده", "تاریخ", "افغانی به دالر", "دالر به افغانی", "آی دی"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -161,23 +215,33 @@ public class Exchange_rate extends javax.swing.JFrame {
         });
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
-        txtnic2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        txtnic2.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtnic2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtnic2ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(txtnic2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 180, 360, 40));
+        serach.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        serach.setForeground(new java.awt.Color(255, 255, 255));
+        serach.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_search_23px.png"))); // NOI18N
+        jPanel2.add(serach, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 183, -1, 40));
 
-        txtnic3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        txtnic3.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtnic3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtnic3ActionPerformed(evt);
+        rate_id.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        rate_id.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        rate_id.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                rate_idFocusGained(evt);
             }
         });
-        jPanel2.add(txtnic3, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 180, 360, 40));
+        rate_id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rate_idActionPerformed(evt);
+            }
+        });
+        jPanel2.add(rate_id, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 180, 360, 40));
+
+        dollar_to_afn.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        dollar_to_afn.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        dollar_to_afn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dollar_to_afnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(dollar_to_afn, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 180, 360, 40));
 
         jLabel9.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -189,14 +253,14 @@ public class Exchange_rate extends javax.swing.JFrame {
         jLabel10.setText("افغانی به دالر");
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 140, -1, -1));
 
-        txtnic4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        txtnic4.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtnic4.addActionListener(new java.awt.event.ActionListener() {
+        afn_to_dollar.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        afn_to_dollar.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        afn_to_dollar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtnic4ActionPerformed(evt);
+                afn_to_dollarActionPerformed(evt);
             }
         });
-        jPanel2.add(txtnic4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 180, 360, 40));
+        jPanel2.add(afn_to_dollar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 180, 360, 40));
 
         jLabel11.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -214,17 +278,8 @@ public class Exchange_rate extends javax.swing.JFrame {
 
         jLabel12.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("تاریخ");
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 140, -1, -1));
-
-        txtnic6.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        txtnic6.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtnic6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtnic6ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(txtnic6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 360, 40));
+        jLabel12.setText("نام کاربر:");
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 140, -1, -1));
 
         jLabel13.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
@@ -239,6 +294,14 @@ public class Exchange_rate extends javax.swing.JFrame {
             }
         });
         jPanel2.add(txtnic7, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 320, 360, 40));
+
+        select.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel2.add(select, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 340, 40));
+
+        jLabel14.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("آی دی ثبت");
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(1510, 140, -1, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -275,11 +338,11 @@ public class Exchange_rate extends javax.swing.JFrame {
             }
         } catch (Exception e) {
         }
-        */
+         */
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-/*
+        /*
         try {
 
             String txtid = txtID.getText();
@@ -308,7 +371,7 @@ public class Exchange_rate extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
-*/
+         */
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -344,70 +407,109 @@ public class Exchange_rate extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        */
+         */
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-        ///add new customer
-/*
         try {
-            String id = txtID.getText();
-            String full = txtfullname.getText();
-            String nic = txtnic.getText();
-            String p = txtphone.getText();
-            String add = txtaddress.getText();
-            if (id.equals("") || full.equals("") || nic.equals("") || p.equals("") || add.equals("")) {
-                JOptionPane.showMessageDialog(this, "فیلدها را پر کنید!");
+            getConnection(); // فرض بر این است که conn آماده می‌شود
+
+            ps = conn.prepareStatement("INSERT INTO exchange_rate(rate_id,dollar_to_afn,afn_to_dollar,created_by)VALUES(?,?,?,?)");
+            ps.setString(1, rate_id.getText());
+            ps.setString(2, dollar_to_afn.getText());
+            ps.setString(3, afn_to_dollar.getText());
+            ps.setString(4, select.getSelectedItem().toString().trim());
+            int row = ps.executeUpdate();
+            if (row > 0) {
+                JOptionPane.showMessageDialog(this, "قیمت به موافقت ثبت شد!");
+
             } else {
-                ps = conn.prepareStatement("INSERT INTO Customers(Customers_id,Fullname,NIC,Phone,Address)VALUES(?,?,?,?,?)");
-                ps.setString(1, txtID.getText());
-                ps.setString(2, txtfullname.getText());
-                ps.setString(3, txtnic.getText());
-                ps.setString(4, txtphone.getText());
-                ps.setString(5, txtaddress.getText());
-                ps.executeUpdate();
-                ps.close();
-                JOptionPane.showMessageDialog(this, "Successfuly added new Customer");
-                txtID.setText("");
-                txtfullname.setText("");
-                txtaddress.setText("");
-                txtphone.setText("");
-                txtnic.setText("");
+                JOptionPane.showMessageDialog(this, "مشکل به وجود امد دوباره کوشش کنید!");
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
-        */
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-      new Exite().setVisible(true);   
+       this.dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
 
-    private void txtnic4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnic4ActionPerformed
+    private void afn_to_dollarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_afn_to_dollarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtnic4ActionPerformed
+    }//GEN-LAST:event_afn_to_dollarActionPerformed
 
     private void txtnic5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnic5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtnic5ActionPerformed
 
-    private void txtnic3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnic3ActionPerformed
+    private void dollar_to_afnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dollar_to_afnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtnic3ActionPerformed
+    }//GEN-LAST:event_dollar_to_afnActionPerformed
 
-    private void txtnic2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnic2ActionPerformed
+    private void rate_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rate_idActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtnic2ActionPerformed
-
-    private void txtnic6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnic6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtnic6ActionPerformed
+    }//GEN-LAST:event_rate_idActionPerformed
 
     private void txtnic7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnic7ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtnic7ActionPerformed
+
+    private void rate_idFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_rate_idFocusGained
+
+        //max id
+        try {
+            ps = conn.prepareStatement("SELECT  MAX(rate_id)+1 FROM exchange_rate");
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                rate_id.setText(rs.getString("MAX(rate_id)+1"));
+            }
+        } catch (Exception e) {
+
+        }
+    }//GEN-LAST:event_rate_idFocusGained
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+        try {
+            getConnection();
+            ps = conn.prepareStatement("SELECT *FROM exchange_rate ORDER BY rate_id DESC");
+            rs = ps.executeQuery();
+
+            model.setRowCount(0); // جدول پاک کړئ
+
+            while (rs.next()) {
+
+                Object[] row = {
+                  
+                
+                    rs.getString("created_by"),
+                    rs.getString("rate_datetime"),
+                    rs.getString("afn_to_dollar"),
+                    rs.getString("dollar_to_afn"),
+                    rs.getInt("rate_id"),};
+                model.addRow(row);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -435,7 +537,7 @@ public class Exchange_rate extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Exchange_rate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
- GOLDMS dm = new GOLDMS();
+        GOLDMS dm = new GOLDMS();
         dm.form();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -446,6 +548,8 @@ public class Exchange_rate extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField afn_to_dollar;
+    private javax.swing.JTextField dollar_to_afn;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -454,18 +558,17 @@ public class Exchange_rate extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField txtnic2;
-    private javax.swing.JTextField txtnic3;
-    private javax.swing.JTextField txtnic4;
+    private javax.swing.JTextField rate_id;
+    private javax.swing.JComboBox<String> select;
+    private javax.swing.JLabel serach;
     private javax.swing.JTextField txtnic5;
-    private javax.swing.JTextField txtnic6;
     private javax.swing.JTextField txtnic7;
     // End of variables declaration//GEN-END:variables
 }

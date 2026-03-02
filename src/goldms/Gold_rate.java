@@ -11,6 +11,9 @@ import static java.util.Arrays.fill;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -23,6 +26,7 @@ public class Gold_rate extends javax.swing.JFrame {
      */
     public Gold_rate() {
         initComponents();
+        styleTable();
         getConnection();
         setLocationRelativeTo(this);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,6 +53,49 @@ public class Gold_rate extends javax.swing.JFrame {
         }
 
     }
+  private void styleTable() {
+
+        jTable1.setRowHeight(40);
+
+        // حذف خطوط داخلی برای ظاهر مدرن
+        jTable1.setShowGrid(false);
+        jTable1.setIntercellSpacing(new java.awt.Dimension(0, 0));
+
+        // رنگ هدر (بالای جدول)
+        jTable1.getTableHeader().setBackground(new java.awt.Color(30, 41, 59));
+        jTable1.getTableHeader().setForeground(java.awt.Color.WHITE);
+
+        jTable1.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
+
+            @Override
+            public java.awt.Component getTableCellRendererComponent(
+                    javax.swing.JTable table, Object value,
+                    boolean isSelected, boolean hasFocus,
+                    int row, int column) {
+
+                java.awt.Component c = super.getTableCellRendererComponent(
+                        table, value, isSelected, hasFocus, row, column);
+
+                // رنگ انتخاب
+                if (isSelected) {
+                    c.setBackground(new java.awt.Color(255, 181, 3)); // طلایی GBMS
+                    c.setForeground(java.awt.Color.BLACK);
+                } else {
+
+                    // Zebra مدرن
+                    if (row % 2 == 0) {
+                        c.setBackground(new java.awt.Color(248, 249, 250));
+                    } else {
+                        c.setBackground(new java.awt.Color(235, 240, 245));
+                    }
+
+                    c.setForeground(java.awt.Color.BLACK);
+                }
+
+                return c;
+            }
+        });
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -60,13 +107,18 @@ public class Gold_rate extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        txtnic5 = new javax.swing.JTextField();
-        txtnic6 = new javax.swing.JTextField();
+        txtsearch = new javax.swing.JTextField();
+        txtsearch1 = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(16, 23, 42));
@@ -111,23 +163,33 @@ public class Gold_rate extends javax.swing.JFrame {
         jLabel11.setText("از تاریخ:");
         jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(1380, 150, -1, 40));
 
-        txtnic5.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        txtnic5.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtnic5.addActionListener(new java.awt.event.ActionListener() {
+        txtsearch.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtsearch.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtsearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtnic5ActionPerformed(evt);
+                txtsearchActionPerformed(evt);
             }
         });
-        jPanel2.add(txtnic5, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 150, 420, 40));
+        txtsearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtsearchKeyTyped(evt);
+            }
+        });
+        jPanel2.add(txtsearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 150, 420, 40));
 
-        txtnic6.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        txtnic6.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtnic6.addActionListener(new java.awt.event.ActionListener() {
+        txtsearch1.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtsearch1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtsearch1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtnic6ActionPerformed(evt);
+                txtsearch1ActionPerformed(evt);
             }
         });
-        jPanel2.add(txtnic6, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 150, 420, 40));
+        txtsearch1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtsearch1KeyTyped(evt);
+            }
+        });
+        jPanel2.add(txtsearch1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 150, 420, 40));
 
         jLabel12.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
@@ -169,20 +231,81 @@ public class Gold_rate extends javax.swing.JFrame {
             }
         } catch (Exception e) {
         }
-        */
+         */
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-      new Exite().setVisible(true);   
+        new Exite().setVisible(true);
     }//GEN-LAST:event_jLabel1MouseClicked
 
-    private void txtnic5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnic5ActionPerformed
+    private void txtsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtsearchActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtnic5ActionPerformed
+    }//GEN-LAST:event_txtsearchActionPerformed
 
-    private void txtnic6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnic6ActionPerformed
+    private void txtsearch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtsearch1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtnic6ActionPerformed
+    }//GEN-LAST:event_txtsearch1ActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+        try {
+            getConnection();
+            ps = conn.prepareStatement("SELECT *FROM gold_rates ORDER BY id DESC");
+            rs = ps.executeQuery();
+
+            model.setRowCount(0); // جدول پاک کړئ
+
+            while (rs.next()) {
+
+                Object[] row = {
+                  
+                    rs.getString("jalali_date"),
+                    rs.getString("transaction_id"),
+                    rs.getString("price_per_pashna"),
+                    rs.getString("price_per_mithqal"),
+                    rs.getString("price_per_gram"),
+                    rs.getInt("id"),};
+                model.addRow(row);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_formWindowActivated
+
+    private void txtsearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsearchKeyTyped
+       //jTextField1.setText("");
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        String search = txtsearch.getText();
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(model);
+        jTable1.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(search));
+    }//GEN-LAST:event_txtsearchKeyTyped
+
+    private void txtsearch1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsearch1KeyTyped
+         //jTextField1.setText("");
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        String search = txtsearch1.getText();
+        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(model);
+        jTable1.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(search));
+    }//GEN-LAST:event_txtsearch1KeyTyped
 
     /**
      * @param args the command line arguments
@@ -210,7 +333,7 @@ public class Gold_rate extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Gold_rate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
- GOLDMS dm = new GOLDMS();
+        GOLDMS dm = new GOLDMS();
         dm.form();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -229,7 +352,7 @@ public class Gold_rate extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField txtnic5;
-    private javax.swing.JTextField txtnic6;
+    private javax.swing.JTextField txtsearch;
+    private javax.swing.JTextField txtsearch1;
     // End of variables declaration//GEN-END:variables
 }

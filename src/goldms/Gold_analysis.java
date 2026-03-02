@@ -433,7 +433,7 @@ public class Gold_analysis extends javax.swing.JFrame {
     }//GEN-LAST:event_txtfinalweightKeyTyped
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        new Exite().setVisible(true);        // TODO add your handling code here:
+        this.dispose();       // TODO add your handling code here:
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void txtIdFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIdFocusGained
