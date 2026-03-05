@@ -53,7 +53,8 @@ public class Gold_rate extends javax.swing.JFrame {
         }
 
     }
-  private void styleTable() {
+
+    private void styleTable() {
 
         jTable1.setRowHeight(40);
 
@@ -96,6 +97,7 @@ public class Gold_rate extends javax.swing.JFrame {
             }
         });
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -122,6 +124,11 @@ public class Gold_rate extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(16, 23, 42));
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel2MouseEntered(evt);
+            }
+        });
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setBackground(new java.awt.Color(255, 181, 3));
@@ -259,7 +266,6 @@ public class Gold_rate extends javax.swing.JFrame {
             while (rs.next()) {
 
                 Object[] row = {
-                  
                     rs.getString("jalali_date"),
                     rs.getString("transaction_id"),
                     rs.getString("price_per_pashna"),
@@ -290,7 +296,7 @@ public class Gold_rate extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void txtsearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsearchKeyTyped
-       //jTextField1.setText("");
+        //jTextField1.setText("");
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         String search = txtsearch.getText();
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(model);
@@ -299,13 +305,19 @@ public class Gold_rate extends javax.swing.JFrame {
     }//GEN-LAST:event_txtsearchKeyTyped
 
     private void txtsearch1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsearch1KeyTyped
-         //jTextField1.setText("");
+        //jTextField1.setText("");
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         String search = txtsearch1.getText();
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(model);
         jTable1.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(search));
     }//GEN-LAST:event_txtsearch1KeyTyped
+    int posX, posY;
+    private void jPanel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseEntered
+        posX = evt.getX();
+        posY = evt.getY();
+
+    }//GEN-LAST:event_jPanel2MouseEntered
 
     /**
      * @param args the command line arguments

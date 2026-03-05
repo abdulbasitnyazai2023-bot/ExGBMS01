@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package goldms;
 
 import com.formdev.flatlaf.FlatLightLaf;
@@ -16,7 +11,12 @@ import java.awt.Toolkit;
 
 public class Dashboard extends javax.swing.JFrame {
 
-    public Dashboard() {
+    private int role_id;
+
+    public Dashboard(int role_id) {
+        //   /
+        this.role_id = role_id;
+
         initComponents();
         getConnection();
         Transactions();
@@ -36,6 +36,8 @@ public class Dashboard extends javax.swing.JFrame {
         treaGold();
         treaUsd();
         treaSilver();
+        setAccess();
+
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (screenSize.width - this.getWidth()) / 2; // وسط افقی
         int y = 0; // بالای صفحه
@@ -43,6 +45,30 @@ public class Dashboard extends javax.swing.JFrame {
         getNotification();
     }
 
+    private void setAccess() {
+        switch (role_id) {
+            case 1:
+//                btnActivation.setEnabled(false);
+                break;
+            case 2:
+                btnApp.setEnabled(false);
+                btnNotific.setEnabled(false);
+                btnActivation.setEnabled(false);
+                btnSetting.setEnabled(false);
+                btnExchange.setEnabled(false);
+                break;
+            case 3:
+                ///
+                btnActivation.setEnabled(false);
+                btnApp.setEnabled(false);
+                btnNotific.setEnabled(false);
+                btnSetting.setEnabled(false);
+                btnCancel.setEnabled(false);
+                btnExchange.setEnabled(false);
+
+                break;
+        }
+    }
     // د ډیټابېس مسیر (Path)
     private Connection conn;
     private PreparedStatement ps;
@@ -471,7 +497,7 @@ public class Dashboard extends javax.swing.JFrame {
             rs = ps.executeQuery();
             if (rs.next()) {
                 jLabel45.setText(rs.getString(1));
-                jLabel.setText(rs.getString(1));
+//                jLabel.setText(rs.getString(1));
 
             }
         } catch (Exception e) {
@@ -497,12 +523,13 @@ public class Dashboard extends javax.swing.JFrame {
             ps = conn.prepareStatement("SELECT COUNT(request_id) FROM approval_requests WHERE status='COMPLETE'");
             rs = ps.executeQuery();
             if (rs.next()) {
-                jLabel56.setText("تاییدشده:" + rs.getString(1));
+//                jLabel56.setText("تاییدشده:" + rs.getString(1));
 
             }
         } catch (Exception e) {
         }
     }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -577,41 +604,27 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel55 = new javax.swing.JLabel();
         jLabel50 = new javax.swing.JLabel();
         jLabel53 = new javax.swing.JLabel();
-        jLabel54 = new javax.swing.JLabel();
+        txtusername = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jPanel29 = new javax.swing.JPanel();
-        jLabel48 = new javax.swing.JLabel();
-        jPanel32 = new javax.swing.JPanel();
-        jLabel51 = new javax.swing.JLabel();
-        jLabel = new javax.swing.JLabel();
-        jPanel31 = new javax.swing.JPanel();
-        jLabel47 = new javax.swing.JLabel();
-        jPanel26 = new javax.swing.JPanel();
-        jLabel49 = new javax.swing.JLabel();
-        jPanel30 = new javax.swing.JPanel();
-        jLabel44 = new javax.swing.JLabel();
-        jLabel56 = new javax.swing.JLabel();
-        jPanel27 = new javax.swing.JPanel();
-        jLabel52 = new javax.swing.JLabel();
-        jPanel25 = new javax.swing.JPanel();
-        jLabel43 = new javax.swing.JLabel();
-        jPanel24 = new javax.swing.JPanel();
-        jLabel42 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel38 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel37 = new javax.swing.JLabel();
-        jPanel21 = new javax.swing.JPanel();
-        jLabel39 = new javax.swing.JLabel();
-        jPanel23 = new javax.swing.JPanel();
-        jLabel41 = new javax.swing.JLabel();
-        jPanel28 = new javax.swing.JPanel();
-        jLabel46 = new javax.swing.JLabel();
-        jPanel22 = new javax.swing.JPanel();
-        jLabel40 = new javax.swing.JLabel();
+        btnCustomer = new javax.swing.JButton();
+        btnSetting = new javax.swing.JButton();
+        btnDebt = new javax.swing.JButton();
+        btnTransaction = new javax.swing.JButton();
+        btnTransfer = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
+        btnExpense = new javax.swing.JButton();
+        btnCapital = new javax.swing.JButton();
+        btnTreasury = new javax.swing.JButton();
+        btnEmployee = new javax.swing.JButton();
+        btnApp = new javax.swing.JButton();
+        btnExchange = new javax.swing.JButton();
+        btnNotific = new javax.swing.JButton();
+        btnActivation = new javax.swing.JButton();
+        btnRecept = new javax.swing.JButton();
+        btnPayment = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -971,10 +984,10 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel53.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel6.add(jLabel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 10, -1, 48));
 
-        jLabel54.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel54.setForeground(new java.awt.Color(255, 181, 3));
-        jLabel54.setText("فایده امروز");
-        jPanel6.add(jLabel54, new org.netbeans.lib.awtextra.AbsoluteConstraints(473, 0, -1, 48));
+        txtusername.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtusername.setForeground(new java.awt.Color(255, 181, 3));
+        txtusername.setText("فایده امروز");
+        jPanel6.add(txtusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(473, 0, -1, 48));
 
         jLabel45.setBackground(new java.awt.Color(255, 255, 255));
         jLabel45.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
@@ -999,453 +1012,199 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/Gold_logo.png"))); // NOI18N
-        jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 220, 110));
+        jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 70, 220, 110));
 
-        jPanel29.setBackground(new java.awt.Color(16, 23, 41));
-
-        jLabel48.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel48.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_capital_34px.png"))); // NOI18N
-        jLabel48.setText("ثبت سرمایه");
-        jLabel48.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel48.setFocusable(false);
-        jLabel48.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jLabel48.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel48MouseClicked(evt);
+        btnCustomer.setBackground(new java.awt.Color(16, 23, 41));
+        btnCustomer.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnCustomer.setForeground(new java.awt.Color(255, 255, 255));
+        btnCustomer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_member_34px.png"))); // NOI18N
+        btnCustomer.setText("ثبت مشتریان");
+        btnCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCustomerActionPerformed(evt);
             }
         });
+        jPanel5.add(btnCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 220, -1));
 
-        javax.swing.GroupLayout jPanel29Layout = new javax.swing.GroupLayout(jPanel29);
-        jPanel29.setLayout(jPanel29Layout);
-        jPanel29Layout.setHorizontalGroup(
-            jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel29Layout.createSequentialGroup()
-                .addContainerGap(127, Short.MAX_VALUE)
-                .addComponent(jLabel48)
-                .addContainerGap())
-        );
-        jPanel29Layout.setVerticalGroup(
-            jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel48, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
-
-        jPanel5.add(jPanel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 520, 250, 50));
-
-        jPanel32.setBackground(new java.awt.Color(16, 23, 41));
-
-        jLabel51.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel51.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel51.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_alarm_clock_34px.png"))); // NOI18N
-        jLabel51.setText("نمایش نوتیفکیشن ها");
-        jLabel51.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel51.setFocusable(false);
-        jLabel51.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jLabel51.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel51MouseClicked(evt);
+        btnSetting.setBackground(new java.awt.Color(16, 23, 41));
+        btnSetting.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnSetting.setForeground(new java.awt.Color(255, 255, 255));
+        btnSetting.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_dollar_bitcoin_exchange_34px.png"))); // NOI18N
+        btnSetting.setText("تنظیمات");
+        btnSetting.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSettingActionPerformed(evt);
             }
         });
+        jPanel5.add(btnSetting, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 940, 220, -1));
 
-        jLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel.setText("0");
-
-        javax.swing.GroupLayout jPanel32Layout = new javax.swing.GroupLayout(jPanel32);
-        jPanel32.setLayout(jPanel32Layout);
-        jPanel32Layout.setHorizontalGroup(
-            jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel32Layout.createSequentialGroup()
-                .addComponent(jLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel51, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel32Layout.setVerticalGroup(
-            jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel51, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                .addComponent(jLabel))
-        );
-
-        jPanel5.add(jPanel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 820, 250, 50));
-
-        jPanel31.setBackground(new java.awt.Color(16, 23, 41));
-
-        jLabel47.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel47.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel47.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_dollar_bitcoin_exchange_34px.png"))); // NOI18N
-        jLabel47.setText("ثبت نرخ");
-        jLabel47.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel47.setFocusable(false);
-        jLabel47.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jLabel47.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel47MouseClicked(evt);
+        btnDebt.setBackground(new java.awt.Color(16, 23, 41));
+        btnDebt.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnDebt.setForeground(new java.awt.Color(255, 255, 255));
+        btnDebt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_dollar_bitcoin_exchange_34px.png"))); // NOI18N
+        btnDebt.setText("سپرده");
+        btnDebt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDebtActionPerformed(evt);
             }
         });
+        jPanel5.add(btnDebt, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 220, -1));
 
-        javax.swing.GroupLayout jPanel31Layout = new javax.swing.GroupLayout(jPanel31);
-        jPanel31.setLayout(jPanel31Layout);
-        jPanel31Layout.setHorizontalGroup(
-            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel31Layout.createSequentialGroup()
-                .addContainerGap(146, Short.MAX_VALUE)
-                .addComponent(jLabel47)
-                .addContainerGap())
-        );
-        jPanel31Layout.setVerticalGroup(
-            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel47, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
-
-        jPanel5.add(jPanel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 760, 250, 50));
-
-        jPanel26.setBackground(new java.awt.Color(16, 23, 41));
-
-        jLabel49.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel49.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel49.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_member_34px.png"))); // NOI18N
-        jLabel49.setText("ثبت کارمندان");
-        jLabel49.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel49.setFocusable(false);
-        jLabel49.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jLabel49.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel49MouseClicked(evt);
+        btnTransaction.setBackground(new java.awt.Color(16, 23, 41));
+        btnTransaction.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnTransaction.setForeground(new java.awt.Color(255, 255, 255));
+        btnTransaction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_dollar_bitcoin_exchange_34px.png"))); // NOI18N
+        btnTransaction.setText("ثبت معاملات");
+        btnTransaction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTransactionActionPerformed(evt);
             }
         });
+        jPanel5.add(btnTransaction, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 230, -1));
 
-        javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
-        jPanel26.setLayout(jPanel26Layout);
-        jPanel26Layout.setHorizontalGroup(
-            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel26Layout.createSequentialGroup()
-                .addContainerGap(115, Short.MAX_VALUE)
-                .addComponent(jLabel49)
-                .addContainerGap())
-        );
-        jPanel26Layout.setVerticalGroup(
-            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel49, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
-
-        jPanel5.add(jPanel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 640, 250, 50));
-
-        jPanel30.setBackground(new java.awt.Color(16, 23, 41));
-
-        jLabel44.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel44.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel44.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_check_all_34px.png"))); // NOI18N
-        jLabel44.setText("تایید درخواست ها");
-        jLabel44.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel44.setFocusable(false);
-        jLabel44.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jLabel44.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel44MouseClicked(evt);
+        btnTransfer.setBackground(new java.awt.Color(16, 23, 41));
+        btnTransfer.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnTransfer.setForeground(new java.awt.Color(255, 255, 255));
+        btnTransfer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_dollar_bitcoin_exchange_34px.png"))); // NOI18N
+        btnTransfer.setText("ثبت تبادله ");
+        btnTransfer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTransferActionPerformed(evt);
             }
         });
+        jPanel5.add(btnTransfer, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 230, -1));
 
-        jLabel56.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel56.setForeground(new java.awt.Color(0, 204, 0));
-        jLabel56.setText("0");
-
-        javax.swing.GroupLayout jPanel30Layout = new javax.swing.GroupLayout(jPanel30);
-        jPanel30.setLayout(jPanel30Layout);
-        jPanel30Layout.setHorizontalGroup(
-            jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel30Layout.createSequentialGroup()
-                .addComponent(jLabel56)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel44)
-                .addContainerGap())
-        );
-        jPanel30Layout.setVerticalGroup(
-            jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jLabel56, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel5.add(jPanel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 700, 250, 50));
-
-        jPanel27.setBackground(new java.awt.Color(16, 23, 41));
-
-        jLabel52.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel52.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel52.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_server_shutdown_34px_1.png"))); // NOI18N
-        jLabel52.setText("فعال سازی سیستم");
-        jLabel52.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel52.setFocusable(false);
-        jLabel52.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jLabel52.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel52MouseClicked(evt);
+        btnCancel.setBackground(new java.awt.Color(16, 23, 41));
+        btnCancel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnCancel.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_dollar_bitcoin_exchange_34px.png"))); // NOI18N
+        btnCancel.setText("ثبت لغوه معاملات");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
             }
         });
+        jPanel5.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, 230, -1));
 
-        javax.swing.GroupLayout jPanel27Layout = new javax.swing.GroupLayout(jPanel27);
-        jPanel27.setLayout(jPanel27Layout);
-        jPanel27Layout.setHorizontalGroup(
-            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel27Layout.createSequentialGroup()
-                .addGap(0, 35, Short.MAX_VALUE)
-                .addComponent(jLabel52, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel27Layout.setVerticalGroup(
-            jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel52, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
-
-        jPanel5.add(jPanel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 880, 200, 50));
-
-        jPanel25.setBackground(new java.awt.Color(16, 23, 41));
-
-        jLabel43.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel43.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel43.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_settings_34px.png"))); // NOI18N
-        jLabel43.setText("تنطیمات");
-        jLabel43.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel43.setFocusable(false);
-        jLabel43.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jLabel43.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel43MouseClicked(evt);
+        btnExpense.setBackground(new java.awt.Color(16, 23, 41));
+        btnExpense.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnExpense.setForeground(new java.awt.Color(255, 255, 255));
+        btnExpense.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_dollar_bitcoin_exchange_34px.png"))); // NOI18N
+        btnExpense.setText("ثبت مصارف");
+        btnExpense.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExpenseActionPerformed(evt);
             }
         });
+        jPanel5.add(btnExpense, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 520, 230, -1));
 
-        javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
-        jPanel25.setLayout(jPanel25Layout);
-        jPanel25Layout.setHorizontalGroup(
-            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel25Layout.createSequentialGroup()
-                .addContainerGap(91, Short.MAX_VALUE)
-                .addComponent(jLabel43)
-                .addContainerGap())
-        );
-        jPanel25Layout.setVerticalGroup(
-            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel43, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
-
-        jPanel5.add(jPanel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 940, 200, 50));
-
-        jPanel24.setBackground(new java.awt.Color(16, 23, 41));
-
-        jLabel42.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel42.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel42.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_card_payment_34px.png"))); // NOI18N
-        jLabel42.setText("ثبت مصارفات");
-        jLabel42.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel42.setFocusable(false);
-        jLabel42.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jLabel42.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel42MouseClicked(evt);
+        btnCapital.setBackground(new java.awt.Color(16, 23, 41));
+        btnCapital.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnCapital.setForeground(new java.awt.Color(255, 255, 255));
+        btnCapital.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_dollar_bitcoin_exchange_34px.png"))); // NOI18N
+        btnCapital.setText("ثبت سرمایه");
+        btnCapital.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCapitalActionPerformed(evt);
             }
         });
+        jPanel5.add(btnCapital, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 570, 230, -1));
 
-        javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
-        jPanel24.setLayout(jPanel24Layout);
-        jPanel24Layout.setHorizontalGroup(
-            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel24Layout.createSequentialGroup()
-                .addContainerGap(110, Short.MAX_VALUE)
-                .addComponent(jLabel42)
-                .addContainerGap())
-        );
-        jPanel24Layout.setVerticalGroup(
-            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel42, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
-
-        jPanel5.add(jPanel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 460, 250, 50));
-
-        jPanel3.setBackground(new java.awt.Color(16, 23, 41));
-
-        jLabel38.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel38.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_front_desk_34px.png"))); // NOI18N
-        jLabel38.setText("ثبت سپرده");
-        jLabel38.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel38.setFocusable(false);
-        jLabel38.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jLabel38.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel38MouseClicked(evt);
+        btnTreasury.setBackground(new java.awt.Color(16, 23, 41));
+        btnTreasury.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnTreasury.setForeground(new java.awt.Color(255, 255, 255));
+        btnTreasury.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_dollar_bitcoin_exchange_34px.png"))); // NOI18N
+        btnTreasury.setText("نمایش خرانه");
+        btnTreasury.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTreasuryActionPerformed(evt);
             }
         });
+        jPanel5.add(btnTreasury, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 620, 230, -1));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(131, Short.MAX_VALUE)
-                .addComponent(jLabel38)
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
-
-        jPanel5.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 250, 50));
-
-        jPanel2.setBackground(new java.awt.Color(16, 23, 41));
-
-        jLabel37.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel37.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_undo_34px.png"))); // NOI18N
-        jLabel37.setText("ثبت لغو معاملات");
-        jLabel37.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel37.setFocusable(false);
-        jLabel37.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jLabel37.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel37MouseClicked(evt);
+        btnEmployee.setBackground(new java.awt.Color(16, 23, 41));
+        btnEmployee.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnEmployee.setForeground(new java.awt.Color(255, 255, 255));
+        btnEmployee.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_dollar_bitcoin_exchange_34px.png"))); // NOI18N
+        btnEmployee.setText("ثبت کارمندان");
+        btnEmployee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmployeeActionPerformed(evt);
             }
         });
+        jPanel5.add(btnEmployee, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 670, 230, -1));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(91, Short.MAX_VALUE)
-                .addComponent(jLabel37)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
-
-        jPanel5.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 250, 50));
-
-        jPanel21.setBackground(new java.awt.Color(16, 23, 41));
-
-        jLabel39.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel39.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel39.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_user_34px_1.png"))); // NOI18N
-        jLabel39.setText("ثبت مشتریان");
-        jLabel39.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel39.setFocusable(false);
-        jLabel39.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jLabel39.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel39MouseClicked(evt);
+        btnApp.setBackground(new java.awt.Color(16, 23, 41));
+        btnApp.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnApp.setForeground(new java.awt.Color(255, 255, 255));
+        btnApp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_dollar_bitcoin_exchange_34px.png"))); // NOI18N
+        btnApp.setText("تایید درخواست ها");
+        btnApp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAppActionPerformed(evt);
             }
         });
+        jPanel5.add(btnApp, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 720, 230, -1));
 
-        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
-        jPanel21.setLayout(jPanel21Layout);
-        jPanel21Layout.setHorizontalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
-                .addContainerGap(115, Short.MAX_VALUE)
-                .addComponent(jLabel39)
-                .addContainerGap())
-        );
-        jPanel21Layout.setVerticalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel39, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
-
-        jPanel5.add(jPanel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 250, 50));
-
-        jPanel23.setBackground(new java.awt.Color(16, 23, 41));
-
-        jLabel41.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel41.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel41.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_transaction_34px.png"))); // NOI18N
-        jLabel41.setText("ثبت معاملات");
-        jLabel41.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel41.setFocusable(false);
-        jLabel41.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jLabel41.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel41MouseClicked(evt);
+        btnExchange.setBackground(new java.awt.Color(16, 23, 41));
+        btnExchange.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnExchange.setForeground(new java.awt.Color(255, 255, 255));
+        btnExchange.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_dollar_bitcoin_exchange_34px.png"))); // NOI18N
+        btnExchange.setText("ثبت نرخ ها");
+        btnExchange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExchangeActionPerformed(evt);
             }
         });
+        jPanel5.add(btnExchange, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 790, 220, -1));
 
-        javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
-        jPanel23.setLayout(jPanel23Layout);
-        jPanel23Layout.setHorizontalGroup(
-            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel23Layout.createSequentialGroup()
-                .addContainerGap(115, Short.MAX_VALUE)
-                .addComponent(jLabel41)
-                .addContainerGap())
-        );
-        jPanel23Layout.setVerticalGroup(
-            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
-
-        jPanel5.add(jPanel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 250, 50));
-
-        jPanel28.setBackground(new java.awt.Color(16, 23, 41));
-
-        jLabel46.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel46.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_transfer_34px.png"))); // NOI18N
-        jLabel46.setText("ثبت تبادله حساب ها");
-        jLabel46.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel46.setFocusable(false);
-        jLabel46.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jLabel46.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel46MouseClicked(evt);
+        btnNotific.setBackground(new java.awt.Color(16, 23, 41));
+        btnNotific.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnNotific.setForeground(new java.awt.Color(255, 255, 255));
+        btnNotific.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_dollar_bitcoin_exchange_34px.png"))); // NOI18N
+        btnNotific.setText("اعلانات");
+        btnNotific.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNotificActionPerformed(evt);
             }
         });
+        jPanel5.add(btnNotific, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 840, 220, -1));
 
-        javax.swing.GroupLayout jPanel28Layout = new javax.swing.GroupLayout(jPanel28);
-        jPanel28.setLayout(jPanel28Layout);
-        jPanel28Layout.setHorizontalGroup(
-            jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel28Layout.createSequentialGroup()
-                .addContainerGap(67, Short.MAX_VALUE)
-                .addComponent(jLabel46)
-                .addContainerGap())
-        );
-        jPanel28Layout.setVerticalGroup(
-            jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel46, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
-
-        jPanel5.add(jPanel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 250, 50));
-
-        jPanel22.setBackground(new java.awt.Color(16, 23, 41));
-
-        jLabel40.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        jLabel40.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel40.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_blockchain_technology_34px.png"))); // NOI18N
-        jLabel40.setText("نمایش خزانه");
-        jLabel40.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel40.setFocusable(false);
-        jLabel40.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jLabel40.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel40MouseClicked(evt);
+        btnActivation.setBackground(new java.awt.Color(16, 23, 41));
+        btnActivation.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnActivation.setForeground(new java.awt.Color(255, 255, 255));
+        btnActivation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_dollar_bitcoin_exchange_34px.png"))); // NOI18N
+        btnActivation.setText("فعال سازی سیستم");
+        btnActivation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActivationActionPerformed(evt);
             }
         });
+        jPanel5.add(btnActivation, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 890, 220, -1));
 
-        javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
-        jPanel22.setLayout(jPanel22Layout);
-        jPanel22Layout.setHorizontalGroup(
-            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel22Layout.createSequentialGroup()
-                .addContainerGap(120, Short.MAX_VALUE)
-                .addComponent(jLabel40)
-                .addContainerGap())
-        );
-        jPanel22Layout.setVerticalGroup(
-            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel40, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
+        btnRecept.setBackground(new java.awt.Color(16, 23, 41));
+        btnRecept.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnRecept.setForeground(new java.awt.Color(255, 255, 255));
+        btnRecept.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_dollar_bitcoin_exchange_34px.png"))); // NOI18N
+        btnRecept.setText("دریافت");
+        btnRecept.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReceptActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnRecept, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 220, -1));
 
-        jPanel5.add(jPanel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 580, 250, -1));
+        btnPayment.setBackground(new java.awt.Color(16, 23, 41));
+        btnPayment.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnPayment.setForeground(new java.awt.Color(255, 255, 255));
+        btnPayment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_dollar_bitcoin_exchange_34px.png"))); // NOI18N
+        btnPayment.setText("پرداخت");
+        btnPayment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPaymentActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnPayment, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 220, -1));
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1640, 0, 280, 1010));
 
@@ -1458,58 +1217,6 @@ public class Dashboard extends javax.swing.JFrame {
         new Exite().setVisible(true);
     }//GEN-LAST:event_jLabel1MouseClicked
 
-    private void jLabel39MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel39MouseClicked
-        new Customers().setVisible(true);
-    }//GEN-LAST:event_jLabel39MouseClicked
-
-    private void jLabel38MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel38MouseClicked
-        new Deposite_recept().setVisible(true);
-    }//GEN-LAST:event_jLabel38MouseClicked
-
-    private void jLabel46MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel46MouseClicked
-        new Transfer().setVisible(true);
-    }//GEN-LAST:event_jLabel46MouseClicked
-
-    private void jLabel37MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel37MouseClicked
-        new Cancle_transaction().setVisible(true);
-    }//GEN-LAST:event_jLabel37MouseClicked
-
-    private void jLabel42MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel42MouseClicked
-        new Expenses().setVisible(true);
-    }//GEN-LAST:event_jLabel42MouseClicked
-
-    private void jLabel48MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel48MouseClicked
-        new Capital().setVisible(true);
-    }//GEN-LAST:event_jLabel48MouseClicked
-
-    private void jLabel40MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel40MouseClicked
-        new Treasury().setVisible(true);
-    }//GEN-LAST:event_jLabel40MouseClicked
-
-    private void jLabel49MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel49MouseClicked
-        new Emloyees().setVisible(true);
-    }//GEN-LAST:event_jLabel49MouseClicked
-
-    private void jLabel44MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel44MouseClicked
-        new Approval_Request().setVisible(true);
-    }//GEN-LAST:event_jLabel44MouseClicked
-
-    private void jLabel47MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel47MouseClicked
-        new Exchange_rate().setVisible(true);
-    }//GEN-LAST:event_jLabel47MouseClicked
-
-    private void jLabel51MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel51MouseClicked
-        new notifacations().setVisible(true);
-    }//GEN-LAST:event_jLabel51MouseClicked
-
-    private void jLabel52MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel52MouseClicked
-        new Activation().setVisible(true);
-    }//GEN-LAST:event_jLabel52MouseClicked
-
-    private void jLabel43MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel43MouseClicked
-        new Setting().setVisible(true);
-    }//GEN-LAST:event_jLabel43MouseClicked
-
     private void jLabel45MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel45MouseClicked
         new notifacations().setVisible(true);
     }//GEN-LAST:event_jLabel45MouseClicked
@@ -1519,26 +1226,102 @@ public class Dashboard extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jLabel55MouseClicked
 
-    private void jLabel41MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel41MouseClicked
-        new Transactions1().setVisible(true);
-    }//GEN-LAST:event_jLabel41MouseClicked
+    private void btnSettingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSettingActionPerformed
+        new Setting().setVisible(true);
+    }//GEN-LAST:event_btnSettingActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        GOLDMS dm = new GOLDMS();
-        dm.form();
+    private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerActionPerformed
+        new Customers().setVisible(true);
+    }//GEN-LAST:event_btnCustomerActionPerformed
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Dashboard().setVisible(true);
-            }
-        });
-    }
+    private void btnDebtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDebtActionPerformed
+        new Debets().setVisible(true);
+    }//GEN-LAST:event_btnDebtActionPerformed
+
+    private void btnTransactionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransactionActionPerformed
+        new Transactions1().setVisible(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTransactionActionPerformed
+
+    private void btnTransferActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransferActionPerformed
+        new Transfer().setVisible(true);
+    }//GEN-LAST:event_btnTransferActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        new Cancle_transaction().setVisible(true);
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnExpenseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExpenseActionPerformed
+        new Expenses().setVisible(true);
+    }//GEN-LAST:event_btnExpenseActionPerformed
+
+    private void btnCapitalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapitalActionPerformed
+        new Capital().setVisible(true);
+    }//GEN-LAST:event_btnCapitalActionPerformed
+
+    private void btnTreasuryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTreasuryActionPerformed
+        new Treasury().setVisible(true);        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTreasuryActionPerformed
+
+    private void btnEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmployeeActionPerformed
+        new Emloyees().setVisible(true);
+    }//GEN-LAST:event_btnEmployeeActionPerformed
+
+    private void btnAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAppActionPerformed
+        new Approval_Request().setVisible(true);
+    }//GEN-LAST:event_btnAppActionPerformed
+
+    private void btnExchangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExchangeActionPerformed
+        new Exchange_rate().setVisible(true);
+    }//GEN-LAST:event_btnExchangeActionPerformed
+
+    private void btnNotificActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNotificActionPerformed
+        new notifacations().setVisible(true);
+    }//GEN-LAST:event_btnNotificActionPerformed
+
+    private void btnActivationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivationActionPerformed
+        new Activation().setVisible(true);
+    }//GEN-LAST:event_btnActivationActionPerformed
+
+    private void btnReceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReceptActionPerformed
+        new Deposite_recept().setVisible(true);
+    }//GEN-LAST:event_btnReceptActionPerformed
+
+    private void btnPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaymentActionPerformed
+        new Deposite_payment().setVisible(true);
+
+    }//GEN-LAST:event_btnPaymentActionPerformed
+
+//    /**
+//     * @param args the command line arguments
+//     */
+//   public static void main(String args[]) {
+//        GOLDMS dm = new GOLDMS();
+//        dm.form();
+//
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new Dashboard().setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel;
+    private javax.swing.JButton btnActivation;
+    private javax.swing.JButton btnApp;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnCapital;
+    private javax.swing.JButton btnCustomer;
+    private javax.swing.JButton btnDebt;
+    private javax.swing.JButton btnEmployee;
+    private javax.swing.JButton btnExchange;
+    private javax.swing.JButton btnExpense;
+    private javax.swing.JButton btnNotific;
+    private javax.swing.JButton btnPayment;
+    private javax.swing.JButton btnRecept;
+    private javax.swing.JButton btnSetting;
+    private javax.swing.JButton btnTransaction;
+    private javax.swing.JButton btnTransfer;
+    private javax.swing.JButton btnTreasury;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1569,28 +1352,12 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel47;
-    private javax.swing.JLabel jLabel48;
-    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
-    private javax.swing.JLabel jLabel51;
-    private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
-    private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
-    private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -1606,21 +1373,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
-    private javax.swing.JPanel jPanel21;
-    private javax.swing.JPanel jPanel22;
-    private javax.swing.JPanel jPanel23;
-    private javax.swing.JPanel jPanel24;
-    private javax.swing.JPanel jPanel25;
-    private javax.swing.JPanel jPanel26;
-    private javax.swing.JPanel jPanel27;
-    private javax.swing.JPanel jPanel28;
-    private javax.swing.JPanel jPanel29;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel30;
-    private javax.swing.JPanel jPanel31;
-    private javax.swing.JPanel jPanel32;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -1642,5 +1395,6 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JLabel txtsilver;
     private javax.swing.JLabel txttrans;
     private javax.swing.JLabel txtusd;
+    public javax.swing.JLabel txtusername;
     // End of variables declaration//GEN-END:variables
 }

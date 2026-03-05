@@ -102,6 +102,16 @@ public class Transaction_Table extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                formMouseDragged(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                formMouseEntered(evt);
+            }
+        });
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -320,6 +330,16 @@ jTable1.getColumn("وضیعت").setCellRenderer(new DefaultTableCellRenderer() {
     }
 });
     }//GEN-LAST:event_formWindowActivated
+int posX, posY;
+    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
+        posX=evt.getX();
+        posY=evt.getY();
+
+    }//GEN-LAST:event_formMouseEntered
+
+    private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
+      this.setLocation(evt.getXOnScreen()-posX,evt.getYOnScreen()-posY);
+    }//GEN-LAST:event_formMouseDragged
 
     /**
      * @param args the command line arguments

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package goldms;
 
 import com.formdev.flatlaf.FlatLightLaf;
@@ -25,6 +20,7 @@ public class login extends javax.swing.JFrame {
         getConnection();
         formSetting();
         setLocationRelativeTo(this);
+
     }
 
     // د ډیټابېس مسیر (Path)
@@ -84,6 +80,16 @@ public class login extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(16, 23, 42));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel1MouseDragged(evt);
+            }
+        });
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel1MouseEntered(evt);
+            }
+        });
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setBackground(new java.awt.Color(255, 170, 3));
@@ -167,46 +173,7 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUsernameFocusGained
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        try {
-//
-//    String user = jTextField1.getText().trim();
-//    String pass = new String(jPasswordField1.getPassword());
-//    String role_id = txttype.getSelectedItem().toString();
-//
-//    if (user.isEmpty() || pass.isEmpty()) {
-//        JOptionPane.showMessageDialog(this, "تمام فیلدها را پر کنید!");
-//        return;
-//    }
-//
-//    ps = conn.prepareStatement(
-//        "SELECT * FROM login WHERE Username=? AND Password_hash=? AND Role_id=?"
-//    );
-//
-//    ps.setString(1, user);
-//    ps.setString(2, pass);
-//    ps.setString(3, role_id);
-//
-//    rs = ps.executeQuery();
-//
-//    if (rs.next()) {
-//
-//        if ("1".equals(role_id)) {
-//            new Dashboard().setVisible(true);
-//        } else {
-//            new UserDashboard().setVisible(true);
-//        }
-//
-//        this.dispose();
-//
-//    } else {
-//        JOptionPane.showMessageDialog(this, "رمز عبور یا اسم کاربری غلط است!!");
-//        jTextField1.setText("");
-//        jPasswordField1.setText("");
-//    }
-//
-//} catch (Exception e) {
-//    JOptionPane.showMessageDialog(this, e.getMessage());
-//}
+
         try {
 
             String username = txtUsername.getText().trim();
@@ -223,26 +190,31 @@ public class login extends javax.swing.JFrame {
             ps.setString(1, username);
             ps.setString(2, password);
 
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
 
             if (rs.next()) {
 
                 int role_id = rs.getInt("Role_id"); // 👈 از دیتابیس بگیر
 //                txttype.setSelectedItem(role_id);
                 if (role_id == 1) {
-                    Dashboard dash = new Dashboard();
+                    Dashboard dash = new Dashboard(role_id);
                     dash.setVisible(true);
-//                    dash.txtusername.setText(username);
+                    dash.txtusername.setText(username);
+
                     ps.close();
                 } else if (role_id == 2) {
-                    Dashboard dash = new Dashboard();
+                    Dashboard dash = new Dashboard(role_id);
                     dash.setVisible(true);
-                //    dash.txtusername.setText(username);
+                    System.out.println(role_id);
+                    dash.txtusername.setText(username);
+                    ps.close();
+                } else {
+                    Dashboard dash = new Dashboard(role_id);
+                    dash.setVisible(true);
+                    System.out.println(role_id);
+                    dash.txtusername.setText(username);
                     ps.close();
                 }
-//        else if (role_id == 3) {
-//            new ManagerDashboard().setVisible(true);
-//        }
 
                 this.dispose();
 
@@ -250,7 +222,7 @@ public class login extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "رمز عبور یا اسم کاربری غلط است!");
                 txtUsername.setText("");
                 txtPassword.setText("");
-            }
+            } 
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
@@ -270,6 +242,16 @@ public class login extends javax.swing.JFrame {
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         new Exite().setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_jLabel5MouseClicked
+    int posX, posY;
+    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
+        posX = evt.getX();
+        posY = evt.getY();
+
+    }//GEN-LAST:event_jPanel1MouseEntered
+
+    private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
+        this.setLocation(evt.getXOnScreen() - posX, evt.getYOnScreen() - posY);
+    }//GEN-LAST:event_jPanel1MouseDragged
 
     /**
      * @param args the command line arguments

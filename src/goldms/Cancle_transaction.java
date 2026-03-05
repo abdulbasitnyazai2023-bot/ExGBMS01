@@ -38,37 +38,37 @@ public class Cancle_transaction extends javax.swing.JFrame {
     private Connection conn;
     private PreparedStatement ps;
     private ResultSet rs;
-    
+
     void getConnection() {
-        
+
         try {
             // SQLite Driver Load
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:./src/db/Golds-1.db");
-            
+
             System.out.println("cont");
-            
+
         } catch (ClassNotFoundException ex) {
             System.out.println("not found" + ex.getMessage());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
+
     }
 
     public void loadEmployees() {
         try {
-            
+
             String sql = "SELECT  Role_name FROM Roles";
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
-            
+
             cmbbycalceled.removeAllItems();
-            
+
             while (rs.next()) {
                 cmbbycalceled.addItem(rs.getString("Role_name"));
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -76,17 +76,17 @@ public class Cancle_transaction extends javax.swing.JFrame {
 
     public void LoadTrans() {
         try {
-            
+
             String sql = "SELECT  Transaction_id FROM Transactions";
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
-            
+
             txtTransactionId.removeAllItems();
-            
+
             while (rs.next()) {
                 txtTransactionId.addItem(rs.getString("Transaction_id"));
             }
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -132,6 +132,16 @@ public class Cancle_transaction extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(16, 23, 42));
+        jPanel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel2MouseDragged(evt);
+            }
+        });
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel2MouseEntered(evt);
+            }
+        });
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton2.setBackground(new java.awt.Color(0, 102, 255));
@@ -324,41 +334,47 @@ public class Cancle_transaction extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
- try {
-    getConnection(); // اتصال به دیتابیس
+        try {
+            getConnection(); // اتصال به دیتابیس
 
-    if (txtTransactionId.getSelectedItem().toString().trim().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "لطفاً Transaction ID را وارد کنید");
-        return;
-    }
+            if (txtTransactionId.getSelectedItem().toString().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "لطفاً Transaction ID را وارد کنید");
+                return;
+            }
 
-    int transactionId = Integer.parseInt(txtTransactionId.getSelectedItem().toString().trim());
+            int transactionId = Integer.parseInt(txtTransactionId.getSelectedItem().toString().trim());
 
-    // حذف رکورد
-    String sql = "DELETE FROM Canceled_transaction WHERE C_transaction_id = ?";
-    ps = conn.prepareStatement(sql);
-    ps.setString(1, txtID.getText());
+            // حذف رکورد
+            String sql = "DELETE FROM Canceled_transaction WHERE C_transaction_id = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, txtID.getText());
 
-    int rows = ps.executeUpdate();
+            int rows = ps.executeUpdate();
 
-    if (rows > 0) {
-        JOptionPane.showMessageDialog(this, "لغو معامله با موفقیت حذف شد ✅");
+            if (rows > 0) {
+                JOptionPane.showMessageDialog(this, "لغو معامله با موفقیت حذف شد ✅");
 
-        // پاک کردن فیلدهای فرم بعد از حذف
-        txtTransactionId.setSelectedIndex(0);
-        cmbbycalceled.setSelectedIndex(0);
-        txtReason.setText("");
-    } else {
-        JOptionPane.showMessageDialog(this, "رکوردی با این Transaction ID پیدا نشد!");
-    }
+                // پاک کردن فیلدهای فرم بعد از حذف
+                txtTransactionId.setSelectedIndex(0);
+                cmbbycalceled.setSelectedIndex(0);
+                txtReason.setText("");
+            } else {
+                JOptionPane.showMessageDialog(this, "رکوردی با این Transaction ID پیدا نشد!");
+            }
 
-    ps.close();
+            ps.close();
 
-} catch (Exception e) {
-    JOptionPane.showMessageDialog(this, "تېروتنه: " + e.getMessage());
-} finally {
-    try { if (conn != null) conn.close(); } catch (SQLException ex) { System.out.println(ex.getMessage()); }
-}
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "تېروتنه: " + e.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void txtIDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIDFocusGained
@@ -371,13 +387,13 @@ public class Cancle_transaction extends javax.swing.JFrame {
                 txtID.setText(rs.getString("MAX(C_transaction_id)+1"));
             }
         } catch (Exception e) {
-            
+
         }
 
     }//GEN-LAST:event_txtIDFocusGained
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
+
         try {
             // اتصال به دیتابیس
             getConnection(); // فرض بر این است که conn آماده می‌شود
@@ -391,11 +407,11 @@ public class Cancle_transaction extends javax.swing.JFrame {
             PreparedStatement psRole = conn.prepareStatement(findRole);
             psRole.setString(1, roleName);
             ResultSet rsRole = psRole.executeQuery();
-            
+
             if (rsRole.next()) {
                 roleId = rsRole.getInt("Role_id");
             }
-            
+
             rsRole.close();
             psRole.close();
 
@@ -411,9 +427,9 @@ public class Cancle_transaction extends javax.swing.JFrame {
             ps.setInt(1, roleId);
             ps.setString(2, reason);
             ps.setInt(3, transactionId);
-            
+
             int rows = ps.executeUpdate();
-            
+
             if (rows > 0) {
                 JOptionPane.showMessageDialog(this, "لغو معامله با موفقیت ویرایش شد!");
 
@@ -424,9 +440,9 @@ public class Cancle_transaction extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "رکوردی برای ویرایش پیدا نشد!");
             }
-            
+
             ps.close();
-            
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "تېروتنه: " + e.getMessage());
         } finally {
@@ -441,7 +457,7 @@ public class Cancle_transaction extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+
         try {
             // اتصال به دیتابیس
             getConnection(); // فرض بر این است که conn آماده می‌شود
@@ -455,11 +471,11 @@ public class Cancle_transaction extends javax.swing.JFrame {
             PreparedStatement psRole = conn.prepareStatement(findRole);
             psRole.setString(1, roleName);
             ResultSet rsRole = psRole.executeQuery();
-            
+
             if (rsRole.next()) {
                 roleId = rsRole.getInt("Role_id");
             }
-            
+
             rsRole.close();
             psRole.close();
 
@@ -475,9 +491,9 @@ public class Cancle_transaction extends javax.swing.JFrame {
             ps.setInt(1, transactionId);
             ps.setInt(2, roleId);
             ps.setString(3, reason);
-            
+
             int rows = ps.executeUpdate();
-            
+
             if (rows > 0) {
                 JOptionPane.showMessageDialog(this, "لغو معامله با موفقیت ثبت شد!");
 
@@ -486,9 +502,9 @@ public class Cancle_transaction extends javax.swing.JFrame {
                 txtReason.setText("");
                 cmbbycalceled.setSelectedIndex(0);
             }
-            
+
             ps.close();
-            
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(this, "تېروتنه: " + e.getMessage());
@@ -501,11 +517,11 @@ public class Cancle_transaction extends javax.swing.JFrame {
                 System.out.println(ex.getMessage());
             }
         }
-        
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        new Exite().setVisible(true);        
+        this.dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void txtReasonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtReasonActionPerformed
@@ -533,12 +549,12 @@ public class Cancle_transaction extends javax.swing.JFrame {
                     + "FROM Canceled_transaction "
                     + "LEFT JOIN Roles ON Roles.Role_id = Canceled_transaction.Canceled_by "
                     + "WHERE Canceled_transaction.C_transaction_id = ?";
-            
+
             ps = conn.prepareStatement(sql);
             ps.setInt(1, Integer.parseInt(txtID.getText())); // ای دی وارد شده در txtID
 
             rs = ps.executeQuery();
-            
+
             if (rs.next()) {
                 // ✅ Transaction_id را داخل txtTransactionId نمایش می‌دهد
                 txtTransactionId.setSelectedItem(String.valueOf(rs.getInt("Transaction_id")));
@@ -548,16 +564,16 @@ public class Cancle_transaction extends javax.swing.JFrame {
 
                 // ✅ دلیل لغو را در TextField یا TextArea ست می‌کند
                 txtReason.setText(rs.getString("Reason"));
-                
+
             } else {
-                
+
                 JOptionPane.showMessageDialog(this, "به این ای دی معامله لغوه نشده است");
                 txtReason.setText("");
                 txtID.setText("");
                 cmbbycalceled.setSelectedIndex(0);
                 txtTransactionId.setSelectedIndex(0);
             }
-            
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
@@ -583,143 +599,168 @@ public class Cancle_transaction extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel8MouseClicked
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-    // ساخت مدل جدول
-DefaultTableModel model = new DefaultTableModel(
-        new Object[]{
-            "انتخاب", "Transaction ID", "کاربر لغوکننده", "دلیل", "وضعیت"
-        }, 0) {
-    @Override
-    public Class<?> getColumnClass(int columnIndex) {
-        if (columnIndex == 0) {
-            return Boolean.class; // فقط ستون اول چک باکس
-        }
-        return super.getColumnClass(columnIndex);
-    }
-
-    @Override
-    public boolean isCellEditable(int row, int column) {
-        return column == 0; // فقط چک باکس قابل ویرایش
-    }
-};
-
-jTable1.setModel(model);
-
-try {
-    getConnection();
-
-    // گرفتن داده‌ها از Canceled_transaction با JOIN روی Roles
-    String sql = "SELECT c.C_transaction_id, r.Role_name, c.Reason, c.Canceled_at " +
-                 "FROM Canceled_transaction c " +
-                 "LEFT JOIN Roles r ON c.Canceled_by = r.Role_id";
-
-    ps = conn.prepareStatement(sql);
-    rs = ps.executeQuery();
-
-    model.setRowCount(0); // پاک کردن جدول
-
-    while (rs.next()) {
-        Object[] row = {
-            false, // چک باکس
-            rs.getInt("C_transaction_id"),
-            rs.getString("Role_name"),
-            rs.getString("Reason"),
-            "CANCELED" // وضعیت پیشفرض
-        };
-        model.addRow(row);
-    }
-
-} catch (Exception e) {
-    e.printStackTrace();
-} finally {
-    try {
-        if (rs != null) rs.close();
-        if (ps != null) ps.close();
-        if (conn != null) conn.close();
-    } catch (SQLException ex) {
-        System.out.println(ex.getMessage());
-    }
-}
-
-// رنگ‌آمیزی ستون وضعیت
-jTable1.getColumn("وضعیت").setCellRenderer(new DefaultTableCellRenderer() {
-    @Override
-    public Component getTableCellRendererComponent(JTable table, Object value,
-            boolean isSelected, boolean hasFocus, int row, int column) {
-        super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
-        if (value != null) {
-            String status = value.toString();
-            switch (status) {
-                case "CANCELED":
-                    setBackground(Color.LIGHT_GRAY);
-                    break;
-                default:
-                    setBackground(Color.WHITE);
+        // ساخت مدل جدول
+        DefaultTableModel model = new DefaultTableModel(
+                new Object[]{
+                    "انتخاب", "Transaction ID", "کاربر لغوکننده", "دلیل", "وضعیت"
+                }, 0) {
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                if (columnIndex == 0) {
+                    return Boolean.class; // فقط ستون اول چک باکس
+                }
+                return super.getColumnClass(columnIndex);
             }
-        }
-        return this;
-    }
-});
 
-// Listener برای چک باکس
-jTable1.getDefaultEditor(Boolean.class).addCellEditorListener(new CellEditorListener() {
-    @Override
-    public void editingStopped(ChangeEvent e) {
-        DefaultTableModel currentModel = (DefaultTableModel) jTable1.getModel();
-        int row = jTable1.getEditingRow();
-        if (row < 0) row = jTable1.getSelectedRow();
-        if (row < 0) return;
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 0; // فقط چک باکس قابل ویرایش
+            }
+        };
 
-        Boolean selected = (Boolean) currentModel.getValueAt(row, 0);
+        jTable1.setModel(model);
 
         try {
             getConnection();
-            int transactionId = (int) currentModel.getValueAt(row, 1);
 
-            if (selected) {
-                // نمایش OptionPane برای تایید یا حذف لغو معامله
-                String[] options = {"حذف", "بستن"};
-                int choice = JOptionPane.showOptionDialog(
-                        null,
-                        "می‌خواهید این معامله لغو شده را حذف کنید؟",
-                        "لغو معامله",
-                        JOptionPane.DEFAULT_OPTION,
-                        JOptionPane.INFORMATION_MESSAGE,
-                        null,
-                        options,
-                        options[0]
-                );
+            // گرفتن داده‌ها از Canceled_transaction با JOIN روی Roles
+            String sql = "SELECT c.C_transaction_id, r.Role_name, c.Reason, c.Canceled_at "
+                    + "FROM Canceled_transaction c "
+                    + "LEFT JOIN Roles r ON c.Canceled_by = r.Role_id";
 
-                if (choice == 0) {
-                    // حذف از دیتابیس
-                    ps = conn.prepareStatement("DELETE FROM Canceled_transaction WHERE C_transaction_id = ?");
-                    ps.setInt(1, transactionId);
-                    ps.executeUpdate();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
 
-                    // حذف از JTable
-                    currentModel.removeRow(row);
-                }
+            model.setRowCount(0); // پاک کردن جدول
 
-                // چک باکس را ریست کن
-                jTable1.repaint();
+            while (rs.next()) {
+                Object[] row = {
+                    false, // چک باکس
+                    rs.getInt("C_transaction_id"),
+                    rs.getString("Role_name"),
+                    rs.getString("Reason"),
+                    "CANCELED" // وضعیت پیشفرض
+                };
+                model.addRow(row);
             }
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             try {
-                if (ps != null) ps.close();
-                if (conn != null) conn.close();
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
         }
-    }
 
-    @Override
-    public void editingCanceled(ChangeEvent e) {}
-});
+// رنگ‌آمیزی ستون وضعیت
+        jTable1.getColumn("وضعیت").setCellRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+                if (value != null) {
+                    String status = value.toString();
+                    switch (status) {
+                        case "CANCELED":
+                            setBackground(Color.LIGHT_GRAY);
+                            break;
+                        default:
+                            setBackground(Color.WHITE);
+                    }
+                }
+                return this;
+            }
+        });
+
+// Listener برای چک باکس
+        jTable1.getDefaultEditor(Boolean.class).addCellEditorListener(new CellEditorListener() {
+            @Override
+            public void editingStopped(ChangeEvent e) {
+                DefaultTableModel currentModel = (DefaultTableModel) jTable1.getModel();
+                int row = jTable1.getEditingRow();
+                if (row < 0) {
+                    row = jTable1.getSelectedRow();
+                }
+                if (row < 0) {
+                    return;
+                }
+
+                Boolean selected = (Boolean) currentModel.getValueAt(row, 0);
+
+                try {
+                    getConnection();
+                    int transactionId = (int) currentModel.getValueAt(row, 1);
+
+                    if (selected) {
+                        // نمایش OptionPane برای تایید یا حذف لغو معامله
+                        String[] options = {"حذف", "بستن"};
+                        int choice = JOptionPane.showOptionDialog(
+                                null,
+                                "می‌خواهید این معامله لغو شده را حذف کنید؟",
+                                "لغو معامله",
+                                JOptionPane.DEFAULT_OPTION,
+                                JOptionPane.INFORMATION_MESSAGE,
+                                null,
+                                options,
+                                options[0]
+                        );
+
+                        if (choice == 0) {
+                            // حذف از دیتابیس
+                            ps = conn.prepareStatement("DELETE FROM Canceled_transaction WHERE C_transaction_id = ?");
+                            ps.setInt(1, transactionId);
+                            ps.executeUpdate();
+
+                            // حذف از JTable
+                            currentModel.removeRow(row);
+                        }
+
+                        // چک باکس را ریست کن
+                        jTable1.repaint();
+                    }
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                } finally {
+                    try {
+                        if (ps != null) {
+                            ps.close();
+                        }
+                        if (conn != null) {
+                            conn.close();
+                        }
+                    } catch (SQLException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void editingCanceled(ChangeEvent e) {
+            }
+        });
     }//GEN-LAST:event_formWindowActivated
+    int posX, posY;
+    private void jPanel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseEntered
+        posX = evt.getX();
+        posY = evt.getY();
+    }//GEN-LAST:event_jPanel2MouseEntered
+
+    private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
+        this.setLocation(evt.getXOnScreen() - posX, evt.getYOnScreen() - posY);
+
+    }//GEN-LAST:event_jPanel2MouseDragged
 
     /**
      * @param args the command line arguments

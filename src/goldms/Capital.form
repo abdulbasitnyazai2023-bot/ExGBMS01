@@ -56,6 +56,10 @@
               <Color blue="2a" green="17" red="10" type="rgb"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseDragged" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="jPanel2MouseDragged"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel2MouseEntered"/>
+          </Events>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
             <Property name="useNullLayout" type="boolean" value="false"/>
@@ -136,14 +140,14 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="3" green="b5" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="&#x627;&#x646;&#x62a;&#x642;&#x627;&#x644; &#x628;&#x6cc;&#x646; &#x62d;&#x633;&#x627;&#x628; &#x647;&#x627;"/>
+                <Property name="text" type="java.lang.String" value="&#x62b;&#x628;&#x62a; &#x633;&#x631;&#x645;&#x627;&#x6cc;&#x647;"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel3MouseClicked"/>
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="670" y="50" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="710" y="40" width="-1" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>

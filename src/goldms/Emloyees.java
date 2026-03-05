@@ -35,36 +35,36 @@ public class Emloyees extends javax.swing.JFrame {
         validitoar.allowOnlyNumbersWithLimit(txtphone, 10);
         txtphone.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
 
-    public void changedUpdate(javax.swing.event.DocumentEvent e) {
-        checkPhone();
-    }
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                checkPhone();
+            }
 
-    @Override
-    public void removeUpdate(javax.swing.event.DocumentEvent e) {
-        checkPhone();
-    }
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                checkPhone();
+            }
 
-    public void insertUpdate(javax.swing.event.DocumentEvent e) {
-        checkPhone();
-    }
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                checkPhone();
+            }
 
-    private void checkPhone() {
-        String number = validitoar.normalizeAfghanNumber(txtphone.getText());
+            private void checkPhone() {
+                String number = validitoar.normalizeAfghanNumber(txtphone.getText());
 
-        if (number.matches("\\d{10}") &&
-            (number.startsWith("078") ||
-             number.startsWith("077") ||
-             number.startsWith("076") ||
-             number.startsWith("073") ||
-             number.startsWith("079") ||
-             number.startsWith("074"))) {
+                if (number.matches("\\d{10}")
+                        && (number.startsWith("078")
+                        || number.startsWith("077")
+                        || number.startsWith("076")
+                        || number.startsWith("073")
+                        || number.startsWith("079")
+                        || number.startsWith("074"))) {
 
-            txtphone.setForeground(new java.awt.Color(200, 255, 200)); // سبز
-        } else {
-            txtphone.setForeground(new java.awt.Color(255, 200, 200)); // قرمز
-        }
-    }
-});
+                    txtphone.setForeground(new java.awt.Color(200, 255, 200)); // سبز
+                } else {
+                    txtphone.setForeground(new java.awt.Color(255, 200, 200)); // قرمز
+                }
+            }
+        });
 
     }
 
@@ -99,6 +99,7 @@ public class Emloyees extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         txtnic = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
         txtfullname = new javax.swing.JTextField();
         txtphone = new javax.swing.JTextField();
@@ -122,6 +123,16 @@ public class Emloyees extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(16, 23, 42));
+        jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel1MouseDragged(evt);
+            }
+        });
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel1MouseEntered(evt);
+            }
+        });
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setBackground(new java.awt.Color(30, 41, 59));
@@ -170,6 +181,16 @@ public class Emloyees extends javax.swing.JFrame {
             }
         });
         jPanel1.add(txtnic, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 290, 400, 40));
+
+        jLabel8.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_search_23px.png"))); // NOI18N
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel8MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 170, -1, 40));
 
         txtID.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtID.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -301,12 +322,11 @@ public class Emloyees extends javax.swing.JFrame {
                 if (!validitoar.isValidAfghanNumber(txtphone)) {
                     return;   // اگر اشتباه بود ثبت نشودisPhoneDuplicate
                 }
-                 if (validitoar.isPhoneDuplicate(conn,txtphone.toString())) {
-                     
+                if (validitoar.isPhoneDuplicate(conn, txtphone.toString())) {
+
                     return;
                 }
-                
-                
+
                 ps = conn.prepareStatement("INSERT INTO Employee(Employee_id,Fullname,Role,Phone,NIC,Profile_picture)VALUES(?,?,?,?,?,?)");
                 ps.setString(1, txtID.getText());
                 ps.setString(2, txtfullname.getText());
@@ -325,60 +345,12 @@ public class Emloyees extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            
+
         }
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
-//remove employee
-        try {
-
-            String txtid = txtID.getText();
-            String full = txtfullname.getText();
-            if (txtid.equals("") || full.equals("")) {
-                JOptionPane.showMessageDialog(this, "اول باید معلومات را از دیتابییس بگیرید سپس حذف کنید!");
-
-            } else {
-
-                ps = conn.prepareStatement("DELETE FROM Employee WHERE Employee_id=?");
-                ps.setString(1, txtID.getText());
-                int a = JOptionPane.showConfirmDialog(null, "ایاموفق هستیدکه" + txtID.getText() + "است حذف شود؟", "پيام برنامه", JOptionPane.YES_OPTION);
-                if (a == 0) {
-
-                    ps.executeUpdate();
-                    ps.close();
-                    JOptionPane.showMessageDialog(null, "موافقانه مشتری حذف شد");
-                    txtID.setText("");
-                    txtfullname.setText("");
-                    picture.setIcon(null);
-                    txtphone.setText("");
-                    txtnic.setText("");
-
-                }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void txtIDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIDFocusGained
-        // TODO add your handling code here:
-        ///max idd
-
-        try {
-            ps = conn.prepareStatement("select max(Employee_id)+1 from Employee");
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                txtID.setText(rs.getString("max(Employee_id)+1"));
-            }
-        } catch (Exception e) {
-
-        }
-    }//GEN-LAST:event_txtIDFocusGained
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
 ///update employee
         try {
@@ -421,6 +393,55 @@ public class Emloyees extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void txtIDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIDFocusGained
+        // TODO add your handling code here:
+        ///max idd
+
+        try {
+            ps = conn.prepareStatement("select max(Employee_id)+1 from Employee");
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                txtID.setText(rs.getString("max(Employee_id)+1"));
+            }
+        } catch (Exception e) {
+
+        }
+    }//GEN-LAST:event_txtIDFocusGained
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+
+        //remove employee
+        try {
+
+            String txtid = txtID.getText();
+            String full = txtfullname.getText();
+            if (txtid.equals("") || full.equals("")) {
+                JOptionPane.showMessageDialog(this, "اول باید معلومات را از دیتابییس بگیرید سپس حذف کنید!");
+
+            } else {
+
+                ps = conn.prepareStatement("DELETE FROM Employee WHERE Employee_id=?");
+                ps.setString(1, txtID.getText());
+                int a = JOptionPane.showConfirmDialog(null, "ایاموفق هستیدکه" + txtID.getText() + "است حذف شود؟", "پيام برنامه", JOptionPane.YES_OPTION);
+                if (a == 0) {
+
+                    ps.executeUpdate();
+                    ps.close();
+                    JOptionPane.showMessageDialog(null, "موافقانه  کارمند حذف شد!");
+                    txtID.setText("");
+                    txtfullname.setText("");
+                    picture.setIcon(null);
+                    txtphone.setText("");
+                    txtnic.setText("");
+
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -496,6 +517,44 @@ public class Emloyees extends javax.swing.JFrame {
         this.dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jLabel1MouseClicked
 
+    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+        try {
+            ps = conn.prepareStatement("SELECT *FROM Employee WHERE Employee_id=?");
+            ps.setString(1, txtID.getText());
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                txtfullname.setText(rs.getString(2));
+                txtnic.setText(rs.getString(5));
+                txtphone.setText(rs.getString(4));
+                jComboBox1.setSelectedItem(rs.getString(3));
+                photoh = rs.getBytes(6);
+                Image image = getToolkit().createImage(photoh);
+
+                ImageIcon icon = new ImageIcon(image);
+                Image img = icon.getImage().getScaledInstance(picture.getWidth(), picture.getHeight(), Image.SCALE_SMOOTH);
+                icon = new ImageIcon(img);
+                picture.setIcon(icon);
+                picture.setText("");
+
+            } else {
+                JOptionPane.showMessageDialog(this, "به این آی دی" + txtID.getText() + "کارمند نیست!");
+            }
+        } catch (Exception e) {
+        }
+
+    }//GEN-LAST:event_jLabel8MouseClicked
+    int posX, posY;
+    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
+        posX = evt.getX();
+        posY = evt.getY();
+
+    }//GEN-LAST:event_jPanel1MouseEntered
+
+    private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
+        this.setLocation(evt.getXOnScreen() - posX, evt.getYOnScreen() - posY);
+
+    }//GEN-LAST:event_jPanel1MouseDragged
+
     /**
      * @param args the command line arguments
      */
@@ -547,6 +606,7 @@ public class Emloyees extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

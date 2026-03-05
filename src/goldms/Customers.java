@@ -7,10 +7,14 @@ package goldms;
 
 import java.sql.*;
 import javax.swing.*;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+
+import javax.swing.table.*;
 import javax.xml.validation.Validator;
 import utils.validitoar;
+
+
+        
+
 
 /**
  *
@@ -23,7 +27,10 @@ public class Customers extends javax.swing.JFrame {
      */
     public Customers() {
         initComponents();
+         
         getConnection();
+      
+        styleTable();
         setLocationRelativeTo(this);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         validitoar.allowOnlyText(txtfullname);
@@ -84,9 +91,9 @@ public class Customers extends javax.swing.JFrame {
 
     }
     // Pagination
-    int currentPage = 1;
-    int rowsPerPage = 10;
-    int totalPages = 0;
+//    int currentPage = 1;
+//    int rowsPerPage = 10;
+//    int totalPages = 0;
     // د ډیټابېس مسیر (Path)
     private Connection conn;
     private PreparedStatement ps;
@@ -98,7 +105,7 @@ public class Customers extends javax.swing.JFrame {
             // SQLite Driver Load
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection("jdbc:sqlite:./src/db/Golds-1.db");
-            int offset = (currentPage - 1) * rowsPerPage;
+//            int offset = (currentPage - 1) * rowsPerPage;
             System.out.println("cont");
 
         } catch (ClassNotFoundException ex) {
@@ -107,6 +114,50 @@ public class Customers extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    private void styleTable() {
+
+        jTable1.setRowHeight(40);
+
+        // حذف خطوط داخلی برای ظاهر مدرن
+        jTable1.setShowGrid(false);
+        jTable1.setIntercellSpacing(new java.awt.Dimension(0, 0));
+
+        // رنگ هدر (بالای جدول)
+        jTable1.getTableHeader().setBackground(new java.awt.Color(30, 41, 59));
+        jTable1.getTableHeader().setForeground(java.awt.Color.WHITE);
+
+        jTable1.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
+
+            @Override
+            public java.awt.Component getTableCellRendererComponent(
+                    javax.swing.JTable table, Object value,
+                    boolean isSelected, boolean hasFocus,
+                    int row, int column) {
+
+                java.awt.Component c = super.getTableCellRendererComponent(
+                        table, value, isSelected, hasFocus, row, column);
+
+                // رنگ انتخاب
+                if (isSelected) {
+                    c.setBackground(new java.awt.Color(255, 181, 3)); // طلایی GBMS
+                    c.setForeground(java.awt.Color.BLACK);
+                } else {
+
+                    // Zebra مدرن
+                    if (row % 2 == 0) {
+                        c.setBackground(new java.awt.Color(248, 249, 250));
+                    } else {
+                        c.setBackground(new java.awt.Color(235, 240, 245));
+                    }
+
+                    c.setForeground(java.awt.Color.BLACK);
+                }
+
+                return c;
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -146,6 +197,16 @@ public class Customers extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(16, 23, 42));
+        jPanel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel2MouseDragged(evt);
+            }
+        });
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel2MouseEntered(evt);
+            }
+        });
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton2.setBackground(new java.awt.Color(30, 41, 59));
@@ -417,14 +478,14 @@ public class Customers extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "نام نباید عدد داشته باشد!");
             return;
         }
-            if (!validitoar.isValidAfghanNumber(txtphone)) {
-                    return;   // اگر اشتباه بود ثبت نشودisPhoneDuplicate
-                }
-                 if (validitoar.isPhoneDuplicate(conn,txtphone.toString())) {
-                     
-                    return;
-                }
-                
+        if (!validitoar.isValidAfghanNumber(txtphone)) {
+            return;   // اگر اشتباه بود ثبت نشودisPhoneDuplicate
+        }
+        if (validitoar.isPhoneDuplicate(conn, txtphone.toString())) {
+
+            return;
+        }
+
         //update customer
         try {
             String id = txtID.getText();
@@ -436,6 +497,18 @@ public class Customers extends javax.swing.JFrame {
             if (id.equals("") || full.equals("") || nic.equals("") || p.equals("") || add.equals("")) {
                 JOptionPane.showMessageDialog(this, "فیلدها را پر کنید!");
             } else {
+                String phone = validitoar.normalizeAfghanNumber(txtphone.getText());
+
+                if (!validitoar.isValidAfghanNumber(txtphone)) {
+                    return;
+                }
+
+                if (validitoar.isPhoneDuplicate(conn, phone)) {
+                    return;
+                }
+                if (!validitoar.isValidAfghanNumber(txtphone)) {
+                    return;
+                }
                 ps = conn.prepareStatement("UPDATE Customers SET Fullname=?,NIC=?,Phone=?,Address=? WHERE Customers_id=?");
 
                 ps.setString(1, txtfullname.getText());
@@ -469,6 +542,9 @@ public class Customers extends javax.swing.JFrame {
             if (id.equals("") || full.equals("") || nic.equals("") || p.equals("") || add.equals("")) {
                 JOptionPane.showMessageDialog(this, "فیلدها را پر کنید!");
             } else {
+                if (!validitoar.isValidAfghanNumber(txtphone)) {
+                    return;
+                }
                 ps = conn.prepareStatement("INSERT INTO Customers(Customers_id,Fullname,NIC,Phone,Address)VALUES(?,?,?,?,?)");
                 ps.setString(1, txtID.getText());
                 ps.setString(2, txtfullname.getText());
@@ -499,12 +575,12 @@ public class Customers extends javax.swing.JFrame {
                 new Object[]{"آی دی", "نام کامل", "تلفون", "نمبرتذکره", "آدرس"}, 0);
 
         try {
-            int offset = (currentPage - 1) * rowsPerPage;
+//            int offset = (currentPage - 1) * rowsPerPage;
             String sql = "SELECT Customers_id, Fullname, Phone, NIC, Address "
-                    + "FROM Customers LIMIT ? OFFSET ?";
+                    + "FROM Customers ";
             ps = conn.prepareStatement(sql);
-            ps.setInt(1, rowsPerPage);
-            ps.setInt(2, offset);
+//            ps.setInt(1, rowsPerPage);
+//            ps.setInt(2, offset);
             rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -518,7 +594,7 @@ public class Customers extends javax.swing.JFrame {
             }
 
             jTable1.setModel(model);
-            lblpage.setText("Page " + currentPage + " of " + totalPages);
+//            lblpage.setText("Page " + currentPage + " of " + totalPages);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -553,7 +629,7 @@ public class Customers extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnicKeyTyped
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-     try {
+        try {
             ps = conn.prepareStatement("SELECT *FROM Customers WHERE Customers_id=?");
             ps.setString(1, txtID.getText());
             rs = ps.executeQuery();
@@ -569,6 +645,16 @@ public class Customers extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }//GEN-LAST:event_jLabel7MouseClicked
+    int posX, posY;
+    private void jPanel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseEntered
+        posX = evt.getX();
+        posY = evt.getY();
+
+    }//GEN-LAST:event_jPanel2MouseEntered
+
+    private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
+        this.setLocation(evt.getXOnScreen() - posX, evt.getYOnScreen() - posY);
+    }//GEN-LAST:event_jPanel2MouseDragged
 
     /**
      * @param args the command line arguments

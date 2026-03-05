@@ -58,7 +58,8 @@ public class Exchange_rate extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-     private void styleTable() {
+
+    private void styleTable() {
 
         jTable1.setRowHeight(40);
 
@@ -140,6 +141,16 @@ public class Exchange_rate extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(16, 23, 42));
+        jPanel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel2MouseDragged(evt);
+            }
+        });
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel2MouseEntered(evt);
+            }
+        });
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton2.setBackground(new java.awt.Color(0, 102, 255));
@@ -431,7 +442,7 @@ public class Exchange_rate extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void afn_to_dollarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_afn_to_dollarActionPerformed
@@ -481,8 +492,6 @@ public class Exchange_rate extends javax.swing.JFrame {
             while (rs.next()) {
 
                 Object[] row = {
-                  
-                
                     rs.getString("created_by"),
                     rs.getString("rate_datetime"),
                     rs.getString("afn_to_dollar"),
@@ -510,6 +519,17 @@ public class Exchange_rate extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_formWindowActivated
+    int posX, posY;
+    private void jPanel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseEntered
+
+        posX = evt.getX();
+        posY = evt.getY();
+
+    }//GEN-LAST:event_jPanel2MouseEntered
+
+    private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
+      this.setLocation(evt.getXOnScreen()-posX,evt.getYOnScreen()-posY);
+    }//GEN-LAST:event_jPanel2MouseDragged
 
     /**
      * @param args the command line arguments

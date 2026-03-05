@@ -195,6 +195,16 @@ public class Deposite_recept extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(16, 23, 42));
+        jPanel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel2MouseDragged(evt);
+            }
+        });
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel2MouseEntered(evt);
+            }
+        });
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton2.setBackground(new java.awt.Color(30, 41, 59));
@@ -427,7 +437,7 @@ public class Deposite_recept extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-       try {
+        try {
             getConnection();
 
             String txtid = txtID.getText();
@@ -454,12 +464,11 @@ public class Deposite_recept extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "عملیات حذف با موفقیت انجام شد!");
 
                     // پاکول فرم فیلدها
-                txtID.setText("");
-                txtafgamount.setText("");
-                txtgodlampunt.setText("");
-                txtusdamount.setText("");
-                txtsilveramount.setText("");
-
+                    txtID.setText("");
+                    txtafgamount.setText("");
+                    txtgodlampunt.setText("");
+                    txtusdamount.setText("");
+                    txtsilveramount.setText("");
 
                 }
             }
@@ -651,7 +660,7 @@ public class Deposite_recept extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-      this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void txtafgamountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtafgamountActionPerformed
@@ -707,7 +716,7 @@ public class Deposite_recept extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnic5KeyPressed
 
     private void txtnic5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnic5KeyTyped
-      //jTextField1.setText("");
+        //jTextField1.setText("");
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         String search = txtnic5.getText();
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(model);
@@ -716,11 +725,10 @@ public class Deposite_recept extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnic5KeyTyped
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-     
-            DefaultTableModel model = new DefaultTableModel(
+
+        DefaultTableModel model = new DefaultTableModel(
                 new Object[]{
-                    "انتخاب", "ID", "نام مشتری", "مقدار طلا", "مقدار نقره", "دالر", "افغانی", "تاریخ", "وضیعت","نام تایید کننده", 
-                }, 0) {
+                    "انتخاب", "ID", "نام مشتری", "مقدار طلا", "مقدار نقره", "دالر", "افغانی", "تاریخ", "وضیعت", "نام تایید کننده",}, 0) {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 if (columnIndex == 0) {
@@ -745,7 +753,6 @@ public class Deposite_recept extends javax.swing.JFrame {
                     + "Deposite_recept.AF,Deposite_recept.Created_at, Deposite_recept.Status,Deposite_recept.Approved_by "
                     + " FROM Deposite_recept LEFT JOIN Customers "
                     + " ON Customers.Customers_id = Deposite_recept.Customers_id ORDER BY Deposite_recept_id DESC ";
-                    
 
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -787,8 +794,18 @@ public class Deposite_recept extends javax.swing.JFrame {
                 System.out.println(ex.getMessage());
             }
         }
-      
+
     }//GEN-LAST:event_formWindowActivated
+    int posX, posY;
+    private void jPanel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseEntered
+        posX = evt.getX();
+        posY = evt.getY();
+
+    }//GEN-LAST:event_jPanel2MouseEntered
+
+    private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
+      this.setLocation(evt.getXOnScreen()-posX,evt.getYOnScreen()-posY);
+    }//GEN-LAST:event_jPanel2MouseDragged
 
     /**
      * @param args the command line arguments

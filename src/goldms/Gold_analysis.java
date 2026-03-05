@@ -76,49 +76,50 @@ public class Gold_analysis extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+
     private void styleTable() {
 
-    jTable1.setRowHeight(40);
+        jTable1.setRowHeight(40);
 
-    // حذف خطوط داخلی برای ظاهر مدرن
-    jTable1.setShowGrid(false);
-    jTable1.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        // حذف خطوط داخلی برای ظاهر مدرن
+        jTable1.setShowGrid(false);
+        jTable1.setIntercellSpacing(new java.awt.Dimension(0, 0));
 
-    // رنگ هدر (بالای جدول)
-    jTable1.getTableHeader().setBackground(new java.awt.Color(30, 41, 59));
-    jTable1.getTableHeader().setForeground(java.awt.Color.WHITE);
+        // رنگ هدر (بالای جدول)
+        jTable1.getTableHeader().setBackground(new java.awt.Color(30, 41, 59));
+        jTable1.getTableHeader().setForeground(java.awt.Color.WHITE);
 
-    jTable1.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
+        jTable1.setDefaultRenderer(Object.class, new javax.swing.table.DefaultTableCellRenderer() {
 
-        @Override
-        public java.awt.Component getTableCellRendererComponent(
-                javax.swing.JTable table, Object value,
-                boolean isSelected, boolean hasFocus,
-                int row, int column) {
+            @Override
+            public java.awt.Component getTableCellRendererComponent(
+                    javax.swing.JTable table, Object value,
+                    boolean isSelected, boolean hasFocus,
+                    int row, int column) {
 
-            java.awt.Component c = super.getTableCellRendererComponent(
-                    table, value, isSelected, hasFocus, row, column);
+                java.awt.Component c = super.getTableCellRendererComponent(
+                        table, value, isSelected, hasFocus, row, column);
 
-            // رنگ انتخاب
-            if (isSelected) {
-                c.setBackground(new java.awt.Color(255, 181, 3)); // طلایی GBMS
-                c.setForeground(java.awt.Color.BLACK);
-            } else {
-
-                // Zebra مدرن
-                if (row % 2 == 0) {
-                    c.setBackground(new java.awt.Color(248, 249, 250));
+                // رنگ انتخاب
+                if (isSelected) {
+                    c.setBackground(new java.awt.Color(255, 181, 3)); // طلایی GBMS
+                    c.setForeground(java.awt.Color.BLACK);
                 } else {
-                    c.setBackground(new java.awt.Color(235, 240, 245));
+
+                    // Zebra مدرن
+                    if (row % 2 == 0) {
+                        c.setBackground(new java.awt.Color(248, 249, 250));
+                    } else {
+                        c.setBackground(new java.awt.Color(235, 240, 245));
+                    }
+
+                    c.setForeground(java.awt.Color.BLACK);
                 }
 
-                c.setForeground(java.awt.Color.BLACK);
+                return c;
             }
-
-            return c;
-        }
-    });
-}
+        });
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -172,6 +173,16 @@ public class Gold_analysis extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(16, 23, 42));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel1MouseDragged(evt);
+            }
+        });
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel1MouseEntered(evt);
+            }
+        });
         jPanel1.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
@@ -722,11 +733,10 @@ public class Gold_analysis extends javax.swing.JFrame {
             // محاسبه
             // =====================
             // Final Weight = Gross × (Carat / 24)
-            double finalWeight = (grossWeight * init_carat)/ 23.88;
+            double finalWeight = (grossWeight * init_carat) / 23.88;
 
             // Total Price = Final Weight × Price Per Tola
-            
-/*
+            /*
          عیار اولیه   1215
             
             
@@ -737,8 +747,8 @@ public class Gold_analysis extends javax.swing.JFrame {
             
             
             
-            */
-            double tola_weight = finalWeight/ 12.15;
+             */
+            double tola_weight = finalWeight / 12.15;
             double totalPrice = tola_weight * pricePerTola;
 
             // =====================
@@ -791,56 +801,72 @@ public class Gold_analysis extends javax.swing.JFrame {
     }//GEN-LAST:event_txtsearchMouseClicked
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-    // 1️⃣ DefaultTableModel جوړول
-DefaultTableModel model = new DefaultTableModel(
-    new Object[]{"ID", "Customer", "Gross Weight", "Initial Purity", "Tola Rate", "Final Weight", "Date"}, 0
-);
-jTable1.setModel(model);
+        // 1️⃣ DefaultTableModel جوړول
+        DefaultTableModel model = new DefaultTableModel(
+                new Object[]{"ID", "Customer", "Gross Weight", "Initial Purity", "Tola Rate", "Final Weight", "Date"}, 0
+        );
+        jTable1.setModel(model);
 
 // 2️⃣ Database نه Data Load کول
-try {
-    getConnection();
+        try {
+            getConnection();
 
-    String sql = "SELECT g.Gold_analysis_id, c.Fullname, "
-               + "g.Gross_weight, g.Initial_purity, g.Tola_rate, g.Final_weight, g.Analysis_date "
-               + "FROM Gold_analysis g "
-               + "JOIN Customers c ON g.Customers_id = c.Customers_id "
-               + "ORDER BY g.Gold_analysis_id DESC";
+            String sql = "SELECT g.Gold_analysis_id, c.Fullname, "
+                    + "g.Gross_weight, g.Initial_purity, g.Tola_rate, g.Final_weight, g.Analysis_date "
+                    + "FROM Gold_analysis g "
+                    + "JOIN Customers c ON g.Customers_id = c.Customers_id "
+                    + "ORDER BY g.Gold_analysis_id DESC";
 
-    ps = conn.prepareStatement(sql);
-    rs = ps.executeQuery();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
 
-    model.setRowCount(0); // جدول پاکول 
+            model.setRowCount(0); // جدول پاکول 
 
-    while (rs.next()) {
-        Object[] row = {
-            rs.getInt("Gold_analysis_id"),
-            rs.getString("Fullname"),
-            rs.getDouble("Gross_weight"),
-            rs.getDouble("Initial_purity"),
-            rs.getDouble("Tola_rate"),
-            rs.getDouble("Final_weight"),
-            rs.getString("Analysis_date")
-        };
-        model.addRow(row);
-    }
+            while (rs.next()) {
+                Object[] row = {
+                    rs.getInt("Gold_analysis_id"),
+                    rs.getString("Fullname"),
+                    rs.getDouble("Gross_weight"),
+                    rs.getDouble("Initial_purity"),
+                    rs.getDouble("Tola_rate"),
+                    rs.getDouble("Final_weight"),
+                    rs.getString("Analysis_date")
+                };
+                model.addRow(row);
+            }
 
-} catch (Exception e) {
-    e.printStackTrace();
-} finally {
-    try {
-        if (rs != null) rs.close();
-        if (ps != null) ps.close();
-        if (conn != null) conn.close();
-    } catch (SQLException ex) {
-        System.out.println(ex.getMessage());
-    }
-}
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
 
 // 3️⃣ Update وروسته جدول ریفریش کول
 // Update کوډ کې دا اضافه کړه:
 
     }//GEN-LAST:event_formWindowActivated
+    int posX, posY;
+    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
+        posX = evt.getX();
+        posY = evt.getY();
+
+    }//GEN-LAST:event_jPanel1MouseEntered
+
+    private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
+        this.setLocation(evt.getXOnScreen() - posX, evt.getYOnScreen() - posY);
+    }//GEN-LAST:event_jPanel1MouseDragged
 
     /**
      * @param args the command line arguments

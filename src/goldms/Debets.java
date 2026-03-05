@@ -133,6 +133,16 @@ public class Debets extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(16, 23, 42));
+        jPanel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel2MouseDragged(evt);
+            }
+        });
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel2MouseEntered(evt);
+            }
+        });
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setBackground(new java.awt.Color(255, 181, 3));
@@ -299,51 +309,51 @@ public class Debets extends javax.swing.JFrame {
     }//GEN-LAST:event_txtsearchActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-                  try {
+        try {
             getConnection();
-            ps=conn.prepareStatement("SELECT SUM(Amount) FROM Debets WHERE Currency='silver'");
-            rs=ps.executeQuery();
+            ps = conn.prepareStatement("SELECT SUM(Amount) FROM Debets WHERE Currency='silver'");
+            rs = ps.executeQuery();
             if (rs.next()) {
                 txtsilver.setVisible(true);
                 txtsilver.setText(rs.getString(1));
                 conn.close();
                 ps.close();
                 rs.close();
-                
+
             }
         } catch (Exception e) {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-               try {
+        try {
             getConnection();
-            ps=conn.prepareStatement("SELECT SUM(Amount) FROM Debets WHERE Currency='afg'");
-            rs=ps.executeQuery();
+            ps = conn.prepareStatement("SELECT SUM(Amount) FROM Debets WHERE Currency='afg'");
+            rs = ps.executeQuery();
             if (rs.next()) {
                 txtafg.setVisible(true);
                 txtafg.setText(rs.getString(1));
                 conn.close();
                 ps.close();
                 rs.close();
-                
+
             }
         } catch (Exception e) {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-              try {
+        try {
             getConnection();
-            ps=conn.prepareStatement("SELECT SUM(Amount) FROM Debets WHERE Currency='gold'");
-            rs=ps.executeQuery();
+            ps = conn.prepareStatement("SELECT SUM(Amount) FROM Debets WHERE Currency='gold'");
+            rs = ps.executeQuery();
             if (rs.next()) {
                 txtgold.setVisible(true);
                 txtgold.setText(rs.getString(1));
                 conn.close();
                 ps.close();
                 rs.close();
-                
+
             }
         } catch (Exception e) {
         }
@@ -402,28 +412,38 @@ public class Debets extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
             getConnection();
-            ps=conn.prepareStatement("SELECT SUM(Amount) FROM Debets WHERE Currency='usd'");
-            rs=ps.executeQuery();
+            ps = conn.prepareStatement("SELECT SUM(Amount) FROM Debets WHERE Currency='usd'");
+            rs = ps.executeQuery();
             if (rs.next()) {
                 txtusd.setVisible(true);
                 txtusd.setText(rs.getString(1));
                 conn.close();
                 ps.close();
                 rs.close();
-                
+
             }
         } catch (Exception e) {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void txtsearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsearchKeyTyped
-            //jTextField1.setText("");
+        //jTextField1.setText("");
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         String search = txtsearch.getText();
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(model);
         jTable1.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(search));
     }//GEN-LAST:event_txtsearchKeyTyped
+    int posX, posY;
+    private void jPanel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseEntered
+        posX = evt.getX();
+        posY = evt.getY();
+
+    }//GEN-LAST:event_jPanel2MouseEntered
+
+    private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
+      this.setLocation(evt.getXOnScreen()-posX,evt.getYOnScreen()-posY);
+    }//GEN-LAST:event_jPanel2MouseDragged
 
     /**
      * @param args the command line arguments

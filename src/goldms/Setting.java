@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package goldms;
 
-import java.awt.Image;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.sql.*;
-import static java.util.Arrays.fill;
-import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -49,6 +46,7 @@ public class Setting extends javax.swing.JFrame {
         }
 
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -70,6 +68,10 @@ public class Setting extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -77,12 +79,22 @@ public class Setting extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(16, 23, 42));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel2MouseDragged(evt);
+            }
+        });
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel2MouseEntered(evt);
+            }
+        });
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel8.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_invite_34px.png"))); // NOI18N
-        jLabel8.setText("تایید درخواست ها");
+        jLabel8.setText("نسخه پشتیبان");
         jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel8.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -90,7 +102,7 @@ public class Setting extends javax.swing.JFrame {
                 jLabel8MouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 440, -1, 40));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 510, -1, 40));
 
         jPanel3.setBackground(new java.awt.Color(30, 41, 59));
 
@@ -269,6 +281,48 @@ public class Setting extends javax.swing.JFrame {
 
         jPanel2.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 480, -1, 1));
 
+        jLabel14.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_invite_34px.png"))); // NOI18N
+        jLabel14.setText("تایید درخواست ها");
+        jLabel14.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel14.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel14MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 440, -1, 40));
+
+        jLabel15.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/menu_icon/icons8_invite_34px.png"))); // NOI18N
+        jLabel15.setText("ورود");
+        jLabel15.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel15.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jLabel15.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel15MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 560, -1, 40));
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8_cloud_backup_restore_70px.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 520, 80, 70));
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_database_restore_70px.png"))); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 590, 80, 70));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -313,15 +367,15 @@ public class Setting extends javax.swing.JFrame {
             }
         } catch (Exception e) {
         }
-        */
+         */
     }//GEN-LAST:event_jLabel3MouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-     this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-      new License().setVisible(true);
+        new License().setVisible(true);
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
@@ -333,12 +387,197 @@ public class Setting extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel13MouseClicked
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
-        new Approval_Request().setVisible(true);
+
+        try {
+            // مسیر دیتابیس اصلی
+            File sourceFile = new File("./src/db/Golds-1.db");  // نام دیتابیس خودت را بگذار
+
+            if (!sourceFile.exists()) {
+                JOptionPane.showMessageDialog(this, "دیتابیس پیدا نشد!");
+                return;
+            }
+
+            // باز کردن JFileChooser برای انتخاب مسیر ذخیره
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("انتخاب محل ذخیره بکاپ");
+            fileChooser.setSelectedFile(new File("backup.db"));
+
+            int userSelection = fileChooser.showSaveDialog(this);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+
+                File destFile = fileChooser.getSelectedFile();
+
+                // کپی فایل دیتابیس
+                Files.copy(sourceFile.toPath(), destFile.toPath(),
+                        StandardCopyOption.REPLACE_EXISTING);
+
+                JOptionPane.showMessageDialog(this, "موافقانه نسخه پشتیبان تهیه شد");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "خطا در بکاپ گیری ❌");
+            e.printStackTrace();
+        }
+
     }//GEN-LAST:event_jLabel8MouseClicked
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
         new Security_limits().setVisible(true);
     }//GEN-LAST:event_jLabel11MouseClicked
+    int posX, posY;
+    private void jPanel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseEntered
+        posX = evt.getX();
+        posY = evt.getY();
+
+    }//GEN-LAST:event_jPanel2MouseEntered
+
+    private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
+        this.setLocation(evt.getXOnScreen() - posX, evt.getYOnScreen() - posY);
+
+    }//GEN-LAST:event_jPanel2MouseDragged
+
+    private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
+        new Approval_Request().setVisible(true);    }//GEN-LAST:event_jLabel14MouseClicked
+
+    private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
+
+        try {
+
+            // اگر کانکشن باز است ببند (خیلی مهم)
+            if (conn != null && !conn.isClosed()) {
+                conn.close();
+            }
+
+            // انتخاب فایل بکاپ
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("انتخاب فایل بکاپ");
+
+            int userSelection = fileChooser.showOpenDialog(this);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+
+                File backupFile = fileChooser.getSelectedFile();
+
+                File currentDB = new File("src/db/Golds-1.db");
+                currentDB = new File(System.getProperty("user.dir") + "/src/db/Golds-1.db");
+                System.out.println(currentDB.getAbsolutePath());
+                // جایگزین کردن فایل
+                java.nio.file.Files.copy(
+                        backupFile.toPath(),
+                        currentDB.toPath(),
+                        java.nio.file.StandardCopyOption.REPLACE_EXISTING
+                );
+
+                JOptionPane.showMessageDialog(this, "موافقانه دیتابیس وارد سیستم شد!");
+
+                // دوباره اتصال را باز کن
+                getConnection();   // اگر متد اتصال داری
+
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "❌ خطا در Restore");
+            e.printStackTrace();
+        }
+
+    }//GEN-LAST:event_jLabel15MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setDialogTitle("Save Backup File");
+            chooser.setSelectedFile(new File("backup.db"));
+
+            int result = chooser.showSaveDialog(this);
+
+            if (result == JFileChooser.APPROVE_OPTION) {
+
+                File dbFile = new File("src/db/Golds-1.db");
+                byte[] dbBytes = java.nio.file.Files.readAllBytes(dbFile.toPath());
+
+                // 🔐 AES Encrypt
+                String key = "AbdulBasitNiazai"; // 16 حرف
+                javax.crypto.spec.SecretKeySpec secretKey
+                        = new javax.crypto.spec.SecretKeySpec(key.getBytes(), "AES");
+
+                javax.crypto.Cipher cipher = javax.crypto.Cipher.getInstance("AES");
+                cipher.init(javax.crypto.Cipher.ENCRYPT_MODE, secretKey);
+
+                byte[] encryptedData = cipher.doFinal(dbBytes);
+
+                File backupFile = chooser.getSelectedFile();
+
+                // اگر پسوند نداشت اضافه کن
+                if (!backupFile.getName().endsWith(".db")) {
+                    backupFile = new File(backupFile.getAbsolutePath() + ".db");
+                }
+
+                FileOutputStream fos = new FileOutputStream(backupFile);
+                fos.write(encryptedData);
+                fos.close();
+
+                // فقط خواندنی کن
+                backupFile.setReadOnly();
+
+                JOptionPane.showMessageDialog(this,
+                        "Backup Created Successfully!");
+
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Backup Failed: " + ex.getMessage());
+        }
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setDialogTitle("Select Backup File");
+
+            int result = chooser.showOpenDialog(this);
+
+            if (result == JFileChooser.APPROVE_OPTION) {
+
+                File backupFile = chooser.getSelectedFile();
+
+                // فقط فایل nyzdb قبول کند
+                if (!backupFile.getName().endsWith(".db")) {
+                    JOptionPane.showMessageDialog(this,
+                            "Invalid Backup File!");
+                    return;
+                }
+
+                byte[] encryptedData
+                        = java.nio.file.Files.readAllBytes(backupFile.toPath());
+
+                // 🔓 AES Decrypt
+                String key = "AbdulBasitNiazai";
+                javax.crypto.spec.SecretKeySpec secretKey
+                        = new javax.crypto.spec.SecretKeySpec(key.getBytes(), "AES");
+
+                javax.crypto.Cipher cipher
+                        = javax.crypto.Cipher.getInstance("AES");
+                cipher.init(javax.crypto.Cipher.DECRYPT_MODE, secretKey);
+
+                byte[] decryptedData = cipher.doFinal(encryptedData);
+
+                FileOutputStream fos = new FileOutputStream("src/db/Golds-1.db");
+                fos.write(decryptedData);
+                fos.close();
+
+                JOptionPane.showMessageDialog(this,
+                        "Restore Completed Successfully!");
+
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Restore Failed! Invalid or Corrupted File.");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -354,19 +593,27 @@ public class Setting extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Setting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Setting.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Setting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Setting.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Setting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Setting.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Setting.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Setting.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
- GOLDMS dm = new GOLDMS();
+        GOLDMS dm = new GOLDMS();
         dm.form();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -377,11 +624,15 @@ public class Setting extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

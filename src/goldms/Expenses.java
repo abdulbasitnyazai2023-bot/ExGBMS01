@@ -84,6 +84,16 @@ public class Expenses extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(16, 23, 42));
+        jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel1MouseDragged(evt);
+            }
+        });
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jPanel1MouseEntered(evt);
+            }
+        });
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton2.setBackground(new java.awt.Color(30, 42, 59));
@@ -358,7 +368,7 @@ public class Expenses extends javax.swing.JFrame {
         if (conn != null) {
             DefaultTableModel mode = (DefaultTableModel) jTable1.getModel();
             mode.setRowCount(0); // پاکول
-            
+
 //            Employee.Fullname,Expense.Expense_type,Expense.Amount,Expense.Currency,Expense.Expense_id,Expense.Discription  LEFT JOIN Employee ON  Employee.Employee_id=Expense.Employee_id
             try {
                 ps = conn.prepareStatement("SELECT * FROM Expense");
@@ -385,8 +395,19 @@ public class Expenses extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-     this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
+    int posX, posY;
+    private void jPanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseEntered
+        posX = evt.getX();
+        posY = evt.getY();
+
+    }//GEN-LAST:event_jPanel1MouseEntered
+
+    private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
+        this.setLocation(evt.getXOnScreen() - posX, evt.getYOnScreen() - posY);
+
+    }//GEN-LAST:event_jPanel1MouseDragged
 
     /**
      * @param args the command line arguments
